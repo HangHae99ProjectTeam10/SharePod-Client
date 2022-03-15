@@ -37,7 +37,7 @@ const MainPage = () => {
       <RecentBoardBox>
         <h2>최신 대여 게시글</h2>
         <p>지금 올라온 게시글을 확인해보세요.</p>
-        <Inner>
+        <BoxInner>
           <BoardCard>
             <UserInfo>
               <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
@@ -214,7 +214,7 @@ const MainPage = () => {
               <span>#강남구</span>
             </Tags>
           </BoardCard>
-        </Inner>
+        </BoxInner>
       </RecentBoardBox>
     </MainPageWrap>
   );
@@ -267,6 +267,12 @@ const RecentBoardBox = styled.div`
     color: #777;
     margin-bottom: 24px;
   }
+`;
+
+const BoxInner = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
 `;
 
 const BoardCard = styled.div`
