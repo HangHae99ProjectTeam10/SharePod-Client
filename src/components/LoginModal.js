@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
+import { history } from "../redux/store";
 
 const style = {
   position: "absolute",
@@ -24,7 +25,7 @@ const style = {
 };
 
 export default function LoginModal() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -67,7 +68,8 @@ export default function LoginModal() {
                 textDecoration: "underline",
               }}
               onClick={() => {
-                navigate("/regist");
+                // navigate("/regist");
+                history.push("/signup");
               }}
             >
               회원가입

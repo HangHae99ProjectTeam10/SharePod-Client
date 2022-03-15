@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Dropdown from "../components/Dropdown";
+import Dropdown from "../../components/Dropdown";
+import { history } from "../../redux/store";
 
-const Regist = () => {
-  const navigate = useNavigate();
+const Register = () => {
+  // const navigate = useNavigate();
 
   const [imageSrc, setImageSrc] = useState(
     "https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e"
@@ -168,14 +169,14 @@ const Regist = () => {
         </MapdataBox>
         <RegistButton
           onClick={() => {
-            signup();
+            history.push("/signup");
           }}
         >
           회원가입
         </RegistButton>
         <RegistButton
           onClick={() => {
-            navigate("/");
+            history.push("/");
           }}
         >
           돌아가기
@@ -218,4 +219,4 @@ const RegistButton = styled.button`
   margin-bottom: 16px;
 `;
 
-export default Regist;
+export default Register;

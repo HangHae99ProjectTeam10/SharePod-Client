@@ -1,11 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { history } from "../redux/store";
 import LoginModal from "./LoginModal";
 import SearchField from "./SearchField";
 
 const Header = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <HeaderWrap>
       <div
@@ -15,7 +16,7 @@ const Header = () => {
       >
         <h1
           onClick={() => {
-            navigate("/");
+            history.push("/");
           }}
         >
           SHARE <strong>POD</strong>
