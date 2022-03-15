@@ -1,26 +1,22 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { Provider } from "react-redux";
+import configureStore, { history } from "./redux/store";
+import { Switch } from "react-router-dom";
+import Routes from "./routes";
 
-import Main from "./routes/Main";
-import Regist from "./routes/Regist";
-import Write from "./routes/Write";
-import Detail from "./routes/Detail";
-import Header from "./components/Header";
+export const store = configureStore();
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header></Header>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/regist" element={<Regist />} />
-          <Route path="/write" element={<Write />} />
-          <Route path="/board" element={<Detail />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Routes />
+        </Switch>
+      </ConnectedRouter>
+    </Provider>
   );
-}
+};
 
 export default App;

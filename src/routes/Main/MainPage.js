@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Main = () => {
+const MainPage = () => {
   return (
     <MainPageWrap>
       <CategoriesBox>
@@ -330,4 +330,4 @@ const Tags = styled.div`
   }
 `;
 
-export default Main;
+export default MainPage;
