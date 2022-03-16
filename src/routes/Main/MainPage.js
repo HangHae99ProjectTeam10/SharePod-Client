@@ -1,227 +1,33 @@
 import React from "react";
 import styled from "styled-components";
+import MainBottom from "../../components/MainBottom";
+import MainCarousel from "../../components/MainCarousel";
+import MainCategory from "../../components/MainCategory";
+import MainQuickCategories from "../../components/MainQuickCategories";
+import MainRecentPosts from "../../components/MainRecentPosts";
 
+//  <div>
+//               <div>삼성전자 공기청정기 필요하신 분!!</div>
+//               <div>30,000원</div>
+//               <div>1일 기준</div>
+//               <div>공기청정기 1회 사용했습니다. 필요하신 분 연락주세요.</div>
+//               <div>#디지털기기</div>
+//               <div>#강남구</div>
+//             </div>
 const MainPage = () => {
   return (
     <MainPageWrap>
-      <CategoriesBox>
-        <h2>빠른 카테고리</h2>
-        <p>인기 카테고리를 한눈에</p>
-        <Inner>
-          <CategoryButton>
-            <button></button>
-            <span>디지털 기기</span>
-          </CategoryButton>
-          <CategoryButton>
-            <button></button>
-            <span>생활 가전</span>
-          </CategoryButton>
-          <CategoryButton>
-            <button></button>
-            <span>음반/악기</span>
-          </CategoryButton>
-          <CategoryButton>
-            <button></button>
-            <span>스포츠/레저</span>
-          </CategoryButton>
-          <CategoryButton>
-            <button></button>
-            <span>컴퓨터/게임</span>
-          </CategoryButton>
-          <CategoryButton>
-            <button></button>
-            <span>더보기</span>
-          </CategoryButton>
-        </Inner>
-      </CategoriesBox>
-      <RecentBoardBox>
-        <h2>최신 대여 게시글</h2>
-        <p>지금 올라온 게시글을 확인해보세요.</p>
-        <BoxInner>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-          <BoardCard>
-            <UserInfo>
-              <img src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e" />
-              <span>다빌려</span>
-            </UserInfo>
-            <CardImg src="https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg"></CardImg>
-            <CardContents>
-              <h3>맥북프로 XX년형</h3>
-              <span>
-                <strong>20,000원</strong>
-                /1일 기준
-              </span>
-              <p>
-                개발용으로 깔끔하게 사용했습니다. 필요하시면 마우스도 함께
-                대여해드립니다.
-              </p>
-            </CardContents>
-            <Tags>
-              <span>#디지털 기기</span>
-              <span>#강남구</span>
-            </Tags>
-          </BoardCard>
-        </BoxInner>
-      </RecentBoardBox>
+      <MainCategory />
+      <MainCarousel />
+      <MainQuickCategories />
+      <MainRecentPosts />
+      <MainBottom />
     </MainPageWrap>
   );
 };
 
 const MainPageWrap = styled.section`
-  padding: 40px 160px;
+  padding: 0px 160px;
 `;
 
 const CategoriesBox = styled.div`
