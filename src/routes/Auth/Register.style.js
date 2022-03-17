@@ -37,6 +37,7 @@ export const FormLabel = styled.label`
   margin-bottom: 0.5rem;
   margin-top: 20px;
   color: #4a2fc3;
+
   font-size: 14px;
 `;
 
@@ -58,6 +59,45 @@ export const FormErrorMsg = styled.p`
   padding: 0;
 `;
 
+export const FormSubmitBtn = styled.button`
+  background: #4a2fc3;
+  width: 100%;
+  border-radius: 8px;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  cursor: pointer;
+  &:hover {
+    background: #bf1650;
+  }
+  &:active {
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
+`;
+
+export const FormNormalBtn = styled.button`
+  background: #f3f3f3;
+  width: 100%;
+  border-radius: 8px;
+  color: #4a2fc3;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 20px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  cursor: pointer;
+`;
+
 export const useStyles = makeStyles(() => ({
   selectCity: {
     width: "100%",
@@ -68,31 +108,5 @@ export const useStyles = makeStyles(() => ({
     width: "100%",
     border: "1px solid #4A2FC3 ",
     marginLeft: "10px",
-  },
-  submitBtn: {
-    background: "#4A2FC3",
-    width: "100%",
-    borderRadius: "8px",
-    color: "white",
-    textTransform: "uppercase",
-    border: "none",
-    marginTop: "40px",
-    padding: "20px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    letterSpacing: "10px",
-  },
-  normalBtn: {
-    background: "#F3F3F3",
-    width: "100%",
-    borderRadius: "8px",
-    color: "#4A2FC3",
-    textTransform: "uppercase",
-    border: "none",
-    marginTop: "40px",
-    padding: "20px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    letterSpacing: "10px",
   },
 }));

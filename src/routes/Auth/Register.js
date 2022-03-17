@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Button, FormLabel, MenuItem, Select } from "@mui/material";
+import { Box, MenuItem, Select } from "@mui/material";
 import { mapDataList } from "constants/mapDataList";
-import "./styles.css";
 import { history } from "redux/store";
 import {
   FileUploaderInput,
@@ -14,6 +13,9 @@ import {
   FormInput,
   useStyles,
   Wrapper,
+  FormLabel,
+  FormSubmitBtn,
+  FormNormalBtn,
 } from "./Register.style";
 
 const Register = () => {
@@ -140,17 +142,14 @@ const Register = () => {
               </Select>
             </div>
           </Box>
-          <Button type="submit" className={classes.submitBtn}>
-            가입하기
-          </Button>
-          <Button
-            className={classes.normalBtn}
+          <FormSubmitBtn type="submit">가입하기</FormSubmitBtn>
+          <FormNormalBtn
             onClick={() => {
               history.push("/auth/signin");
             }}
           >
             로그인하기
-          </Button>
+          </FormNormalBtn>
         </Form>
       </Wrapper>
     </>

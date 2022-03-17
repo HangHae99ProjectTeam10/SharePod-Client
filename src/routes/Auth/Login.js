@@ -1,9 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Box, Button } from "@mui/material";
-import "./styles.css";
+import { Box } from "@mui/material";
 import { history } from "redux/store";
-import { Form, FormErrorMsg, FormInput, FormLabel } from "./Register.style";
+import {
+  Form,
+  FormErrorMsg,
+  FormInput,
+  FormLabel,
+  FormNormalBtn,
+  FormSubmitBtn,
+} from "./Register.style";
 
 const Login = () => {
   const {
@@ -46,8 +52,8 @@ const Login = () => {
         )}
       </Box>
 
-      <Button type="submit">로그인하기</Button>
-      <Button onClick={moveToSignup}>회원가입하기</Button>
+      <FormSubmitBtn type="submit">로그인하기</FormSubmitBtn>
+      <FormNormalBtn onClick={moveToSignup}>회원가입하기</FormNormalBtn>
     </Form>
   );
 };
