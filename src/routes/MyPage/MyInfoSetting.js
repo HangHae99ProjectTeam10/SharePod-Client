@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
 import styled from "styled-components";
+import ChatList from "./ChatList";
+import LikeList from "./LikeList";
+import MyUserInfo from "./MyUserInfo";
+import RentalList from "./RentalList";
+import Withdrawal from "./Withdrawal";
 
 const MyInfoSetting = () => {
   const [radioValue, setRadioValue] = useState("1");
@@ -66,6 +71,21 @@ const MyInfoSetting = () => {
             />
           </label>
         </MyPageButtons>
+        <SelectedContent>
+          {radioValue === "1" ? (
+            <MyUserInfo />
+          ) : radioValue === "2" ? (
+            <LikeList />
+          ) : radioValue === "3" ? (
+            <RentalList />
+          ) : radioValue === "4" ? (
+            <ChatList />
+          ) : radioValue === "5" ? (
+            <Withdrawal />
+          ) : (
+            <MyUserInfo />
+          )}
+        </SelectedContent>
       </MyPageContentsField>
     </MyInfoWrap>
   );
@@ -86,6 +106,7 @@ const MyPageHeader = styled.div`
 `;
 
 const MyPageContentsField = styled.div`
+  display: flex;
   padding-top: 40px;
 `;
 
@@ -104,5 +125,7 @@ const MyPageButtons = styled.div`
     background-color: #f2f3f4;
   }
 `;
+
+const SelectedContent = styled.div``;
 
 export default MyInfoSetting;
