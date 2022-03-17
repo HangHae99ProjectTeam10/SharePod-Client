@@ -26,6 +26,7 @@ const Dropdown = ({ children, ...props }) => {
 };
 
 Dropdown.defaultProps = {
+  options: [],
   width: 160,
   height: 50,
 };
