@@ -118,7 +118,7 @@ export const InfoBoxMiddle = styled.div`
     margin: 20px 0px;
     button {
       width: 165px;
-      height: 40px;
+      height: 50px;
       border-radius: 6px;
       border: none;
       font-weight: bold;
