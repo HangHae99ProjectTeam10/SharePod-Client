@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const Dropdown = (props) => {
+const Dropdown = ({ children, ...props }) => {
+  const { width, height } = props;
   const handleChange = (e) => {
-    props.changeDate(() => e.target.value);
+    props.changeData(() => e.target.value);
   };
-  console.log(props.options);
+  console.log(props);
 
   return (
     <DropdownWrap>
@@ -24,12 +25,18 @@ const Dropdown = (props) => {
   );
 };
 
+Dropdown.defaultProps = {
+  width: 160,
+  height: 50,
+};
+
 const DropdownWrap = styled.div`
   display: flex;
   flex-direction: row;
+  height: 100%;
   & select {
-    width: 160px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     padding: 2px;
     box-sizing: border-box;
     border: 1px solid #dedede;
