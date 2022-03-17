@@ -126,6 +126,8 @@ const MyPageButtons = styled.div`
   }
 `;
 
-const SelectedContent = styled.div``;
+const SelectedContent = styled.div`
+  padding-left: 30px;
+`;
 
 export default MyInfoSetting;
