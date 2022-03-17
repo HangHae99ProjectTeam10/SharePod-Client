@@ -60,7 +60,7 @@ export const ProfileImg = styled.img`
   margin-right: 10px;
 `;
 export const ProfileNameInfo = styled.div`
-  line-height: 90px;
+  line-height: 60px;
 `;
 export const ProfileNameText = styled.p`
   color: #777777;

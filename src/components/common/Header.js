@@ -29,7 +29,6 @@ const Header = () => {
       <Logo src="/logo.png" alt="logo" onClick={moveToMain} />
       <SearchInputWrapper>
         <SearchInputBox placeholder="물품명을 입력해주세요" />
-
         <SearchIcon className={classes.searchIcon} />
       </SearchInputWrapper>
       <FlexBox>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import Register from "./Auth/Register";
 import Main from "./Main";
 import Header from "../components/common/Header";
 import MyPage from "./MyPage";
@@ -15,7 +14,7 @@ const Routes = () => {
         <Route path="/" component={Main} exact />
         <Route path="/auth" component={Auth} />
         <Route path="/mypage" component={MyPage} />
-        <Route path="/board" component={Product} exact />
+        <Route path="/product" component={Product} />
       </Switch>
     </>
   );

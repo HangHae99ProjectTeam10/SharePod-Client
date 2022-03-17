@@ -1,5 +1,28 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import HomeIcon from "@mui/icons-material/Home";
+import { Box } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import {
+  ImgHiddenRadioBtn,
+  ImgRadioBox,
+  ImgRadioOption,
+  ImgThumbnail,
+  ImgThumbnailVideo,
+  ImgThumbnailVideoImg,
+  InfoBoxBottom,
+  InfoBoxMiddle,
+  InfoBoxTop,
+  ProductDetailImgWrapper,
+  ProductDetailWrapper,
+  ProductInfoBox,
+  VideoRadioOption,
+  Wrapper,
+} from "./ProductDetail.style";
 
 const ProductDetail = () => {
   const board = {
@@ -26,7 +49,7 @@ const ProductDetail = () => {
     modifiedat: "2022-03-07T01:31:44+09:00",
   };
 
-  const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedImg, setSelectedImg] = useState("0");
   const [likeCnt, setLikeCnt] = useState(board.likecount);
   const [userLiked, setUserLiked] = useState(board.isliked);
 
@@ -51,252 +74,163 @@ const ProductDetail = () => {
   const userInfo = {
     nickname: "테스터",
   };
-
+  const product_img_list = [
+    {
+      src: "https://ak.picdn.net/shutterstock/videos/1072000261/preview/stock-footage-empty-green-screen-display-laptop-for-watching-and-paste-background-e-business-blog-or-gaming-app.webm",
+      id: 0,
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2017/10/10/21/47/laptop-2838921_1280.jpg",
+      id: 1,
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+      id: 2,
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2015/08/13/01/00/keyboard-886462_1280.jpg",
+      id: 3,
+    },
+  ];
   return (
-    <ProductDetailWrap>
-      <SelectBox>
-        <RadioBox>
-          <Label>
-            <Video>
-              <source src={board.videourl}></source>
-            </Video>
-            <input
-              type="radio"
-              value="0"
-              name="select"
-              hidden
-              onChange={handleSelectedImg}
-            ></input>
-          </Label>
-          <Label
-            style={{
-              backgroundImage: `url("${board.imgurl1}")`,
-            }}
-          >
-            <input
-              type="radio"
-              value="1"
-              name="select"
-              hidden
-              onChange={handleSelectedImg}
-            ></input>
-          </Label>
-          <Label
-            style={{
-              backgroundImage: `url("${board.imgurl2}")`,
-            }}
-          >
-            <input
-              type="radio"
-              value="2"
-              name="select"
-              hidden
-              onChange={handleSelectedImg}
-            ></input>
-          </Label>
-          <Label
-            style={{
-              backgroundImage: `url("${board.imgurl3}")`,
-            }}
-          >
-            <input
-              type="radio"
-              value="3"
-              name="select"
-              hidden
-              onChange={handleSelectedImg}
-            ></input>
-          </Label>
-        </RadioBox>
-        <ZoomBox>
-          {selectedImg === "0" ? (
-            <Video controls>
-              <source src={board.videourl}></source>
-            </Video>
-          ) : selectedImg === "1" ? (
-            <Image
-              style={{
-                backgroundImage: `url("${board.imgurl1}")`,
-              }}
-            />
-          ) : selectedImg === "2" ? (
-            <Image
-              style={{
-                backgroundImage: `url("${board.imgurl2}")`,
-              }}
-            />
-          ) : (
-            <Image
-              style={{
-                backgroundImage: `url("${board.imgurl3}")`,
-              }}
-            />
-          )}
-        </ZoomBox>
-      </SelectBox>
-      <ProductInfoBox>
-        <div>
-          <div>
-            <h2>{board.title}</h2>
-            <span>
-              <strong>{board.dailyrentalfee.toLocaleString()}</strong> 원/1일
-              대여 기준
-            </span>
-          </div>
-          <Horizon />
-          <div>
-            <span className="like">❤ {likeCnt}</span>
-            <span className="time">🕑 3일 전</span>
-          </div>
-        </div>
-        <nav>
-          <ul>
-            <li>
-              {userLiked ? (
-                <Button>
-                  <span style={{ color: "red" }}>❤</span> 찜하기
-                </Button>
-              ) : (
-                <Button>
-                  <span>❤</span> 찜하기
-                </Button>
-              )}
-            </li>
-            <li>
-              <Button>📦 거래 요청하기 </Button>
-            </li>
-            <li>
-              <Button>🗨 1 : 1 채팅하기 </Button>
-            </li>
-          </ul>
-        </nav>
-        <WriterInfoBox>
-          <h3>판매자 정보</h3>
-          <div>
-            <ProfileImage
-              style={{
-                backgroundImage: `url("${board.userimg}")`,
-              }}
-            ></ProfileImage>
-            <div className="textInfo">
-              <span>{board.nickname}</span>
-              <span>🌐 서울시 {board.mapdata}</span>
+    <Wrapper>
+      <div>
+        <HomeIcon />
+        <span>{`>`} 컴퓨터 게임</span>
+      </div>
+
+      <ProductDetailWrapper>
+        <ProductDetailImgWrapper>
+          <ImgRadioBox>
+            {product_img_list.map((p) => {
+              if (p.id === 0) {
+                return (
+                  <Box key={p.id}>
+                    <ImgHiddenRadioBtn
+                      type="radio"
+                      name="select"
+                      id={p.id}
+                      onChange={handleSelectedImg}
+                      value={p.id}
+                    />
+                    <label htmlFor={p.id}>
+                      <VideoRadioOption>
+                        <source src={board.videourl}></source>
+                      </VideoRadioOption>
+                    </label>
+                  </Box>
+                );
+              } else {
+                return (
+                  <Box key={p.id}>
+                    <ImgHiddenRadioBtn
+                      type="radio"
+                      name="select"
+                      id={p.id}
+                      onChange={handleSelectedImg}
+                      value={p.id}
+                    />
+                    <label htmlFor={p.id}>
+                      <ImgRadioOption src={p.src} alt="this is image" />
+                    </label>
+                  </Box>
+                );
+              }
+            })}
+          </ImgRadioBox>
+          <ImgThumbnail>
+            {selectedImg === "0" ? (
+              <ImgThumbnailVideo controls>
+                <source src={product_img_list[selectedImg]?.src}></source>
+              </ImgThumbnailVideo>
+            ) : (
+              <ImgThumbnailVideoImg
+                src={product_img_list[selectedImg]?.src}
+                alt="this is thumbnail image"
+              />
+            )}
+          </ImgThumbnail>
+        </ProductDetailImgWrapper>
+        <ProductInfoBox>
+          <InfoBoxTop>
+            <section>
+              <h2>닌텐도 스위치 동물의 숲 에디션</h2>
+              <div>
+                <p className="info_top_price">30,000</p>
+                <p className="info_top_unit">원 / 1일 대여기준 </p>
+              </div>
+              <div className="info_top_reaction">
+                <FavoriteIcon fontSize="small" />
+                <span>10</span>
+                <WatchLaterIcon fontSize="small" />
+                <span>10시간 전</span>
+              </div>
+            </section>
+            <div className="info_top_favoritebtn">
+              <FavoriteBorderIcon
+                fontSize="small"
+                style={{
+                  color: "#4A2FC3",
+                }}
+              />
             </div>
-          </div>
-        </WriterInfoBox>
-      </ProductInfoBox>
-    </ProductDetailWrap>
+          </InfoBoxTop>
+          <InfoBoxMiddle>
+            <div className="info_middle_btns">
+              <button className="info_middle_btn_1">거래 요청하기</button>
+              <button className="info_middle_btn_2">1:1 채팅하기</button>
+            </div>
+          </InfoBoxMiddle>
+          <InfoBoxBottom>
+            <div className="info_bottom_left">
+              <p className="info_bottom_left_title">판매자 정보</p>
+              <hr />
+              <div className="profile_box">
+                <img
+                  src="https://i.pinimg.com/564x/e6/58/6c/e6586c81416d22e31180f92b58cc9cfe.jpg"
+                  alt=""
+                />
+                <div className="profile_info">
+                  <p>레몬티</p>
+                  <div className="profile_info_location">
+                    <LocationOnIcon />
+                    <span>서울 강서구</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="info_bottom_right">
+              <p className="info_bottom_right_title">상품 정보</p>
+              <hr />
+              <div className="info_box">
+                <div>
+                  <div className="info_box_title">
+                    <LocationOnIcon />
+                    <span>거래지역</span>
+                  </div>
+                  <p>서울시 강남구 삼성동</p>
+                </div>
+                <div>
+                  <div className="info_box_title">
+                    <LibraryBooksIcon />
+                    <span>카테고리</span>
+                  </div>
+                  <p>컴퓨터/게임</p>
+                </div>
+                <div>
+                  <div className="info_box_title">
+                    <LocalOfferIcon />
+                    <span>태그</span>
+                  </div>
+                  <p>#강남구</p>
+                </div>
+              </div>
+            </div>
+          </InfoBoxBottom>
+        </ProductInfoBox>
+      </ProductDetailWrapper>
+    </Wrapper>
   );
 };
 
-const ProductDetailWrap = styled.section`
-  padding-top: 70px;
-  display: flex;
-`;
-
-const SelectBox = styled.div`
-  display: flex;
-  height: 360px;
-`;
-
-const RadioBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 151px;
-  margin-right: 30px;
-`;
-
-const Label = styled.label`
-  display: inline-block;
-  width: 68px;
-  height: 68px;
-  border-radius: 8px;
-  background-size: cover;
-  overflow: hidden;
-`;
-
-const Video = styled.video`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: fill;
-`;
-
-const Image = styled.div`
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  background-size: cover;
-`;
-
-const ZoomBox = styled.div`
-  display: inline-block;
-  width: 457px;
-  height: 360px;
-`;
-
-const ProductInfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 30px;
-  h2 {
-    font-size: 24px;
-    color: #777;
-    margin-bottom: 6px;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  ul li {
-    display: inline-block;
-    margin-right: 30px;
-  }
-  span strong {
-    font-size: 36px;
-    font-weight: 700;
-    color: #777;
-  }
-  .like,
-  .time {
-    font-size: 14px;
-    margin-right: 10px;
-  }
-`;
-
-const Horizon = styled.div`
-  width: 263px;
-  height: 1px;
-  background-color: #c4c4c4;
-  margin: 12px 0px;
-`;
-
-const Button = styled.button`
-  padding: 15px 46px;
-`;
-
-const WriterInfoBox = styled.div`
-  padding: 12px 340px 14px 22px;
-  border: 1px solid #f0f0f0;
-  div {
-    display: flex;
-  }
-  .textInfo {
-    flex-direction: column;
-    justify-content: space-around;
-    margin-left: 16px;
-  }
-`;
-
-const ProfileImage = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  background-size: cover;
-  margin: 4px;
-`;
 export default ProductDetail;

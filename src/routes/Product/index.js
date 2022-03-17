@@ -9,9 +9,19 @@ const Product = ({ match }) => {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route
-          path={``}
+          path={`${requestedUrl}/product-detail`}
           exact
           component={lazy(() => import(`./ProductDetail`))}
+        />
+        <Route
+          path={`${requestedUrl}/reservation`}
+          exact
+          component={lazy(() => import(`./Reservation`))}
+        />
+        <Route
+          path={`${requestedUrl}/upload-product`}
+          exact
+          component={lazy(() => import(`./UploadProduct`))}
         />
       </Switch>
     </Suspense>
