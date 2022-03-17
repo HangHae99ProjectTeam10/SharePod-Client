@@ -1,6 +1,5 @@
 import React from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import styled from "styled-components";
 import { Box } from "@mui/material";
 import {
   FlexBox,
@@ -24,8 +23,10 @@ import {
   Title,
   Wrapper,
 } from "./MainRecentPosts.style";
+import { useStyles } from "../../style/Icons.style";
 
 const MainRecentPosts = () => {
+  const classes = useStyles();
   const arr = [0, 0, 0, 0, 0, 0];
   return (
     <Wrapper>
@@ -43,15 +44,7 @@ const MainRecentPosts = () => {
             <Box key={index}>
               <PostCardWrapper>
                 <PostCardImgWrapper>
-                  <FavoriteBorderIcon
-                    style={{
-                      position: "absolute",
-                      right: "0",
-                      margin: "10px",
-                      fontSize: "1.8rem",
-                      color: "#4A2FC3",
-                    }}
-                  />
+                  <FavoriteBorderIcon className={classes.favoriteIcon} />
                   <PostCardImg
                     src="https://i.pinimg.com/564x/93/bc/47/93bc47022380cf947a53acb595bc3c70.jpg"
                     alt=""

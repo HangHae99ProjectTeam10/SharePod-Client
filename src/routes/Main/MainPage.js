@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {
   MainBottom,
   MainCarousel,
@@ -7,6 +6,7 @@ import {
   MainQuickCategories,
   MainRecentPosts,
 } from "components/Main";
+import { Wrapper } from "./MainPage.style";
 
 const MainPage = () => {
   return (
@@ -19,9 +19,5 @@ const MainPage = () => {
     </Wrapper>
   );
 };
-
-const Wrapper = styled.section`
-  padding: 0px 10rem;
-`;
 
 export default MainPage;

@@ -1,6 +1,15 @@
 import { Box } from "@mui/material";
 import React from "react";
-import styled from "styled-components";
+import {
+  CategoryCard,
+  CategoryCardListBox,
+  CategoryImg,
+  CategoryOverlay,
+  CategoryTitle,
+  SubTitle,
+  Title,
+  Wrapper,
+} from "./MainQuickCategories.style";
 
 const MainQuickCategories = () => {
   const quickCategories = [
@@ -46,48 +55,5 @@ const MainQuickCategories = () => {
     </Wrapper>
   );
 };
-
-const Wrapper = styled.div`
-  margin: 40px 0px;
-`;
-const Title = styled.div`
-  font-size: 1.4rem;
-  font-weight: bold;
-`;
-const SubTitle = styled.div`
-  color: #777777;
-  margin: 10px 0px 20px 0px;
-`;
-const CategoryCardListBox = styled.div`
-  display: flex;
-`;
-const CategoryCard = styled.div`
-  position: relative;
-  margin-right: 20px;
-`;
-const CategoryTitle = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: #ffffff;
-  font-weight: bold;
-`;
-const CategoryOverlay = styled.div`
-  width: 130px;
-  height: 130px;
-  border-radius: 20px;
-  background: black;
-  overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
-`;
-const CategoryImg = styled.img`
-  opacity: 0.7;
-  width: 100%;
-  object-fit: cover;
-`;
 
 export default MainQuickCategories;
