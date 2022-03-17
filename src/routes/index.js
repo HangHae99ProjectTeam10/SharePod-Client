@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router";
 import Register from "./Auth/Register";
 import Main from "./Main";
-import Header from "../components/Header";
+import Header from "../components/common/Header";
 import MyPage from "./MyPage";
 import Product from "./Product";
 
