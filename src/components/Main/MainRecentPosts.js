@@ -27,7 +27,7 @@ import { useStyles } from "../../style/Icons.style";
 
 const MainRecentPosts = () => {
   const classes = useStyles();
-  const arr = [0, 0, 0, 0, 0, 0];
+  const arr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   return (
     <Wrapper>
       <Box>

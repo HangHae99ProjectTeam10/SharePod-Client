@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
   padding: 20px 10rem;
   justify-content: space-between;
 `;
+
+export const Logo = styled.img`
+  object-fit: contain;
+`;
 export const SearchInputWrapper = styled.div`
   position: relative;
   width: 40%;
@@ -38,4 +42,5 @@ export const Button = styled.div`
   margin-right: 10px;
   font-weight: bold;
   font-size: 0.9rem;
+  cursor: pointer;
 `;

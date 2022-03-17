@@ -5,6 +5,7 @@ import Main from "./Main";
 import Header from "../components/common/Header";
 import MyPage from "./MyPage";
 import Product from "./Product";
+import Auth from "./Auth";
 
 const Routes = () => {
   return (
@@ -12,7 +13,7 @@ const Routes = () => {
       <Header></Header>
       <Switch>
         <Route path="/" component={Main} exact />
-        <Route path="/signup" component={Register} exact />
+        <Route path="/auth" component={Auth} />
         <Route path="/mypage" component={MyPage} />
         <Route path="/board" component={Product} exact />
       </Switch>

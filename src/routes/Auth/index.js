@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Route, Switch } from "react-router";
 import PageLoader from "../../components/common/PageLoader";
 
 const Auth = ({ match }) => {
@@ -12,6 +12,11 @@ const Auth = ({ match }) => {
           exact
           path={`${requestedUrl}/signup`}
           component={lazy(() => import(`./Register`))}
+        />
+        <Route
+          exact
+          path={`${requestedUrl}/signin`}
+          component={lazy(() => import(`./Login`))}
         />
       </Switch>
     </Suspense>
