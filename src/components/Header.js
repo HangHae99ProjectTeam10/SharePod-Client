@@ -1,12 +1,11 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { history } from "../redux/store";
 import LoginModal from "./LoginModal";
 import SearchField from "./SearchField";
 
 const Header = () => {
-  // const navigate = useNavigate();
+  const isLogin = false;
   return (
     <HeaderWrap>
       <div
@@ -24,7 +23,7 @@ const Header = () => {
         <SearchField></SearchField>
       </div>
       <Buttons>
-        <LoginModal></LoginModal>
+        {isLogin ? <Button>로그아웃</Button> : <LoginModal></LoginModal>}
       </Buttons>
     </HeaderWrap>
   );
@@ -38,6 +37,15 @@ const HeaderWrap = styled.header`
     font-size: 17px;
     margin-right: 67px;
   }
+`;
+
+const Button = styled.button`
+  width: 121px;
+  height: 34px;
+  font-size: 14px;
+  color: #c4c4c4;
+  border: none;
+  border-radius: 5px;
 `;
 
 const Buttons = styled.div``;
