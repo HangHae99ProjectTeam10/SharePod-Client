@@ -119,10 +119,15 @@ const MyPageButtons = styled.div`
     box-sizing: border-box;
     border-radius: 8px;
     padding: 9px 16px;
+    font-size: 16px;
+    color: #555;
     cursor: pointer;
   }
   .checked {
     background-color: #f2f3f4;
+    font-size: 16px;
+    font-weight: 700;
+    color: #323232;
   }
 `;
 
