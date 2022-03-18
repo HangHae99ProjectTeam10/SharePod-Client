@@ -1,24 +1,29 @@
 import React, { useState } from "react";
-
-import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Dropdown from "../../components/Dropdown";
-import { history } from "../../redux/store";
+import { useForm } from "react-hook-form";
+import { Box, MenuItem, Select } from "@mui/material";
+import { mapDataList } from "constants/mapDataList";
+import { history } from "redux/store";
+import {
+  FileUploaderInput,
+  FileUploaderThumbnail,
+  FileUploaderTitle,
+  FileUploaderWrapper,
+  Form,
+  FormErrorMsg,
+  FormInput,
+  useStyles,
+  Wrapper,
+  FormLabel,
+  FormSubmitBtn,
+  FormNormalBtn,
+} from "./Register.style";
 
 const Register = () => {
-  // const navigate = useNavigate();
+  const classes = useStyles();
 
   const [imageSrc, setImageSrc] = useState(
-    "https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e"
+    "https://i.pinimg.com/564x/c4/34/d8/c434d8c366517ca20425bdc9ad8a32de.jpg"
   );
-
-  const [userName, setUserName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [mapdata, setMapData] = useState("종로구");
-
   const handleFileInput = (e) => {
     const file = e.target.files[0];
     encodeFileToBase64(file);
@@ -34,189 +39,121 @@ const Register = () => {
       };
     });
   };
-  const mapDataList = [
-    { value: "종로구", name: "종로구" },
-    { value: "중구", name: "중구" },
-    { value: "용산구", name: "용산구" },
-    { value: "성동구", name: "성동구" },
-    { value: "광진구", name: "광진구" },
-    { value: "동대문구", name: "동대문구" },
-    { value: "중랑구", name: "중랑구" },
-    { value: "성북구", name: "성북구" },
-    { value: "강북구", name: "강북구" },
-    { value: "도봉구", name: "도봉구" },
-    { value: "노원구", name: "노원구" },
-    { value: "은평구", name: "은평구" },
-    { value: "서대문구", name: "서대문구" },
-    { value: "마포구", name: "마포구" },
-    { value: "양천구", name: "양천구" },
-    { value: "강서구", name: "강서구" },
-    { value: "구로구", name: "구로구" },
-    { value: "금천구", name: "금천구" },
-    { value: "영등포구", name: "영등포구" },
-    { value: "동작구", name: "동작구" },
-    { value: "관악구", name: "관악구" },
-    { value: "서초구", name: "서초구" },
-    { value: "강남구", name: "강남구" },
-    { value: "송파구", name: "송파구" },
-    { value: "강동구", name: "강동구" },
-  ];
 
-  const signup = () => {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({});
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
 
   return (
-    <RegistFormWrap>
-      <InputLabel
-        For="profile"
-        style={{
-          textAlign: "center",
-          marginRight: "56px",
-        }}
-      >
-        프로필 이미지 등록
-        <div
-          style={{
-            marginTop: "12px",
-            display: "inline-block",
-            width: "136px",
-            height: "136px",
-            overflow: "hidden",
-            borderRadius: "68px",
-            backgroundColor: "black",
-            backgroundImage: `url("${imageSrc}")`,
-            backgroundSize: "cover",
-          }}
-        >
-          <input
-            style={{
-              opacity: "0",
-            }}
-            id="profile"
-            type="file"
-            onChange={(e) => {
-              handleFileInput(e);
-            }}
-          />
-        </div>
-      </InputLabel>
-      <UserInfoBox>
-        <InputLabel>
-          아이디(이메일)
-          <RegistInput
-            placeholder="아이디/이메일을 입력해주세요"
-            onChange={(e) => {
-              setUserName(e.target.value);
-            }}
-          />
-        </InputLabel>
-        <InputLabel>
-          닉네임
-          <RegistInput
-            label="닉네임"
-            placeholder="닉네임을 입력해주세요"
-            onChange={(e) => {
-              setNickname(e.target.value);
-            }}
-          />
-        </InputLabel>
-        <InputLabel>
-          비밀번호
-          <RegistInput
-            type="password"
-            label="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </InputLabel>
-        <InputLabel>
-          비밀번호 확인
-          <RegistInput
-            type="password"
-            label="비밀번호 확인"
-            placeholder="비밀번호를 다시 입력해주세요"
-            onChange={(e) => {
-              setPasswordCheck(e.target.value);
-            }}
-          />
-        </InputLabel>
-        <MapdataBox>
-          <span> 내 동네 설정</span>
-          <div
-            style={{
-              display: "flex",
-              margin: "18px 0 32px",
-            }}
-          >
+    <>
+      <Wrapper>
+        <FileUploaderWrapper>
+          <FileUploaderTitle>프로필 이미지 등록</FileUploaderTitle>
+          <Box>
+            <label htmlFor="file-input">
+              <FileUploaderThumbnail
+                src={imageSrc}
+                alt="please upload your image"
+              />
+            </label>
+            <FileUploaderInput
+              id="file-input"
+              type="file"
+              onChange={(e) => {
+                handleFileInput(e);
+              }}
+            />
+          </Box>
+        </FileUploaderWrapper>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Box>
+            <FormLabel>아이디(이메일)</FormLabel>
+            <FormInput
+              {...register("email", {
+                pattern: /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/,
+                required: true,
+              })}
+              placeholder="아이디를 입력해주세요"
+            />
+            {errors.email && (
+              <FormErrorMsg>이메일 양식에 맞지 않습니다.</FormErrorMsg>
+            )}
+          </Box>
+          <Box>
+            <FormLabel>닉네임</FormLabel>
+            <FormInput
+              {...register("nickname", { required: true })}
+              placeholder="닉네임을 입력해주세요"
+            />
+            {errors.nickname && (
+              <FormErrorMsg>닉네임은 필수 입력 값입니다.</FormErrorMsg>
+            )}
+          </Box>
+          <Box>
+            <FormLabel>비밀번호</FormLabel>
+            <FormInput
+              type="password"
+              {...register("password", { required: true })}
+              placeholder="비밀번호를 입력해주세요"
+            />
+            {errors.password && (
+              <FormErrorMsg>{errors.password.message}</FormErrorMsg>
+            )}
+          </Box>
+          <Box>
+            <FormLabel>비밀번호 확인</FormLabel>
+            <FormInput
+              type="password"
+              {...register("password_confirm", { required: true })}
+              placeholder="비밀번호를 입력해주세요"
+            />
+            {errors.password_confirm && (
+              <FormErrorMsg>{errors.password_confirm.message}</FormErrorMsg>
+            )}
+          </Box>
+          <Box>
+            <FormLabel>내 동네 설정</FormLabel>
             <div
               style={{
-                width: "160px",
-                height: "56px",
-                boxSizing: "border-box",
-                marginRight: "35px",
-                border: "1px solid #dedede",
-                borderRadius: "8px",
-                padding: "17px",
-                fontSize: "16px",
-                color: "#999",
+                display: "flex",
               }}
             >
-              서울시
+              <Select value="서울시" className={classes.selectCity}>
+                <MenuItem value="서울시">서울시</MenuItem>
+              </Select>
+              <Select
+                {...register("myhomeground")}
+                defaultValue="강남구"
+                className={classes.selectSmCity}
+              >
+                {mapDataList.map((p) => {
+                  return (
+                    <MenuItem key={p} value={p}>
+                      {p}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
             </div>
-            <Dropdown options={mapDataList} changeData={setMapData} />
-          </div>
-        </MapdataBox>
-        <RegistButton
-          onClick={() => {
-            history.push("/signup");
-          }}
-        >
-          회원가입
-        </RegistButton>
-        <RegistButton
-          onClick={() => {
-            history.push("/");
-          }}
-        >
-          돌아가기
-        </RegistButton>
-      </UserInfoBox>
-    </RegistFormWrap>
+          </Box>
+          <FormSubmitBtn type="submit">가입하기</FormSubmitBtn>
+          <FormNormalBtn
+            onClick={() => {
+              history.push("/auth/signin");
+            }}
+          >
+            로그인하기
+          </FormNormalBtn>
+        </Form>
+      </Wrapper>
+    </>
   );
 };
-
-const RegistFormWrap = styled.section`
-  display: flex;
-  padding: 25px 285px;
-`;
-
-const InputLabel = styled.label`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
-`;
-
-const RegistInput = styled.input`
-  width: 351px;
-  height: 56px;
-  border: 1px solid #dedede;
-  background-color: #fff;
-  border-radius: 8px;
-  margin-top: 18px;
-`;
-
-const UserInfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const MapdataBox = styled.div``;
-
-const RegistButton = styled.button`
-  width: 351px;
-  height: 56px;
-  margin-bottom: 16px;
-`;
 
 export default Register;
