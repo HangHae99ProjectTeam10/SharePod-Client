@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Box, MenuItem, Select } from "@mui/material";
 import { mapDataList } from "constants/mapDataList";
 import { history } from "redux/store";
+import { useDispatch } from "react-redux";
 import {
   FileUploaderInput,
   FileUploaderThumbnail,
@@ -17,15 +18,29 @@ import {
   FormSubmitBtn,
   FormNormalBtn,
 } from "./Register.style";
+import { userActionCreator } from "redux/middlewares/userActionCreator";
 
 const Register = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [imageSrc, setImageSrc] = useState(
     "https://i.pinimg.com/564x/c4/34/d8/c434d8c366517ca20425bdc9ad8a32de.jpg"
   );
+  const [userImg, setUserImg] = useState();
+
   const handleFileInput = (e) => {
     const file = e.target.files[0];
+    if (!(file.type === "image/jpeg" || file.type === "image/png")) {
+      alert("jpg, png 파일만 등록할 수 있습니다.");
+      return;
+    }
+
+    if (file.size > 3000000) {
+      alert("3MB 이하의 이미지만 등록할 수 있습니다.");
+      return;
+    }
+    setUserImg(file);
     encodeFileToBase64(file);
   };
 
@@ -47,7 +62,16 @@ const Register = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    dispatch(
+      userActionCreator.userRegistAxios(
+        data.email,
+        data.nickname,
+        data.password,
+        data.password_confirm,
+        data.myhomeground,
+        userImg
+      )
+    );
   };
 
   return (
