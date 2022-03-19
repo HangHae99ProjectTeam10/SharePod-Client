@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Box, MenuItem, Select } from "@mui/material";
 import { mapDataList } from "constants/mapDataList";
 import { history } from "redux/store";
+import { useDispatch } from "react-redux";
 import {
   FileUploaderInput,
   FileUploaderThumbnail,
@@ -17,15 +18,29 @@ import {
   FormSubmitBtn,
   FormNormalBtn,
 } from "./Register.style";
+import JWTAuth from "services/auth";
 
 const Register = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [imageSrc, setImageSrc] = useState(
     "https://i.pinimg.com/564x/c4/34/d8/c434d8c366517ca20425bdc9ad8a32de.jpg"
   );
+  const [userImg, setUserImg] = useState();
+
   const handleFileInput = (e) => {
     const file = e.target.files[0];
+    if (!(file.type === "image/jpeg" || file.type === "image/png")) {
+      alert("jpg, png 파일만 등록할 수 있습니다.");
+      return;
+    }
+
+    if (file.size > 3000000) {
+      alert("3MB 이하의 이미지만 등록할 수 있습니다.");
+      return;
+    }
+    setUserImg(file);
     encodeFileToBase64(file);
   };
 
@@ -44,10 +59,16 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({});
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    if (!userImg) {
+      window.alert("이미지를 등록해주세요");
+    } else {
+      dispatch(JWTAuth.onRegister(data, userImg));
+      reset();
+    }
   };
 
   return (
@@ -75,7 +96,7 @@ const Register = () => {
           <Box>
             <FormLabel>아이디(이메일)</FormLabel>
             <FormInput
-              {...register("email", {
+              {...register("username", {
                 pattern: /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/,
                 required: true,
               })}
@@ -88,7 +109,7 @@ const Register = () => {
           <Box>
             <FormLabel>닉네임</FormLabel>
             <FormInput
-              {...register("nickname", { required: true })}
+              {...register("nickName", { required: true })}
               placeholder="닉네임을 입력해주세요"
             />
             {errors.nickname && (
@@ -110,7 +131,7 @@ const Register = () => {
             <FormLabel>비밀번호 확인</FormLabel>
             <FormInput
               type="password"
-              {...register("password_confirm", { required: true })}
+              {...register("passwordCheck", { required: true })}
               placeholder="비밀번호를 입력해주세요"
             />
             {errors.password_confirm && (
@@ -128,7 +149,7 @@ const Register = () => {
                 <MenuItem value="서울시">서울시</MenuItem>
               </Select>
               <Select
-                {...register("myhomeground")}
+                {...register("userRegion")}
                 defaultValue="강남구"
                 className={classes.selectSmCity}
               >

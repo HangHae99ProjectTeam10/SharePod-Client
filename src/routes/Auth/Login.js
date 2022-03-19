@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { history } from "redux/store";
 import {
@@ -10,8 +11,10 @@ import {
   FormNormalBtn,
   FormSubmitBtn,
 } from "./Register.style";
+import JWTAuth from "services/auth";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -19,7 +22,7 @@ const Login = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    dispatch(JWTAuth.onLogin(data));
   };
 
   const moveToSignup = () => {
@@ -31,7 +34,7 @@ const Login = () => {
       <Box>
         <FormLabel>아이디(이메일)</FormLabel>
         <FormInput
-          {...register("email", {
+          {...register("username", {
             pattern: /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/,
             required: true,
           })}
