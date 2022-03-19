@@ -1,7 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 import { history } from "redux/store";
+import { userActionCreator } from "redux/middlewares/userActionCreator";
 import {
   Form,
   FormErrorMsg,
@@ -12,6 +14,7 @@ import {
 } from "./Register.style";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -19,7 +22,7 @@ const Login = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    dispatch(userActionCreator.loginAxios(data.email, data.password));
   };
 
   const moveToSignup = () => {
