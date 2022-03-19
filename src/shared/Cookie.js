@@ -1,5 +1,14 @@
+const getCookie = (name) => {
+  let value = "; " + document.cookie;
+  let parts = value.split(`; ${name}=`);
+
+  if (parts.length === 2) {
+    return parts.pop().split(":").shift();
+  }
+};
+
 const setCookie = (name, value) => {
   document.cookie = `${name}=${value};`;
 };
 
-export { setCookie };
+export { getCookie, setCookie };

@@ -5,6 +5,7 @@ import Header from "../components/common/Header";
 import MyPage from "./MyPage";
 import Product from "./Product";
 import Auth from "./Auth";
+import UploadPageButton from "components/common/UploadPageButton";
 
 const Routes = () => {
   return (
@@ -16,6 +17,7 @@ const Routes = () => {
         <Route path="/mypage" component={MyPage} />
         <Route path="/product" component={Product} />
       </Switch>
+      <UploadPageButton />
     </>
   );
 };

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Box, MenuItem, Select } from "@mui/material";
+
 import { categoryList } from "constants/categoryList";
 import { mapDataList } from "constants/mapDataList";
 import { productQualityList } from "constants/productQualityList";
-
+import { boardActionCreator } from "redux/middlewares/boardActionCreator";
 import {
   UploadProdcutWrap,
   ProductImgaeField,
@@ -17,20 +18,52 @@ import {
   FormNormalBtn,
   useStyles,
 } from "./UploadProduct.style";
+import { useDispatch } from "react-redux";
 
 const UploadProduct = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [imageSrc1, setImageSrc1] = useState("");
+  const [firstImgUrl, setFirstImgUrl] = useState();
   const [imageSrc2, setImageSrc2] = useState("");
+  const [secondImgUrl, setSecondImgUrl] = useState();
   const [imageSrc3, setImageSrc3] = useState("");
+  const [lastImgUrl, setLastImgUrl] = useState();
   const [videoSrc, setVideoSrc] = useState("");
+  const [videoUrl, setVideoUrl] = useState();
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
     const num = e.target.name;
-    console.log(file, num);
+    switch (num) {
+      case "0":
+        setFirstImgUrl(file);
+        break;
+      case "1":
+        setSecondImgUrl(file);
+        break;
+      case "2":
+        setLastImgUrl(file);
+        break;
+      default:
+        return;
+    }
     encodeFileToBase64(file, num);
+  };
+
+  const handleVideoInput = (e) => {
+    const file = e.target.files[0];
+    var reader = new FileReader();
+    var url = URL.createObjectURL(file);
+    setVideoUrl(url);
+  };
+
+  const mediaFiles = {
+    firstImgUrl,
+    secondImgUrl,
+    lastImgUrl,
+    videoUrl,
   };
 
   const encodeFileToBase64 = (fileBlob, num) => {
@@ -40,14 +73,21 @@ const UploadProduct = () => {
     reader.readAsDataURL(fileBlob);
     return new Promise((resolve) => {
       reader.onload = () => {
-        if (number === "0") {
-          setImageSrc1(reader.result);
-        } else if (number === "1") {
-          setImageSrc2(reader.result);
-        } else if (number === "2") {
-          setImageSrc3(reader.result);
-        } else {
-          setVideoSrc(reader.result);
+        switch (num) {
+          case "0":
+            setImageSrc1(reader.result);
+            break;
+          case "1":
+            setImageSrc2(reader.result);
+            break;
+          case "2":
+            setImageSrc3(reader.result);
+            break;
+          case "3":
+            setVideoSrc(reader.result);
+            break;
+          default:
+            return;
         }
         resolve();
       };
@@ -61,8 +101,7 @@ const UploadProduct = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    console.log(data);
-    alert(JSON.stringify(data));
+    dispatch(boardActionCreator.postBoardAxios(data, mediaFiles));
   };
 
   return (
@@ -121,7 +160,7 @@ const UploadProduct = () => {
               type="file"
               name="3"
               onChange={(e) => {
-                handleFileInput(e);
+                handleVideoInput(e);
               }}
             ></input>
           </ContentUploader>
@@ -161,7 +200,7 @@ const UploadProduct = () => {
               <MenuItem value="서울시">서울시</MenuItem>
             </Select>
             <Select
-              {...register("myhomeground")}
+              {...register("boardRegion")}
               defaultValue="강남구"
               className={classes.selectSmCity}
             >
@@ -224,7 +263,7 @@ const UploadProduct = () => {
           <span className="mapdataTag">#강남구</span>
           <span className="categoryTag">#디지털 기기</span>
         </Tags>
-        <FormNormalBtn>등록하기</FormNormalBtn>
+        <FormNormalBtn type="submit">등록하기</FormNormalBtn>
       </Form>
     </UploadProdcutWrap>
   );

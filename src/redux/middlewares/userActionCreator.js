@@ -62,6 +62,7 @@ const loginAxios = (username, password) => {
         let refreshToken = res.headers.refreshtoken;
         setCookie("accessToken", accessToken);
         setCookie("refreshToken", refreshToken);
+        sessionStorage.setItem("accessToken", accessToken);
         dispatch(setAuthUser(userInfo));
       })
       .catch((err) => console.log("로그인 실패 :", err));
