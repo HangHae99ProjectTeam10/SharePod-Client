@@ -52,18 +52,17 @@ const loginAxios = (username, password) => {
     instance
       .post("/user/login", user)
       .then((res) => {
-        console.log(res.headers);
-        return res.data;
-      })
-      .then((data) => {
-        const user_info = {
-          userId: data.userid,
-          userImg: data.userimg,
-          nickname: data.nickname,
-          mapData: data.mapdata,
+        const userInfo = {
+          userId: res.data.userId,
+          userImg: res.data.userImg,
+          nickname: res.data.nickName,
+          mapData: res.data.userRegion,
         };
-        setCookie("token", user_info.nickname);
-        dispatch(setAuthUser(user_info));
+        let accessToken = res.headers.accesstoken;
+        let refreshToken = res.headers.refreshtoken;
+        setCookie("accessToken", accessToken);
+        setCookie("refreshToken", refreshToken);
+        dispatch(setAuthUser(userInfo));
       })
       .catch((err) => console.log("로그인 실패 :", err));
   };

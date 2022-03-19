@@ -1,5 +1,4 @@
-const setCookie = (name, value, exp = 5) => {
-  console.log(name, value);
+const setCookie = (name, value) => {
   document.cookie = `${name}=${value};`;
 };
 
