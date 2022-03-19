@@ -25,6 +25,7 @@ const UploadProduct = () => {
   const [imageSrc2, setImageSrc2] = useState("");
   const [imageSrc3, setImageSrc3] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
+
   const handleFileInput = (e) => {
     const file = e.target.files[0];
     const num = e.target.name;
