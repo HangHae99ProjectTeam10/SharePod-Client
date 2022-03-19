@@ -52,7 +52,7 @@ const loginAxios = (username, password) => {
     instance
       .post("/user/login", user)
       .then((res) => {
-        console.log(res.headers);
+        console.log(res);
         return res.data;
       })
       .then((data) => {

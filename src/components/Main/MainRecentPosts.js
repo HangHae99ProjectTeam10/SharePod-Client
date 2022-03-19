@@ -26,8 +26,10 @@ import {
 } from "./MainRecentPosts.style";
 import { useStyles } from "../../style/Icons.style";
 import { boardActionCreator } from "redux/middlewares/boardActionCreator";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const MainRecentPosts = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -44,7 +46,13 @@ const MainRecentPosts = () => {
         <Title>최근 대여 게시글</Title>
         <FlexBox>
           <SubTitle>지금 올라온 게시글을 확인해보세요.</SubTitle>
-          <SubTitle>전체보기</SubTitle>
+          <SubTitle
+            onClick={() => {
+              history.push("/product/product-search");
+            }}
+          >
+            전체보기
+          </SubTitle>
         </FlexBox>
       </Box>
       {/* 이미지 시작 */}
@@ -56,31 +64,28 @@ const MainRecentPosts = () => {
                 <PostCardWrapper>
                   <PostCardImgWrapper>
                     <FavoriteBorderIcon className={classes.favoriteIcon} />
-                    <PostCardImg src={p.imgurl} alt="" />
+                    <PostCardImg src={p.firstImgUrl} alt="" />
                   </PostCardImgWrapper>
                   <PostCardInfoWrapper>
                     <ProfileInfoWrapper>
-                      <ProfileImg
-                        src="https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e"
-                        alt=""
-                      />
+                      <ProfileImg src={p.sellerImgUrl} alt="" />
                       <ProfileNameInfo>
-                        <ProfileNameText>판매자 : {p.nickname}</ProfileNameText>
+                        <ProfileNameText>
+                          판매자 : {p.sellerNickName}
+                        </ProfileNameText>
                       </ProfileNameInfo>
                     </ProfileInfoWrapper>
                     <ProductInfoWrapper>
                       <ProductInfoTitle>{p.title}</ProductInfoTitle>
                       <ProductInfoPriceWrapper>
                         <ProductInfoPriceMoney>
-                          {p.dailyrentalfee.toLocaleString()}
+                          {p.dailyRentalFee.toLocaleString()}
                         </ProductInfoPriceMoney>
 
                         <ProductInfoPriceDay>/ 1일기준</ProductInfoPriceDay>
                       </ProductInfoPriceWrapper>
 
-                      <ProductInfoSummary>
-                        공기청정기 1회 사용했습니다. 필요하신 분 연락주세요.
-                      </ProductInfoSummary>
+                      <ProductInfoSummary>{p.boardContents}</ProductInfoSummary>
                       <FlexBox>
                         <ProductInfoTag>#디지털기기</ProductInfoTag>
                         <ProductInfoTag>#강남구</ProductInfoTag>
