@@ -44,3 +44,10 @@ export const Button = styled.div`
   font-size: 0.9rem;
   cursor: pointer;
 `;
+export const ProfileImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+`;

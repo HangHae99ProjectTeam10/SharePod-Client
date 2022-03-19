@@ -18,7 +18,7 @@ import {
   FormSubmitBtn,
   FormNormalBtn,
 } from "./Register.style";
-import { userActionCreator } from "redux/middlewares/userActionCreator";
+import JWTAuth from "services/auth";
 
 const Register = () => {
   const classes = useStyles();
@@ -59,19 +59,16 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({});
 
   const onSubmit = (data) => {
-    dispatch(
-      userActionCreator.userRegistAxios(
-        data.email,
-        data.nickname,
-        data.password,
-        data.password_confirm,
-        data.myhomeground,
-        userImg
-      )
-    );
+    if (!userImg) {
+      window.alert("이미지를 등록해주세요");
+    } else {
+      dispatch(JWTAuth.onRegister(data, userImg));
+      reset();
+    }
   };
 
   return (
@@ -99,7 +96,7 @@ const Register = () => {
           <Box>
             <FormLabel>아이디(이메일)</FormLabel>
             <FormInput
-              {...register("email", {
+              {...register("username", {
                 pattern: /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/,
                 required: true,
               })}
@@ -112,7 +109,7 @@ const Register = () => {
           <Box>
             <FormLabel>닉네임</FormLabel>
             <FormInput
-              {...register("nickname", { required: true })}
+              {...register("nickName", { required: true })}
               placeholder="닉네임을 입력해주세요"
             />
             {errors.nickname && (
@@ -134,7 +131,7 @@ const Register = () => {
             <FormLabel>비밀번호 확인</FormLabel>
             <FormInput
               type="password"
-              {...register("password_confirm", { required: true })}
+              {...register("passwordCheck", { required: true })}
               placeholder="비밀번호를 입력해주세요"
             />
             {errors.password_confirm && (
@@ -152,7 +149,7 @@ const Register = () => {
                 <MenuItem value="서울시">서울시</MenuItem>
               </Select>
               <Select
-                {...register("myhomeground")}
+                {...register("userRegion")}
                 defaultValue="강남구"
                 className={classes.selectSmCity}
               >

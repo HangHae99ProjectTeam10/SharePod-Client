@@ -1,12 +1,33 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
 import Main from "./Main";
 import Header from "../components/common/Header";
 import MyPage from "./MyPage";
 import Product from "./Product";
 import Auth from "./Auth";
 import UploadPageButton from "components/common/UploadPageButton";
+import { useSelector } from "react-redux";
 
+const RestrictedRoute = ({ component: Component, ...rest }) => {
+  const { authUser } = useSelector(({ auth }) => auth);
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authUser ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/auth/signin",
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
 const Routes = () => {
   return (
     <>
