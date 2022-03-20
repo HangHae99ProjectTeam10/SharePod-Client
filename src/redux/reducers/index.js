@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
 import Auth from "./Auth";
-import Board from "./Board";
+import Product from "./Product";
 
 const reducers = (history) =>
   combineReducers({
     router: connectRouter(history),
     auth: Auth,
-    board: Board,
+    product: Product,
   });
 
 export default reducers;

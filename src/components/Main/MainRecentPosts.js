@@ -25,20 +25,19 @@ import {
   Wrapper,
 } from "./MainRecentPosts.style";
 import { useStyles } from "../../style/Icons.style";
-import { boardActionCreator } from "redux/middlewares/boardActionCreator";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ProductService from "services/product";
 
 const MainRecentPosts = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const arr = useSelector((state) => state.board.boardList);
-  console.log(arr);
+  const { product_list } = useSelector(({ product }) => product);
   const postAmount = 8;
 
   useEffect(() => {
-    dispatch(boardActionCreator.getBoardAxios(postAmount));
+    dispatch(ProductService.getProductList(postAmount));
   }, []);
   return (
     <Wrapper>
@@ -57,8 +56,8 @@ const MainRecentPosts = () => {
       </Box>
       {/* 이미지 시작 */}
       <PostListBox>
-        {arr &&
-          arr.map((p, index) => {
+        {product_list &&
+          product_list.map((p, index) => {
             return (
               <Box key={index}>
                 <PostCardWrapper>

@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import Dropdown from "../../components/Dropdown";
 import { mapDataList } from "constants/mapDataList";
-import { boardActionCreator } from "redux/middlewares/boardActionCreator";
+import ProductService from "services/product";
 
 const ProductSearchResult = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const ProductSearchResult = () => {
   };
 
   useEffect(() => {
-    dispatch(boardActionCreator.getBoardAxios(postAmount, searchInfo));
+    dispatch(ProductService.getProductList(postAmount, searchInfo));
   }, []);
 
   const searchInfo = {

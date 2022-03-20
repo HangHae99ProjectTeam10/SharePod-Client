@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Box, MenuItem, Select } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
 
 import { categoryList } from "constants/categoryList";
 import { mapDataList } from "constants/mapDataList";
 import { productQualityList } from "constants/productQualityList";
-import { boardActionCreator } from "redux/middlewares/boardActionCreator";
 import {
   UploadProdcutWrap,
   ProductImgaeField,
@@ -19,6 +18,7 @@ import {
   useStyles,
 } from "./UploadProduct.style";
 import { useDispatch } from "react-redux";
+import ProductService from "services/product";
 
 const UploadProduct = () => {
   const classes = useStyles();
@@ -103,7 +103,7 @@ const UploadProduct = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    dispatch(boardActionCreator.postBoardAxios(data, mediaFiles));
+    dispatch(ProductService.addProduct(data, mediaFiles));
   };
 
   return (
