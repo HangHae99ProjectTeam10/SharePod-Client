@@ -1,169 +1,135 @@
 import { makeStyles } from "@mui/styles";
 import styled from "styled-components";
 
-export const UploadProdcutWrap = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding: 40px 165px 253px;
-  h2 {
-    font-size: 24px;
-    font-weight: 700;
-  }
-  button {
-    width: 349px;
-    height: 70px;
-    border: none;
-    margin-left: auto;
-    border-radius: 8px;
-    padding: 26px 120px;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 26px;
-    color: #fff;
-    cursor: pointer;
-    background-color: #8c8c8c;
-  }
+export const Wrapper = styled.section`
+  padding: 20px 10rem;
 `;
-
+export const FormWrapper = styled.div`
+  padding: 40px 0px;
+`;
 export const ProductImgaeField = styled.div`
   display: flex;
   margin-bottom: 40px;
-  span {
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 700;
-    color: #777;
+`;
+
+export const FormLabel = styled.span`
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #3e3e3e;
+  width: 200px;
+`;
+
+export const ProductImageUploader = styled.div`
+  background: #f0f0f0;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #8c8c8c;
+  padding: 30px;
+  border-radius: 6px;
+  p {
+    font-size: 0.8rem;
   }
 `;
 
-export const ImageBox = styled.div`
-  display: flex;
-  width: 730px;
-  gap: 30px;
-  margin-left: 41px;
-`;
-
-export const ContentUploader = styled.label`
+export const ProductImageUploaded = styled.img`
   width: 160px;
   height: 160px;
-
-  div,
-  video {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-size: cover;
-    border-radius: 5px;
-    background-color: #777;
-  }
-  input {
-    opacity: 0;
-  }
+  cursor: pointer;
+  border-radius: 6px;
+  object-fit: cover;
+`;
+export const ProductVideoUploaded = styled.video`
+  width: 160px;
+  height: 160px;
+  cursor: pointer;
+  border-radius: 6px;
+  object-fit: cover;
 `;
 
-export const Form = styled.form``;
-
-export const Label = styled.label`
+export const ProductImageUploaderInput = styled.input`
+  display: none;
+`;
+export const FormBox = styled.div`
+  margin: 40px 0px;
   display: flex;
-  font-size: 20px;
-  font-weight: 700;
-  color: #777;
-  margin-bottom: 40px;
-  .title {
-    width: 729px;
-    margin-left: 155px;
-    padding: 17px 16px;
-    font-size: 16px;
-  }
-  .category {
-    margin-left: 117px;
-  }
-  .mapSpan {
-    margin: 0 30px 0 116px;
-    color: #c4c4c4;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 17px 18px;
-    width: 160px;
-    border: 1px solid #c4c4c4;
-    border-radius: 8px;
-  }
-  .mapData {
-    margin-left: 115px;
-    .select {
-      margin-right: 8px;
-    }
-  }
-  .quality {
-    margin-left: 155px;
-  }
-
-  .dailyrentalfee {
-    width: 254px;
-    height: 56px;
-    margin-left: 134px;
-  }
-  .dayBy {
-    margin-left: 12px;
-    line-height: 60px;
-  }
-
-  textarea {
-    width: 920px;
-    height: 180px;
-    font-size: 16px;
-    margin-left: 153px;
-    padding: 23px 10px;
-    resize: none;
-  }
-
-  .amount {
-    margin: 0 12px 0 154px;
-    width: 254px;
-    height: 56px;
-    font-size: 16px;
-  }
-  .amountSpan {
-    line-height: 60px;
+  .price_unit {
+    margin: 0px 20px;
+    line-height: 50px;
+    font-weight: bold;
   }
 `;
-
-export const Input = styled.input`
-  border-radius: 8px;
+export const FormInput = styled.input`
+  width: 500px;
+  height: 50px;
   border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  padding: 0px 10px;
 `;
 
-export const Tags = styled.div`
-  font-size: 20px;
-  font-weight: 700;
-  color: #777;
-  margin-bottom: 36px;
-  span {
-    color: #8c8c8c;
-    font-size: 14px;
-    weight: 400;
-    padding: 6px 13px;
-    border-radius: 20px;
-    background-color: #ededed;
-  }
-  .mapdataTag {
-    margin-left: 116px;
-  }
-  .categoryTag {
-    margin-left: 12px;
+export const FormErrorMsg = styled.p`
+  font-size: 0.9rem;
+  color: red;
+  margin: 0;
+  padding: 0;
+  margin-left: 20px;
+  line-height: 50px;
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 80px 0px;
+`;
+
+export const BackBtn = styled.button`
+  background: white;
+  width: 350px;
+  height: 50px;
+  border-radius: 50px;
+  color: #555555;
+  border: 1px solid #f0f0f0;
+  font-weight: bold;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+
+  &:hover {
+    background-color: #f0f0f0;
   }
 `;
 
-export const FormNormalBtn = styled.button``;
+export const SubmitBtn = styled.button`
+  background: #4a2fc3;
+  width: 350px;
+  height: 50px;
+  border-radius: 50px;
+  color: white;
+  border: 1px solid #f0f0f0;
+  font-weight: bold;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: #ffc34a;
+  }
+`;
 
+export const FormTextArea = styled.textarea`
+  width: 500px;
+  height: 100px;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  padding: 0px 10px;
+`;
 export const useStyles = makeStyles(() => ({
-  selectCity: {
-    border: "1px solid #4A2FC3 ",
-    marginRight: "10px",
-  },
-  selectSmCity: {
-    border: "1px solid #4A2FC3 ",
-    marginLeft: "10px",
+  selectBox: {
+    borderRadius: "8px",
   },
 }));

@@ -13,7 +13,7 @@ const Product = (state = INIT_STATE, action) => {
     }
     case ADD_PRODUCT: {
       return {
-        product_list: action.payload,
+        product_list: [action.payload, ...state.product_list],
       };
     }
 
