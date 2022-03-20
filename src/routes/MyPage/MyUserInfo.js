@@ -1,5 +1,5 @@
 import { MenuItem, Select } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import JWTAuth from "services/auth";
 
@@ -25,13 +25,18 @@ const MyUserInfo = (props) => {
     username: props.userInfo.username,
     userRegion: props.userInfo.userRegion,
   };
-  console.log(userInfo);
-  console.log(props);
 
-  const [profileImg, setProfileImg] = useState(userInfo.userImg);
-  const [username, setUsername] = useState(userInfo.username);
-  const [nickname, setNickname] = useState(userInfo.nickname);
-  const [mapData, setMapData] = useState(userInfo.userRegion);
+  const [profileImg, setProfileImg] = useState();
+  const [username, setUsername] = useState();
+  const [nickname, setNickname] = useState();
+  const [mapData, setMapData] = useState();
+
+  useEffect(() => {
+    setProfileImg(userInfo.userImg);
+    setUsername(userInfo.username);
+    setNickname(userInfo.nickname);
+    setMapData(userInfo.userRegion);
+  }, [userInfo]);
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
@@ -59,7 +64,6 @@ const MyUserInfo = (props) => {
   const onSubmit = (data) => {
     console.log(data, profileImg);
     dispatch(JWTAuth);
-    //    window.location.reload();
   };
   return (
     <MyUserInfoWrap>
@@ -80,8 +84,8 @@ const MyUserInfo = (props) => {
             />
           </ProfileUploader>
           <div className="userTextInfo">
-            <span className="nickname">{userInfo.nickname}</span>
-            <span className="mapdata">서울시 {userInfo.mapdata}</span>
+            <span className="nickname">{nickname}</span>
+            <span className="mapdata">서울시 {mapData || ""}</span>
           </div>
         </Profile>
         <div className="idBox">
@@ -102,7 +106,7 @@ const MyUserInfo = (props) => {
             <div className="dropdownOutter">
               <Select
                 {...register("userRegion")}
-                defaultValue={mapData}
+                defaultValue={"중구"}
                 className={classes.selectSmCity}
               >
                 {mapDataList.map((p) => {
