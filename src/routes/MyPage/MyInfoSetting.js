@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
 import ChatList from "./ChatList";
@@ -6,13 +7,20 @@ import LikeList from "./LikeList";
 import MyUserInfo from "./MyUserInfo";
 import RentalList from "./RentalList";
 import Withdrawal from "./Withdrawal";
+import MyPageService from "services/myPage";
 
 const MyInfoSetting = () => {
+  const dispatch = useDispatch();
   const [radioValue, setRadioValue] = useState("1");
   const handleRadioButton = (e) => {
     setRadioValue(e.target.value);
     console.log(radioValue);
   };
+  useEffect(() => {
+    dispatch(MyPageService.getMyPageData());
+  }, []);
+  const myPageData = useSelector(({ myPage }) => myPage);
+  const userInfo = myPageData.user_info;
   return (
     <MyInfoWrap>
       <MyPageHeader>
@@ -73,7 +81,7 @@ const MyInfoSetting = () => {
         </MyPageButtons>
         <SelectedContent>
           {radioValue === "1" ? (
-            <MyUserInfo />
+            <MyUserInfo userInfo={userInfo} />
           ) : radioValue === "2" ? (
             <LikeList />
           ) : radioValue === "3" ? (
