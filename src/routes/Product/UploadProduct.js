@@ -46,6 +46,8 @@ const UploadProduct = () => {
       case "2":
         setLastImgUrl(file);
         break;
+      case "3":
+        break;
       default:
         return;
     }
@@ -60,10 +62,10 @@ const UploadProduct = () => {
   };
 
   const mediaFiles = {
-    firstImgUrl,
-    secondImgUrl,
-    lastImgUrl,
-    videoUrl,
+    imageSrc1,
+    imageSrc2,
+    imageSrc3,
+    videoSrc,
   };
 
   const encodeFileToBase64 = (fileBlob, num) => {
@@ -160,7 +162,7 @@ const UploadProduct = () => {
               type="file"
               name="3"
               onChange={(e) => {
-                handleVideoInput(e);
+                handleFileInput(e);
               }}
             ></input>
           </ContentUploader>

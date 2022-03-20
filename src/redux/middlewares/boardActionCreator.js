@@ -1,12 +1,10 @@
+import http from "api/http";
 import { getBoard } from "redux/actions/Board";
-
-import { instance } from "services/axios";
-import { getCookie } from "shared/Cookie";
 
 const getBoardAxios = (postAmount, searchInfo) => {
   if (!searchInfo) {
     return function (dispatch, getState, history) {
-      instance
+      http
         .get(`/board?limit=${postAmount}`)
         .then((res) => {
           console.log(res);
@@ -16,7 +14,7 @@ const getBoardAxios = (postAmount, searchInfo) => {
     };
   }
   return function (dispatch, getState, history) {
-    instance
+    http
       .get(`/board?limit=${postAmount}`)
       .then((res) => {
         console.log(res);
@@ -29,11 +27,11 @@ const getBoardAxios = (postAmount, searchInfo) => {
 const postBoardAxios = (post, mediaFiles) => {
   return function (dispatch, getState, history) {
     const boardData = {
-      userId: "1",
+      userId: 6,
       title: post.title,
       contents: post.contents,
       originPrice: 0,
-      dailyRentalFee: post.dailyRentalFee,
+      dailyRentalFee: parseInt(post.dailyRentalFee),
       boardRegion: post.boardRegion,
       category: post.category,
       productQuality: post.productQuality,
@@ -45,28 +43,20 @@ const postBoardAxios = (post, mediaFiles) => {
       new Blob([JSON.stringify(boardData)], { type: "application/json" })
     );
 
-    // uploadProductForm.append("firstImgUrl", mediaFiles["firstImgUrl"]);
-    // uploadProductForm.append("secondImgUrl", mediaFiles["secondImgUrl"]);
-    // uploadProductForm.append("lastImgUrl", mediaFiles["lastImgUrl"]);
     const imageFiles = [
-      mediaFiles["firestImgUrl"],
-      mediaFiles[("secondImgUrl", mediaFiles["lastImgUrl"])],
+      mediaFiles["imageSrc1"],
+      mediaFiles["imageSrc2"],
+      mediaFiles["imageSrc3"],
     ];
     uploadProductForm.append("imgFiles", imageFiles);
-    uploadProductForm.append("videoFile", mediaFiles["videoUrl"]);
-
-    const accessToken = sessionStorage.getItem("accessToken");
-    console.log(accessToken);
-    instance
-      .post("/board", uploadProductForm, {
-        Headers: {
-          Authorization: accessToken,
-        },
-      })
+    uploadProductForm.append("videoFile", mediaFiles["videoSrc"]);
+    http
+      .post("/board", uploadProductForm)
       .then((res) => {
+        console.log(res);
         alert("게시글이 등록되었습니다.");
       })
-      .catch((err) => console.log("게시글 등록 실패: ", err));
+      .catch((err) => console.log("게시글 등록 실패: ", err.response));
   };
 };
 
