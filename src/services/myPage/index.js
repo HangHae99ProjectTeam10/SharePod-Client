@@ -16,20 +16,23 @@ const MyPageService = {
   },
 
   editMyInfoData: (data, userImg) => {
-    return function (dispatch, getState) {
+    return function (dispatch, getState, history) {
       const userFormData = new FormData();
-
       userFormData.append(
         "userModifyRequestDTO",
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
       if (userImg) {
         userFormData.append("userImgFile", userImg);
+      } else {
+        const file = new File();
+        userFormData.append("userImgFile", file);
       }
       const userInfo = getState((state) => state);
       const userId = userInfo.auth.authUser.userId;
+      console.log(userFormData, data, userImg);
       http
-        .patch(`user/${userId}`, userFormData)
+        .patch(`/user/${userId}`, userFormData)
         .then((res) => {
           console.log(res);
           dispatch(editMyInfo(res));
