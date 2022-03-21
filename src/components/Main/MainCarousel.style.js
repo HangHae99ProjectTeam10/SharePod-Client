@@ -13,9 +13,9 @@ export const FullCarousel = styled.div`
 
 export const CarouselItem = styled.div`
   background: ${(props) => props.color || "#a496f8"};
-  width: 800px;
+  width: 1000px;
   height: 235px;
   border-radius: 20px;
-  margin: 0px 20px;
+  margin: 0px auto;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 `;

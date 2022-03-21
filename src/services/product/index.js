@@ -56,6 +56,14 @@ const ProductService = {
         .catch((err) => console.log("게시글 등록 실패: ", err.response));
     };
   },
+
+  getOneProductDetail: (boardId, userId) => {
+    return function (dispatch) {
+      http
+        .get(`/board/${boardId}?userId=${userId}`)
+        .then((res) => console.log(res));
+    };
+  },
 };
 
 export default ProductService;

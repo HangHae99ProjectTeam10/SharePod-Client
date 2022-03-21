@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  margin: 40px 0px;
+  margin: 0 auto;
+  width: 1000px;
 `;
 export const Title = styled.div`
   font-size: 1.4rem;
@@ -13,32 +14,29 @@ export const SubTitle = styled.div`
 `;
 export const CategoryCardListBox = styled.div`
   display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 `;
 export const CategoryCard = styled.div`
-  position: relative;
   margin-right: 20px;
 `;
 export const CategoryTitle = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
-  color: #ffffff;
-  font-weight: bold;
+  color: #555555;
+  font-size: 0.9rem;
 `;
 export const CategoryOverlay = styled.div`
   width: 130px;
   height: 130px;
-  border-radius: 20px;
+  border-radius: 130px;
   background: black;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 `;
 export const CategoryImg = styled.img`
-  opacity: 0.7;
-  width: 100%;
+  width: 72px;
+  height: 72px;
+  border-radius: 72px;
   object-fit: cover;
 `;

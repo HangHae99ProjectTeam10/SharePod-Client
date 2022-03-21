@@ -24,6 +24,8 @@ import {
   Wrapper,
 } from "./ProductDetail.style";
 
+// /board/{boardId}?userId={userId}
+
 const ProductDetail = () => {
   const board = {
     title: "테스트용 게시글",

@@ -7,7 +7,7 @@ const MainBottom = () => {
 
 const Wrapper = styled.div`
   height: 500px;
-  background: pink;
+  // background: pink;
 `;
 
 export default MainBottom;

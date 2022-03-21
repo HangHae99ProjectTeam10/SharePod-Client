@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { history } from "redux/store";
+import MapsUgcOutlinedIcon from "@mui/icons-material/MapsUgcOutlined";
 
 const UploadPageButton = () => {
   return (

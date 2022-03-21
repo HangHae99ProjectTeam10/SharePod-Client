@@ -120,7 +120,11 @@ const UploadProduct = () => {
   };
 
   const onSubmit = (data) => {
-    dispatch(ProductService.addProduct(data, mediaFiles));
+    if (!firstImgUrl || !videoUrl) {
+      window.alert("사진과 동영상을 업로드 해주세요");
+    } else {
+      dispatch(ProductService.addProduct(data, mediaFiles));
+    }
   };
 
   return (

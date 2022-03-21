@@ -6,7 +6,7 @@ export const useStyles = makeStyles(() => ({
     right: "0",
     margin: "10px",
     fontSize: "1.8rem",
-    color: "#4A2FC3",
+    color: "#BAB9BD",
   },
   searchIcon: {
     color: "#ADB9C8",

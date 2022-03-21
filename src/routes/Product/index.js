@@ -9,7 +9,7 @@ const Product = ({ match }) => {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route
-          path={`${requestedUrl}/product-detail`}
+          path={`${requestedUrl}/product-detail/:id`}
           exact
           component={lazy(() => import(`./ProductDetail`))}
         />
