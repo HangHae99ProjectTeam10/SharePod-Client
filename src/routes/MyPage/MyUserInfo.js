@@ -19,7 +19,7 @@ import MyPageService from "services/myPage";
 const MyUserInfo = () => {
   const dispatch = useDispatch();
   const classes = useStyles;
-  const user_info = useSelector((state) => state.myPage.user_info);
+  const userInfo = useSelector((state) => state.myPage.user_info);
 
   const [profileImg, setProfileImg] = useState();
   const [imageSrc, setImageSrc] = useState();
@@ -32,19 +32,19 @@ const MyUserInfo = () => {
   }, [user]);
 
   useEffect(() => {
-    setProfileImg(user_info.userImg);
-    setUserRegion(user_info.userRegion);
+    setProfileImg(userInfo.userImg);
+    setUserRegion(userInfo.userRegion);
     setTimeout(() => {
       setUser(
         {
-          username: user_info.username,
-          nickName: user_info.nickName,
-          userRegion: user_info.userRegion,
+          username: userInfo.username,
+          nickName: userInfo.nickName,
+          userRegion: userInfo.userRegion,
         },
         1000
       );
     });
-  }, [user_info]);
+  }, [userInfo]);
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
