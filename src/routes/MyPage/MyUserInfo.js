@@ -83,7 +83,7 @@ const MyUserInfo = () => {
           <ProfileUploader>
             <div
               style={{
-                backgroundImage: `url("${profileImg}")`,
+                backgroundImage: `url("https://sharepods.s3.ap-northeast-2.amazonaws.com/jjb9973ade-70bc-4433-807b-6c4534c5ad29_1.jpg")`,
               }}
             ></div>
             <input

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ChatList from "./ChatList";
 import LikeList from "./LikeList";
 import MyUserInfo from "./MyUserInfo";
+import MyProduct from "./MyProduct";
 import RentalList from "./RentalList";
 import Withdrawal from "./Withdrawal";
 import MyPageService from "services/myPage";
@@ -19,8 +20,6 @@ const MyInfoSetting = () => {
   useEffect(() => {
     dispatch(MyPageService.getMyPageData());
   }, []);
-  const myPageData = useSelector(({ myPage }) => myPage);
-  const userInfo = myPageData.user_info;
   return (
     <MyInfoWrap>
       <MyPageHeader>
@@ -29,7 +28,7 @@ const MyInfoSetting = () => {
       <MyPageContentsField>
         <MyPageButtons>
           <label className={radioValue === "1" ? "checked" : null}>
-            내 정보
+            👤 내 프로필 관리
             <input
               type="radio"
               hidden
@@ -39,7 +38,7 @@ const MyInfoSetting = () => {
             />
           </label>
           <label className={radioValue === "2" ? "checked" : null}>
-            찜 목록
+            🤍 찜한 내역
             <input
               type="radio"
               hidden
@@ -49,7 +48,7 @@ const MyInfoSetting = () => {
             />
           </label>
           <label className={radioValue === "3" ? "checked" : null}>
-            대여 리스트
+            📝 내 상품 관리
             <input
               type="radio"
               hidden
@@ -59,7 +58,7 @@ const MyInfoSetting = () => {
             />
           </label>
           <label className={radioValue === "4" ? "checked" : null}>
-            1:1 채팅 리스트
+            📃 예약 내역
             <input
               type="radio"
               hidden
@@ -69,7 +68,7 @@ const MyInfoSetting = () => {
             />
           </label>
           <label className={radioValue === "5" ? "checked" : null}>
-            회원 탈퇴
+            💬 1:1 채팅 내역
             <input
               type="radio"
               hidden
@@ -78,17 +77,29 @@ const MyInfoSetting = () => {
               onChange={handleRadioButton}
             />
           </label>
+          <label className={radioValue === "6" ? "checked" : null}>
+            🗑 회원 탈퇴
+            <input
+              type="radio"
+              hidden
+              name="mypage"
+              value="6"
+              onChange={handleRadioButton}
+            />
+          </label>
         </MyPageButtons>
         <SelectedContent>
           {radioValue === "1" ? (
-            <MyUserInfo userInfo={userInfo} />
+            <MyUserInfo />
           ) : radioValue === "2" ? (
             <LikeList />
           ) : radioValue === "3" ? (
-            <RentalList />
+            <MyProduct />
           ) : radioValue === "4" ? (
-            <ChatList />
+            <RentalList />
           ) : radioValue === "5" ? (
+            <ChatList />
+          ) : radioValue === "6" ? (
             <Withdrawal />
           ) : (
             <MyUserInfo />
@@ -132,10 +143,10 @@ const MyPageButtons = styled.div`
     cursor: pointer;
   }
   .checked {
-    background-color: #f2f3f4;
+    background-color: #632efa;
     font-size: 16px;
     font-weight: 700;
-    color: #323232;
+    color: #fff;
   }
 `;
 

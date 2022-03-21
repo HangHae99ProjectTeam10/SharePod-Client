@@ -6,10 +6,12 @@ const MyPageService = {
     return function (dispatch, getState, history) {
       const userInfo = getState((state) => state);
       const userId = userInfo.auth.authUser.userId;
+      const MyPageData = getState((state) => state);
       http
         .get(`user/${userId}`)
         .then((res) => {
           dispatch(getMyPage(res.data.userInfo));
+          dispatch(getMyPage(res.data));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
     };
