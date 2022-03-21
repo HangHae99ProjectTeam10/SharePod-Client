@@ -48,9 +48,8 @@ const ProductService = {
           },
         })
         .then((res) => {
-          console.log(res);
           alert("게시글이 등록되었습니다.");
-          // dispatch(addOneProduct(res.data));
+          dispatch(addOneProduct(res.data.boardData));
           history.push("/");
         })
         .catch((err) => console.log("게시글 등록 실패: ", err.response));

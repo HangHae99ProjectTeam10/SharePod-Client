@@ -74,7 +74,7 @@ const MainRecentPosts = () => {
                       <ProductInfoTitle>{p.title}</ProductInfoTitle>
                       <ProductInfoLocation>
                         <LocationOnIcon />
-                        <Typography>서울강서구</Typography>
+                        <Typography>{p.boardRegion}</Typography>
                       </ProductInfoLocation>
                       <ProductInfoPriceWrapper>
                         <Box sx={{ display: "flex" }}>
@@ -87,8 +87,8 @@ const MainRecentPosts = () => {
                       </ProductInfoPriceWrapper>
 
                       <Box sx={{ display: "flex" }} mt={2}>
-                        <ProductInfoTag>#디지털기기</ProductInfoTag>
-                        <ProductInfoTag>#강남구</ProductInfoTag>
+                        <ProductInfoTag>#{p.category}</ProductInfoTag>
+                        <ProductInfoTag>#{p.boardRegion}</ProductInfoTag>
                       </Box>
                     </ProductInfoWrapper>
                   </PostCardInfoWrapper>

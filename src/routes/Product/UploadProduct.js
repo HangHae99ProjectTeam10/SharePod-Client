@@ -24,6 +24,8 @@ import {
   FormTextArea,
   ProductImageUploaded,
   ProductVideoUploaded,
+  ImgUploadGuide,
+  FormBoxWrapper,
 } from "./UploadProduct.style";
 import { useDispatch } from "react-redux";
 import ProductService from "services/product";
@@ -129,12 +131,14 @@ const UploadProduct = () => {
 
   return (
     <Wrapper>
-      <h2>기본정보</h2>
+      <h2>상품등록하기</h2>
       <Divider />
       <FormWrapper>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ProductImgaeField>
-            <FormLabel>상품 이미지 (0/4)</FormLabel>
+            <FormLabel>
+              상품 이미지 (0/4) <span>* </span>
+            </FormLabel>
 
             <Box mr={2}>
               <label htmlFor="file-input1">
@@ -217,79 +221,138 @@ const UploadProduct = () => {
               />
             </Box>
           </ProductImgaeField>
-          <FormBox>
-            <FormLabel>제목</FormLabel>
-            <FormInput
-              {...register("title", {
-                required: true,
-              })}
-              placeholder="제목을 입력해주세요"
-            />
-            {errors.title && <FormErrorMsg>제목을 입력해주세요</FormErrorMsg>}
-          </FormBox>
-          <FormBox>
-            <FormLabel>카테고리</FormLabel>
-            <Select
-              defaultValue="디지털 기기"
-              {...register("category", {
-                required: true,
-              })}
-            >
-              {categoryList.map((p) => {
-                return (
-                  <MenuItem key={p} value={p}>
-                    {p}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormBox>
-          <FormBox>
-            <FormLabel>거래지역</FormLabel>
-            <Select value="서울시">
-              <MenuItem value="서울시">서울시</MenuItem>
-            </Select>
-            <Select {...register("boardRegion")} defaultValue="강남구">
-              {mapDataList.map((p) => {
-                return (
-                  <MenuItem key={p} value={p}>
-                    {p}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormBox>
-          <FormBox>
-            <FormLabel>상태</FormLabel>
-            <Select
-              {...register("productQuality")}
-              defaultValue="A"
-              className={classes.selectQuality}
-            >
-              {productQualityList.map((p) => {
-                return (
-                  <MenuItem key={p} value={p}>
-                    {p}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormBox>
-          <FormBox>
-            <FormLabel>대여비</FormLabel>
-            <FormInput
-              type="number"
-              {...register("dailyRentalFee", { required: true })}
-            />
-            <span className="price_unit">원 / 1 일 기준</span>
-          </FormBox>
-          <FormBox>
-            <FormLabel>설명</FormLabel>
-            <FormTextArea
-              {...register("contents", { required: true })}
-              placeholder="ex) 한번 사용했어요 / 한번도 사용한 적 없어요 / 새거예요 / 여러 번 썼어요 ···"
-            />
-          </FormBox>
+          <ImgUploadGuide>
+            *상품 이미지는 640×640에 최적화되었습니다.
+            <br />- 이미지는 상품등록 시 정사각형으로 짤려서 등록됩니다. <br />
+            - 이미지를 클릭할 경우 원본 이미지를 확인 할 수 있습니다. <br />- 큰
+            이미지일 경우 이미지가 깨지는 경우가 발생할 수 있습니다. <br />
+            최대 지원 사이즈인 640×640으로 리사이즈 해서 올려주세요.(개당
+            이미지최대50M)
+          </ImgUploadGuide>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>
+                제목<span>* </span>
+              </FormLabel>
+              <FormInput
+                minLength={2}
+                maxLength={40}
+                {...register("title", {
+                  required: true,
+                })}
+                placeholder="제목을 입력해주세요"
+              />
+              <span className="title">0/40</span>
+            </FormBox>
+            {errors.title && (
+              <FormErrorMsg>제목을 2글자이상 입력해주세요</FormErrorMsg>
+            )}
+          </FormBoxWrapper>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>
+                카테고리<span>* </span>
+              </FormLabel>
+              <Select
+                defaultValue="디지털 기기"
+                {...register("category", {
+                  required: true,
+                })}
+              >
+                {categoryList.map((p) => {
+                  return (
+                    <MenuItem key={p} value={p}>
+                      {p}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormBox>
+          </FormBoxWrapper>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>
+                거래지역<span>* </span>
+              </FormLabel>
+              <Select value="서울시" disabled>
+                <MenuItem value="서울시">서울시</MenuItem>
+              </Select>
+              <Select {...register("boardRegion")} defaultValue="강남구">
+                {mapDataList.map((p) => {
+                  return (
+                    <MenuItem key={p} value={p}>
+                      {p}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormBox>
+          </FormBoxWrapper>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>
+                상태<span>*</span>
+              </FormLabel>
+              <Select
+                {...register("productQuality")}
+                defaultValue="A"
+                className={classes.selectQuality}
+              >
+                {productQualityList.map((p) => {
+                  return (
+                    <MenuItem key={p} value={p}>
+                      {p}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormBox>
+          </FormBoxWrapper>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>
+                상품원가 <span>*</span>
+              </FormLabel>
+              <FormInput
+                min={100}
+                width="300px"
+                type="number"
+                placeholder="숫자만 입력해주세요"
+                {...register("originPrice", { required: true })}
+              />
+              <span className="price_unit">원</span>
+            </FormBox>
+          </FormBoxWrapper>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>
+                대여비 <span>*</span>
+              </FormLabel>
+              <FormInput
+                min={100}
+                width="300px"
+                type="number"
+                placeholder="가격을 입력해주세요"
+                {...register("dailyRentalFee", { required: true })}
+              />
+              <span className="price_unit">원 / 1 일 기준</span>
+            </FormBox>
+          </FormBoxWrapper>
+          <FormBoxWrapper>
+            <FormBox>
+              <FormLabel>설명</FormLabel>
+              <FormTextArea
+                minLength={10}
+                maxLength={2000}
+                {...register("contents", { required: true })}
+                placeholder="ex) 한번 사용했어요 / 한번도 사용한 적 없어요 / 새거예요 / 여러 번 썼어요 ···"
+              />
+              <span className="contents">0/2000</span>
+            </FormBox>
+            {errors.contents && (
+              <FormErrorMsg>설명을 10글자이상 입력해주세요</FormErrorMsg>
+            )}
+          </FormBoxWrapper>
 
           <BtnBox>
             <BackBtn>돌아가기</BackBtn>
