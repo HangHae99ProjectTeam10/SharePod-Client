@@ -25,8 +25,10 @@ const MyPageService = {
       if (userImg) {
         userFormData.append("userImgFile", userImg);
       } else {
-        const file = new File();
-        userFormData.append("userImgFile", file);
+        userFormData.append(
+          "userImgFile",
+          new Blob([], { type: "multipart/form-data" })
+        );
       }
       const userInfo = getState((state) => state);
       const userId = userInfo.auth.authUser.userId;
