@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import styled from "styled-components";
 import ChatList from "./ChatList";
 import LikeList from "./LikeList";
 import MyUserInfo from "./MyUserInfo";
@@ -9,6 +8,13 @@ import MyProduct from "./MyProduct";
 import RentalList from "./RentalList";
 import Withdrawal from "./Withdrawal";
 import MyPageService from "services/myPage";
+import {
+  MyPageButtons,
+  MyPageContentsField,
+  MyPageHeader,
+  SelectedContent,
+  Wrapper,
+} from "./MyInfoSetting.style";
 
 const MyInfoSetting = () => {
   const dispatch = useDispatch();
@@ -21,7 +27,7 @@ const MyInfoSetting = () => {
     dispatch(MyPageService.getMyPageData());
   }, []);
   return (
-    <MyInfoWrap>
+    <Wrapper>
       <MyPageHeader>
         <h2>마이페이지</h2>
       </MyPageHeader>
@@ -106,52 +112,8 @@ const MyInfoSetting = () => {
           )}
         </SelectedContent>
       </MyPageContentsField>
-    </MyInfoWrap>
+    </Wrapper>
   );
 };
-
-const MyInfoWrap = styled.section`
-  padding: 0px 165px;
-`;
-
-const MyPageHeader = styled.div`
-  padding: 54px 0 24px;
-  border-bottom: 1px solid #ededed;
-  h2 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #323232;
-  }
-`;
-
-const MyPageContentsField = styled.div`
-  display: flex;
-  padding-top: 40px;
-`;
-
-const MyPageButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  label {
-    width: 160px;
-    height: 48px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    padding: 9px 16px;
-    font-size: 16px;
-    color: #555;
-    cursor: pointer;
-  }
-  .checked {
-    background-color: #632efa;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-  }
-`;
-
-const SelectedContent = styled.div`
-  padding-left: 30px;
-`;
 
 export default MyInfoSetting;
