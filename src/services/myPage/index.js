@@ -32,12 +32,34 @@ const MyPageService = {
       }
       const userInfo = getState((state) => state);
       const userId = userInfo.auth.authUser.userId;
-      console.log(userFormData, data, userImg);
       http
         .patch(`/user/${userId}`, userFormData)
         .then((res) => {
           console.log(res);
           dispatch(editMyInfo(res));
+        })
+        .catch((err) => console.log("회원정보 수정:", err));
+    };
+  },
+
+  withdrawalMyId: (data) => {
+    return function (dispatch, getState, history) {
+      const userInfo = getState((state) => state);
+      const userId = userInfo.auth.authUser.userId;
+      console.log(data);
+
+      http
+        .delete(`/user/${userId}`, {
+          data: data,
+        })
+        .then((res) => {
+          localStorage.removeItem("persist:root");
+          localStorage.removeItem("sharepod.token");
+          localStorage.removeItem("sharepod.refresh.token");
+          history.replace("/");
+          console.log(res);
+          alert(res.data.msg);
+          window.location.reload();
         })
         .catch((err) => console.log("회원정보 수정:", err));
     };
