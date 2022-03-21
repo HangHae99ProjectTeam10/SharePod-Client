@@ -1,7 +1,6 @@
 import { MenuItem, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import JWTAuth from "services/auth";
 
 import { mapDataList } from "constants/mapDataList";
 import {
@@ -17,28 +16,34 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import MyPageService from "services/myPage";
 
-const MyUserInfo = (props) => {
+const MyUserInfo = () => {
   const dispatch = useDispatch();
   const classes = useStyles;
-  // const userInfo = {
-  //   userImg: props.userInfo.userImg,
-  //   nickname: props.userInfo.nickName,
-  //   username: props.userInfo.username,
-  //   userRegion: props.userInfo.userRegion,
-  // };
   const user_info = useSelector((state) => state.myPage.user_info);
 
   const [profileImg, setProfileImg] = useState();
   const [imageSrc, setImageSrc] = useState();
-  const [username, setUsername] = useState();
   const [nickname, setNickname] = useState();
-  const [mapData, setMapData] = useState();
+  const [userRegion, setUserRegion] = useState();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    reset(user);
+  }, [user]);
 
   useEffect(() => {
     setProfileImg(user_info.userImg);
-    setUsername(user_info.username);
-    setNickname(user_info.nickName);
-    setMapData(user_info.userRegion);
+    setUserRegion(user_info.userRegion);
+    setTimeout(() => {
+      setUser(
+        {
+          username: user_info.username,
+          nickName: user_info.nickName,
+          userRegion: user_info.userRegion,
+        },
+        1000
+      );
+    });
   }, [user_info]);
 
   const handleFileInput = (e) => {
@@ -62,18 +67,10 @@ const MyUserInfo = (props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({});
 
   const onSubmit = (data) => {
-    const keys = Object.keys(data);
-    const reformedData = {};
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      if (data[key]) {
-        reformedData[key] = data[key];
-      }
-    }
-    console.log(reformedData);
     console.log(data, imageSrc);
 
     dispatch(MyPageService.editMyInfoData(data, imageSrc));
@@ -98,19 +95,16 @@ const MyUserInfo = (props) => {
           </ProfileUploader>
           <div className="userTextInfo">
             <span className="nickname">{nickname}</span>
-            <span className="mapdata">서울시 {mapData}</span>
+            <span className="mapdata">서울시 {userRegion}</span>
           </div>
         </Profile>
         <div className="idBox">
           <span>아이디(이메일)</span>
-          <input
-            {...register("username")}
-            defaultValue={props.userInfo.username}
-          />
+          <input {...register("username")} name="username" />
         </div>
         <div className="nicknameBox">
           <span>닉네임</span>
-          <input {...register("nickName")} defaultValue={nickname} />
+          <input {...register("nickName")} />
         </div>
         <div className="mapdataBox">
           <span className="boxTitle">내 동네 설정</span>
@@ -119,7 +113,7 @@ const MyUserInfo = (props) => {
             <div className="dropdownOutter">
               <Select
                 {...register("userRegion")}
-                // defaultValue={mapData ? "" : ""}
+                // defaultValue={userRegion ? userRegion : "강서구"}
                 className={classes.selectSmCity}
               >
                 {mapDataList.map((p) => {
