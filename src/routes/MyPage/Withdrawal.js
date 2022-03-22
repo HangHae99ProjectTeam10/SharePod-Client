@@ -16,7 +16,7 @@ import MyPageService from "services/myPage";
 
 const Withdrawal = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.myPage.user_info.userInfo);
+  const { userInfo } = useSelector(({ myPage }) => myPage.myPageData);
   const classes = useStyles;
   const {
     register,
