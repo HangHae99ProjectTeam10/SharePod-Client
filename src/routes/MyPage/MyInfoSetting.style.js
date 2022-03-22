@@ -1,3 +1,4 @@
+import { bg_gray_color } from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
@@ -41,5 +42,6 @@ export const MyPageButtons = styled.div`
 `;
 
 export const SelectedContent = styled.div`
-  padding-left: 30px;
+  padding-left: 25px 31px;
+  background-color: ${bg_gray_color};
 `;
