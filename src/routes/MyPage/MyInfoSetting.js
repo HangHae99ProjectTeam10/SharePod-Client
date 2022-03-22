@@ -12,9 +12,16 @@ import {
   MyPageButtons,
   MyPageContentsField,
   MyPageHeader,
+  MyPageSideWrapper,
   SelectedContent,
   Wrapper,
 } from "./MyInfoSetting.style";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const MyInfoSetting = () => {
   const dispatch = useDispatch();
@@ -28,72 +35,78 @@ const MyInfoSetting = () => {
   }, []);
   return (
     <Wrapper>
-      <MyPageHeader>
-        <h2>마이페이지</h2>
-      </MyPageHeader>
       <MyPageContentsField>
-        <MyPageButtons>
-          <label className={radioValue === "1" ? "checked" : null}>
-            👤 내 프로필 관리
-            <input
-              type="radio"
-              hidden
-              name="mypage"
-              value="1"
-              onChange={handleRadioButton}
-            />
-          </label>
-          <label className={radioValue === "2" ? "checked" : null}>
-            🤍 찜한 내역
-            <input
-              type="radio"
-              hidden
-              name="mypage"
-              value="2"
-              onChange={handleRadioButton}
-            />
-          </label>
-          <label className={radioValue === "3" ? "checked" : null}>
-            📝 내 상품 관리
-            <input
-              type="radio"
-              hidden
-              name="mypage"
-              value="3"
-              onChange={handleRadioButton}
-            />
-          </label>
-          <label className={radioValue === "4" ? "checked" : null}>
-            📃 예약 내역
-            <input
-              type="radio"
-              hidden
-              name="mypage"
-              value="4"
-              onChange={handleRadioButton}
-            />
-          </label>
-          <label className={radioValue === "5" ? "checked" : null}>
-            💬 1:1 채팅 내역
-            <input
-              type="radio"
-              hidden
-              name="mypage"
-              value="5"
-              onChange={handleRadioButton}
-            />
-          </label>
-          <label className={radioValue === "6" ? "checked" : null}>
-            🗑 회원 탈퇴
-            <input
-              type="radio"
-              hidden
-              name="mypage"
-              value="6"
-              onChange={handleRadioButton}
-            />
-          </label>
-        </MyPageButtons>
+        <MyPageSideWrapper>
+          <MyPageHeader>
+            <h2>마이페이지</h2>
+          </MyPageHeader>
+          <MyPageButtons>
+            <label className={radioValue === "1" ? "checked" : null}>
+              <PersonOutlineOutlinedIcon />내 프로필 관리
+              <input
+                type="radio"
+                hidden
+                name="mypage"
+                value="1"
+                onChange={handleRadioButton}
+              />
+            </label>
+            <label className={radioValue === "2" ? "checked" : null}>
+              <FavoriteBorderOutlinedIcon />
+              찜한 내역
+              <input
+                type="radio"
+                hidden
+                name="mypage"
+                value="2"
+                onChange={handleRadioButton}
+              />
+            </label>
+            <label className={radioValue === "3" ? "checked" : null}>
+              <BorderColorOutlinedIcon />내 상품 관리
+              <input
+                type="radio"
+                hidden
+                name="mypage"
+                value="3"
+                onChange={handleRadioButton}
+              />
+            </label>
+            <label className={radioValue === "4" ? "checked" : null}>
+              <DescriptionOutlinedIcon />
+              대여 내역
+              <input
+                type="radio"
+                hidden
+                name="mypage"
+                value="4"
+                onChange={handleRadioButton}
+              />
+            </label>
+            <label className={radioValue === "5" ? "checked" : null}>
+              <ChatOutlinedIcon />
+              1:1 채팅 내역
+              <input
+                type="radio"
+                hidden
+                name="mypage"
+                value="5"
+                onChange={handleRadioButton}
+              />
+            </label>
+            <label className={radioValue === "6" ? "checked" : null}>
+              <DeleteOutlineOutlinedIcon />
+              회원 탈퇴
+              <input
+                type="radio"
+                hidden
+                name="mypage"
+                value="6"
+                onChange={handleRadioButton}
+              />
+            </label>
+          </MyPageButtons>
+        </MyPageSideWrapper>
         <SelectedContent>
           {radioValue === "1" ? (
             <MyUserInfo />

@@ -8,13 +8,13 @@ import {
   Form,
   HorizontalLine,
   MapDataWrapper,
-  MyUserInfoWrapper,
   NickNameWrapper,
   PhotoIconWrapper,
   Profile,
   ProfileUploader,
   UserNameWrapper,
   useStyles,
+  Wrapper,
 } from "./MyUserInfo.style";
 import { useDispatch, useSelector } from "react-redux";
 import MyPageService from "services/myPage";
@@ -81,7 +81,7 @@ const MyUserInfo = () => {
     dispatch(MyPageService.editMyInfoData(data, imageSrc));
   };
   return (
-    <MyUserInfoWrapper>
+    <Wrapper>
       <h3>내 프로필 관리</h3>
       <HorizontalLine />
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -137,7 +137,7 @@ const MyUserInfo = () => {
           </button>
         </Buttons>
       </Form>
-    </MyUserInfoWrapper>
+    </Wrapper>
   );
 };
 

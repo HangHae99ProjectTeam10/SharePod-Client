@@ -10,6 +10,9 @@ import {
   MyNickName,
   MyProductCardWrapper,
   MyProductListBox,
+  NothingPostedInner,
+  NothingPostedWrapper,
+  ProductButtonsWrapper,
   ProductDailyRentalFee,
   ProductImg,
   ProductInfoWrapper,
@@ -89,30 +92,48 @@ const MyProduct = () => {
         {pageViews === "product" ? (
           <MyProductListBox>
             <div className="productListBoxInner">
-              {MyBoardList.map((p) => {
-                return (
-                  <MyProductCardWrapper>
-                    <ProductImg src={p.firstImg} />
-                    <ProductInfoWrapper>
-                      <ProductTitle>{p.boardTitle}</ProductTitle>
-                      <ProductMapData>
-                        <LocationOnOutlinedIcon /> 서울 {userInfo.userRegion}
-                      </ProductMapData>
-                      <ProductDailyRentalFee>
-                        <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원
-                        / 일
-                      </ProductDailyRentalFee>
-                      <div className="MyProductCard_ProductInfoBox_ButtonsBox">
-                        <button className="edit">게시글 수정</button>
-                        <button className="confirm">거래 요청 확인</button>
-                      </div>
-                    </ProductInfoWrapper>
-                    <MoreVertButton>
-                      <BasicPopover></BasicPopover>
-                    </MoreVertButton>
-                  </MyProductCardWrapper>
-                );
-              })}
+              {MyBoardList.length ? (
+                <>
+                  {MyBoardList.map((p) => {
+                    return (
+                      <MyProductCardWrapper>
+                        <ProductImg src={p.firstImg} />
+                        <ProductInfoWrapper>
+                          <ProductTitle>{p.boardTitle}</ProductTitle>
+                          <ProductMapData>
+                            <LocationOnOutlinedIcon /> 서울{" "}
+                            {userInfo.userRegion}
+                          </ProductMapData>
+                          <ProductDailyRentalFee>
+                            <strong>{p.dailyRentalFee.toLocaleString()}</strong>{" "}
+                            원 / 일
+                          </ProductDailyRentalFee>
+                          <ProductButtonsWrapper>
+                            <button className="edit">게시글 수정</button>
+                            <button className="confirm">거래 요청 확인</button>
+                          </ProductButtonsWrapper>
+                        </ProductInfoWrapper>
+                        <MoreVertButton>
+                          <BasicPopover></BasicPopover>
+                        </MoreVertButton>
+                      </MyProductCardWrapper>
+                    );
+                  })}
+                </>
+              ) : (
+                <NothingPostedWrapper>
+                  <NothingPostedInner>
+                    <p>등록된 상품이 없습니다.</p>
+                    <button
+                      onClick={() => {
+                        history.push("/product/upload-product");
+                      }}
+                    >
+                      상품 등록하기
+                    </button>
+                  </NothingPostedInner>
+                </NothingPostedWrapper>
+              )}
             </div>
           </MyProductListBox>
         ) : (

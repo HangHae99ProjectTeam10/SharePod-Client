@@ -109,26 +109,27 @@ export const MyProductCardWrapper = styled.div`
   width: 724px;
   padding: 20px 30px 20px 0;
   box-sizing: border-box;
-  .MyProductCard_ProductInfoBox_ButtonsBox {
-    margin-top: 64px;
-    button {
-      width: 255px;
-      height: 56px;
-      box-sizing: border-box;
-      border-radius: 28px;
-      cursor: pointer;
-    }
-    .edit {
-      border: 1px solid #ddd;
-      color: #555;
-      background-color: #fff;
-      margin-right: 28px;
-    }
-    .confirm {
-      border: none;
-      color: #fff;
-      background-color: #632efa;
-    }
+`;
+
+export const ProductButtonsWrapper = styled.div`
+  margin-top: 64px;
+  button {
+    width: 255px;
+    height: 56px;
+    box-sizing: border-box;
+    border-radius: 28px;
+    cursor: pointer;
+  }
+  .edit {
+    border: 1px solid #ddd;
+    color: #555;
+    background-color: #fff;
+    margin-right: 28px;
+  }
+  .confirm {
+    border: none;
+    color: #fff;
+    background-color: #632efa;
   }
 `;
 
@@ -171,18 +172,41 @@ export const MoreVertButton = styled.button`
   cursor: pointer;
 `;
 
+export const NothingPostedWrapper = styled.div`
+  padding: 146px 200px 400px;
+`;
+
+export const NothingPostedInner = styled.div`
+  text-align: center;
+  p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: ${font_charcoal_gray_color};
+  }
+  button {
+    width: 294px;
+    height: 56px;
+    border: none;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: ${main_color};
+    cursor: pointer;
+  }
+`;
+
 export const ServicePreparingWrapper = styled.div`
-  padding: 272px 200px;
+  padding: 272px 0;
 `;
 
 export const ServicePreparingInner = styled.div`
+  margin: 0 auto;
   text-align: center;
   h4 {
     font-size: 24px;
     font-weight: 700;
     color: ${font_charcoal_gray_color};
-  }
-  p {
   }
 `;
 

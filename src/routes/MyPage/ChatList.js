@@ -1,6 +1,14 @@
 import React from "react";
-
-import styled from "styled-components";
+import {
+  ChatCard,
+  ChatCardSide,
+  ChatCardTextWrapper,
+  ChatListWrapper,
+  ChatPartnerInfo,
+  ChatPartnerProfileImg,
+  HorizontalLine,
+  Wrapper,
+} from "./ChatList.style";
 
 const ChatList = () => {
   const myChatList = [
@@ -72,78 +80,31 @@ const ChatList = () => {
     },
   ];
   return (
-    <ChatListWrap>
-      {myChatList.map((p) => {
-        return (
-          <ChatCard>
-            <img className="userImg" src={p.userImg} />
-            <div className="chatContent">
-              <div className="partnerInfo">
-                <span className="nickname">{p.nickname}</span>
-                <span className="mapData">서울 {p.mapData}</span>
-              </div>
-              <p>{p.recentMessage}</p>
-            </div>
-            <div className="cardSide">
-              <span>{p.createdAt}</span>
-              <img src={p.imageUrl1} />
-            </div>
-          </ChatCard>
-        );
-      })}
-    </ChatListWrap>
+    <Wrapper>
+      <h3>1 : 1 채팅 내역</h3>
+      <HorizontalLine />
+      <ChatListWrapper>
+        {myChatList.map((p) => {
+          return (
+            <ChatCard>
+              <ChatPartnerProfileImg src={p.userImg} />
+              <ChatCardTextWrapper>
+                <ChatPartnerInfo>
+                  <span className="nickname">{p.nickname}</span>
+                  <span className="mapData">서울 {p.mapData}</span>
+                </ChatPartnerInfo>
+                <p>{p.recentMessage}</p>
+              </ChatCardTextWrapper>
+              <ChatCardSide>
+                <span>{p.createdAt}</span>
+                <img src={p.imageUrl1} />
+              </ChatCardSide>
+            </ChatCard>
+          );
+        })}
+      </ChatListWrapper>
+    </Wrapper>
   );
 };
-
-const ChatListWrap = styled.div``;
-
-const ChatCard = styled.div`
-  display: flex;
-  width: 730px;
-  margin-bottom: 32px;
-  .userImg {
-    width: 65px;
-    height: 65px;
-    border-radius: 33px;
-  }
-  .chatContent {
-    display: flex;
-    flex-direction: column;
-    margin-left: 30px;
-    .nickname {
-      font-size: 18px;
-      color: #323232;
-    }
-    .mapData {
-      margin-left: 8px;
-      font-size: 14px;
-      color: #777;
-    }
-    p {
-      width: 350px;
-      box-sizing: border-box;
-      font-size: 14px;
-      color: #555;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-  }
-  .cardSide {
-    display: flex;
-    margin-left: auto;
-    span {
-      margin: 8px 30px 0 0;
-      font-size: 14px;
-      font-weight: 350;
-      color: #777;
-    }
-    img {
-      width: 65px;
-      height: 65px;
-      border-radius: 10px;
-    }
-  }
-`;
 
 export default ChatList;

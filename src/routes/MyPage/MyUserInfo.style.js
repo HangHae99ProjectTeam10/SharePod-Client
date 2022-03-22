@@ -10,15 +10,16 @@ import {
 } from "constants/ColorSet";
 import styled from "styled-components";
 
-export const MyUserInfoWrapper = styled.div`
+export const Wrapper = styled.div`
   background-color: #fff;
   padding: 39px 30px 80px;
+  width: 1000px;
   overflow: hidden;
   h3 {
     font-size: 20px;
     font-weight: 500;
     color: ${font_dark_gray_color};
-    margin-bottom: 13px;
+    margin: 0 0 13px;
   }
 `;
 
