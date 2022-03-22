@@ -1,3 +1,10 @@
+import {
+  bg_gray_color,
+  font_dark_gray_color,
+  font_deep_gray_color,
+  main_color,
+  secondary_color,
+} from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -8,10 +15,7 @@ export const ProductDetailWrapper = styled.section`
   display: flex;
 `;
 
-export const ProductDetailImgWrapper = styled.div`
-  display: flex;
-  height: 360px;
-`;
+export const ProductDetailImgWrapper = styled.div``;
 
 export const ImgRadioBox = styled.div`
   display: flex;
@@ -27,20 +31,27 @@ export const ImgHiddenRadioBtn = styled.input`
 `;
 
 export const ImgRadioOption = styled.img`
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 10px;
+  object-fit: cover;
 `;
 export const VideoRadioOption = styled.video`
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 10px;
+  object-fit: cover;
+`;
+export const ProductListWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 `;
 
 export const ImgThumbnail = styled.div`
   display: inline-block;
-  width: 450px;
-  height: 360px;
+  width: 430px;
+  height: 430px;
 `;
 
 export const ImgThumbnailVideo = styled.video`
@@ -48,6 +59,7 @@ export const ImgThumbnailVideo = styled.video`
   height: 100%;
   border-radius: 10px;
   object-fit: fill;
+  object-fit: cover;
 `;
 
 export const ImgThumbnailVideoImg = styled.img`
@@ -57,6 +69,7 @@ export const ImgThumbnailVideoImg = styled.img`
   border-radius: 8px;
   overflow: hidden;
   background-size: cover;
+  object-fit: cover;
 `;
 
 export const ProductInfoBox = styled.div`
@@ -71,16 +84,24 @@ export const InfoBoxTop = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  section {
+    width: 100%;
+  }
   h2 {
     margin: 0;
   }
   div {
     display: flex;
   }
+  .info_top_price_wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   .info_top_price {
     margin: 0;
     font-size: 2rem;
     font-weight: bold;
+    color: ${main_color};
   }
   .info_top_unit {
     margin: 0;
@@ -90,7 +111,7 @@ export const InfoBoxTop = styled.div`
   .info_top_reaction {
     display: flex;
     align-items: center;
-    color: #dedede;
+    color: ${font_deep_gray_color};
     margin: 10px 0px;
     span {
       font-size: 0.8rem;
@@ -109,15 +130,16 @@ export const InfoBoxTop = styled.div`
   }
 `;
 
-export const InfoBoxMiddle = styled.div`
+export const InfoBoxBottom = styled.div`
   span {
     font-size: 0.8rem;
     margin: 0px 20px 0px 5px;
   }
   .info_middle_btns {
-    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 0px 0px;
     button {
-      width: 165px;
       height: 50px;
       border-radius: 6px;
       border: none;
@@ -126,25 +148,25 @@ export const InfoBoxMiddle = styled.div`
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
     .info_middle_btn_1 {
-      background: #4a2fc3;
+      background: ${main_color};
       color: white;
+      width: 100%;
     }
     .info_middle_btn_2 {
-      background: #ffd600;
-      color: #4a2fc3;
+      background: ${secondary_color};
+      color: white;
+      width: 100%;
     }
   }
 `;
 
-export const InfoBoxBottom = styled.div`
-  display: flex;
-  justify-content: space-between;
+export const InfoBoxMiddle = styled.div`
 
   hr{
     border : 2px solid #4A2FC3;
   }
   .info_bottom_left {
-    width: 30%;
+    margin-bottom: 50px;
 
     .info_bottom_left_title{
       font-weight: bold;
@@ -180,38 +202,40 @@ export const InfoBoxBottom = styled.div`
   .info_bottom_right {
     width: 60%;
 
-    p {
-      margin: 0;
-    }
+  
 
     .info_bottom_right_title{
-         font-weight: bold;
+        display: inline-block;
+        width:100px;
+    }
+    .info_bottom_right_desc{
+        color: ${font_dark_gray_color};
     }
     .info_box {
-      display: flex;
-      margin-top : 20px;
-      font-size: 0.8rem;
-      color: #777777;
-      justify-content: space-between;
-
-      div{
-        margin-right: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: center;
-      }
-      .info_box_title{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 0.9rem;
-        justify-content: center;
-
-        p{
-          margin-top : 10px;
-        }
-      }
+      margin: 20px 0px;
     }
+    .info_bottom_right_tag{
+      background: ${bg_gray_color};
+      border-radius: 20px;
+      padding: 6px 10px;
+      margin-right: 10px;
+    }
+  }
+`;
+export const ProductDetailDesWrapper = styled.div`
+  display: flex;
+  jusify-content: center;
+  margin-bottom: 100px;
+
+  .desc_box_left {
+    width: 100%;
+    margin-right: 50px;
+  }
+  .desc_box_right {
+    width: 100%;
+    margin-left: 50px;
+  }
+  p {
+    font-size: 1.3rem;
   }
 `;

@@ -1,5 +1,9 @@
 import http from "api/http";
-import { addOneProduct, getProductList } from "redux/actions/Product";
+import {
+  addOneProduct,
+  getOneProductDetail,
+  getProductList,
+} from "redux/actions/Product";
 
 const ProductService = {
   getProductList: (postAmount, searchInfo) => {
@@ -15,8 +19,9 @@ const ProductService = {
       };
     }
     return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser.userId;
       http
-        .get(`/board?limit=${postAmount}`)
+        .get(`/board?userId=${userId}}`)
         .then((res) => {
           console.log(res);
           dispatch(getProductList(res.data.listdata));
@@ -57,11 +62,12 @@ const ProductService = {
     };
   },
 
-  getOneProductDetail: (boardId, userId) => {
-    return function (dispatch) {
-      http
-        .get(`/board/${boardId}?userId=${userId}`)
-        .then((res) => console.log(res));
+  getOneProductDetail: (boardId) => {
+    return function (dispatch, getState) {
+      const userId = getState().auth.authUser.userId;
+      http.get(`/board/${boardId}?userId=${userId}`).then((res) => {
+        dispatch(getOneProductDetail(res.data.data));
+      });
     };
   },
 };
