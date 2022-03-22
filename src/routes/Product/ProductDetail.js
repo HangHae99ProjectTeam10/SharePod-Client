@@ -16,6 +16,7 @@ import {
   InfoBoxBottom,
   InfoBoxMiddle,
   InfoBoxTop,
+  ProductCategory,
   ProductDetailDesWrapper,
   ProductDetailImgWrapper,
   ProductDetailWrapper,
@@ -25,16 +26,15 @@ import {
   Wrapper,
 } from "./ProductDetail.style";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneProductDetail } from "redux/actions/Product";
 import ProductService from "services/product";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-// /board/{boardId}?userId={userId}
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
+      my={2}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -42,7 +42,7 @@ const TabPanel = (props) => {
       {...other}
     >
       {value === index && <Box>{children}</Box>}
-    </div>
+    </Box>
   );
 };
 
@@ -137,10 +137,10 @@ const ProductDetail = () => {
   }
   return (
     <Wrapper>
-      <div>
+      <ProductCategory>
         <HomeIcon />
         <span> 컴퓨터 게임</span>
-      </div>
+      </ProductCategory>
 
       <ProductDetailWrapper>
         <ProductDetailImgWrapper>
@@ -264,7 +264,7 @@ const ProductDetail = () => {
         </ProductInfoBox>
       </ProductDetailWrapper>
 
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%" }} my={3}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -275,6 +275,7 @@ const ProductDetail = () => {
             <Tab label="상품문의" {...a11yProps(1)} />
           </Tabs>
         </Box>
+
         <TabPanel value={value} index={0}>
           <ProductDetailDesWrapper>
             <div className="desc_box_left">

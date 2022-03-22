@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import styled from "styled-components";
 
 import Dropdown from "../../components/Dropdown";
 import { mapDataList } from "constants/mapDataList";
 import ProductService from "services/product";
+import {
+  ProductCard,
+  ProductSearchResultBoard,
+  ProductSearchResultWrap,
+  RegionSelectWrapper,
+} from "./ProductSearchResult.style";
+import { InputLabel, MenuItem, Select } from "@mui/material";
 
 const ProductSearchResult = () => {
   const dispatch = useDispatch();
@@ -31,11 +39,37 @@ const ProductSearchResult = () => {
   };
   const { product_list } = useSelector(({ product }) => product);
 
+  const [selectValue, setSelectValue] = useState("");
+
+  const handleChangeSelect = (event) => {
+    setSelectValue(event.target.value);
+  };
+
   return (
     <ProductSearchResultWrap>
-      {/* <div className="dropdownWrap">
-        <Dropdown options={mapDataList} changeData={setSearchMapData} />
-      </div> */}
+      <RegionSelectWrapper>
+        <Select
+          style={{
+            width: "300px",
+          }}
+          displayEmpty
+          value={selectValue}
+          onChange={handleChangeSelect}
+          renderValue={
+            selectValue !== ""
+              ? undefined
+              : () => <div>동네를 설정해주세요</div>
+          }
+        >
+          {mapDataList.map((p) => {
+            return (
+              <MenuItem key={p} value={p}>
+                {p}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </RegionSelectWrapper>
       <div className="boardTop">
         <span className="boardAmount">
           총 {product_list && product_list.length}개
@@ -43,35 +77,6 @@ const ProductSearchResult = () => {
         <div className="boardFilterButtons">
           <label className={searchFilter === "recent" ? "checked" : null}>
             최신순
-            <input
-              type="radio"
-              value="recent"
-              name="filter"
-              hidden
-              onChange={handleSearchFilter}
-            />
-          </label>
-          <span>|</span>
-          <label className={searchFilter === "cost" ? "checked" : null}>
-            가격 낮은 순
-            <input
-              type="radio"
-              value="cost"
-              name="filter"
-              hidden
-              onChange={handleSearchFilter}
-            />
-          </label>
-          <span>|</span>
-          <label className={searchFilter === "quality" ? "checked" : null}>
-            품질순
-            <input
-              type="radio"
-              value="quality"
-              name="filter"
-              hidden
-              onChange={handleSearchFilter}
-            />
           </label>
         </div>
       </div>
@@ -81,16 +86,24 @@ const ProductSearchResult = () => {
             return (
               <ProductCard onClick={() => {}} key={p.boardId}>
                 <img src={p.firstImgUrl} alt="" />
-                <button className={"p.isLiked" ? "isLiked like" : "like"}>
-                  ❤
-                </button>
+                <FavoriteBorderIcon
+                  style={{
+                    position: "absolute",
+                    right: "3%",
+                    top: "3%",
+                    color: "white",
+                  }}
+                />
                 <div className="boardInfo">
-                  <h3>{p.title}</h3>
-                  <span className="mapData">🌐 서울 {"p.mapData"}</span>
+                  <div className="boardInfo_title">{p.title}</div>
+                  <div className="mapData">
+                    <LocationOnIcon />
+                    서울 종로구
+                  </div>
                   <span className="dailyRentalFee">
                     <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일
                   </span>
-                  <span className="time">{"p.modifiedAt"}</span>
+                  <span className="time">1분전</span>
                 </div>
               </ProductCard>
             );
@@ -99,103 +112,5 @@ const ProductSearchResult = () => {
     </ProductSearchResultWrap>
   );
 };
-
-const ProductSearchResultWrap = styled.section`
-  width: 1142px;
-  margin: 0 auto;
-  padding: 74px 0;
-  .dropdownWrap {
-    width: 390px;
-    height: 48px;
-    margin: 0 auto 64px;
-  }
-  .boardTop {
-    display: flex;
-    justify-content: space-between;
-    .boardAmount {
-      font-size: 13px;
-      color: #8c8c8c;
-    }
-    .boardFilterButtons {
-      display: flex;
-      justify-content: space-between;
-      width: 300px;
-      label,
-      span {
-        font-size: 13px;
-        color: #8c8c8c;
-      }
-      .checked {
-        color: #000;
-      }
-      label {
-        cursor: pointer;
-      }
-    }
-  }
-`;
-
-const ProductSearchResultBoard = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px 30px;
-  margin-top: 11px;
-`;
-
-const ProductCard = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 263px;
-  img {
-    width: 263px;
-    height: 263px;
-    margin-bottom: 6px;
-    border-radius: 10px 10px 0 0;
-  }
-  .like {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    border: none;
-    background: transparent;
-    font-size: 18px;
-    color: #fff;
-  }
-  .isLiked {
-    color: #ef3dea;
-  }
-  .boardInfo {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    h3 {
-      margin: 0 0 2px;
-      font-size: 16px;
-      color: #777;
-    }
-    .mapData {
-      margin-bottom: 4px;
-      font-size: 13px;
-      color: #777;
-    }
-    .dailyRentalFee {
-      font-size: 11px;
-      color: #777;
-      strong {
-        margin-right: 3px;
-        font-size: 16px;
-        font-weight: 700;
-      }
-    }
-    .time {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-size: 12px;
-      color: #777;
-    }
-  }
-`;
 
 export default ProductSearchResult;

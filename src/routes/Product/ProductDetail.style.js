@@ -10,8 +10,18 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   padding: 0px 10rem;
 `;
+
+export const ProductCategory = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${font_deep_gray_color};
+  margin-top: 50px;
+  span {
+    margin-left: 10px;
+  }
+`;
 export const ProductDetailWrapper = styled.section`
-  padding-top: 70px;
+  padding-top: 30px;
   display: flex;
 `;
 
@@ -85,7 +95,7 @@ export const InfoBoxTop = styled.div`
   justify-content: space-between;
   width: 100%;
   section {
-    width: 100%;
+    width: 90%;
   }
   h2 {
     margin: 0;
