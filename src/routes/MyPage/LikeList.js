@@ -1,119 +1,107 @@
-import React from "react";
-
-import styled from "styled-components";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { LikeListCard, LikeListWrapper } from "./LikeList.style";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
 const LikeList = () => {
-  const myLikedList = [
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-  ];
+  // const myLikedList = [
+  //   {
+  //     imageUrl1:
+  //       "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+  //     title: "레보네이트 공기청정기",
+  //     mapData: "강서구",
+  //     dailyRentalFee: 2000,
+  //     modifiedAt: "2022-03-20T16:23:03.056",
+  //   },
+  //   {
+  //     imageUrl1:
+  //       "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+  //     title: "레보네이트 공기청정기",
+  //     mapData: "강서구",
+  //     dailyRentalFee: 2000,
+  //     modifiedAt: "2022-03-20T16:23:03.056",
+  //   },
+  //   {
+  //     imageUrl1:
+  //       "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+  //     title: "레보네이트 공기청정기",
+  //     mapData: "강서구",
+  //     dailyRentalFee: 2000,
+  //     modifiedAt: "2022-03-20T16:23:03.056",
+  //   },
+  //   {
+  //     imageUrl1:
+  //       "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+  //     title: "레보네이트 공기청정기",
+  //     mapData: "강서구",
+  //     dailyRentalFee: 2000,
+  //     modifiedAt: "2022-03-20T16:23:03.056",
+  //   },
+  //   {
+  //     imageUrl1:
+  //       "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+  //     title: "레보네이트 공기청정기",
+  //     mapData: "강서구",
+  //     dailyRentalFee: 2000,
+  //     modifiedAt: "2022-03-20T16:23:03.056",
+  //   },
+  //   {
+  //     imageUrl1:
+  //       "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
+  //     title: "레보네이트 공기청정기",
+  //     mapData: "강서구",
+  //     dailyRentalFee: 2000,
+  //     modifiedAt: "2022-03-20T16:23:03.056",
+  //   },
+  // ];
+  const { userLikedBoard } = useSelector(({ myPage }) => myPage.myPageData);
+
+  const nowTimeData = new Date();
+  const nowYear = getYear(nowTimeData);
+  const nowMonth = getMonth(nowTimeData);
+  const nowDate = getDate(nowTimeData);
+  const nowHour = getHours(nowTimeData);
+  const nowMinute = getMinutes(nowTimeData);
 
   return (
-    <LikeListWrap>
-      {myLikedList.map((p) => {
+    <LikeListWrapper>
+      {userLikedBoard.map((p) => {
+        const dataDate = new Date(p.modifiedAt);
+        const year = getYear(dataDate);
+        const month = getMonth(dataDate);
+        const date = getDate(dataDate);
+        const hour = getHours(dataDate);
+        const minute = getMinutes(dataDate);
+
         return (
           <LikeListCard>
             <img src={p.imageUrl1} />
             <h3>{p.title}</h3>
-            <span className="mapData">🌐서울 {p.mapData}</span>
+            <span className="mapData">
+              <LocationOnOutlinedIcon /> 서울 {p.mapData}
+            </span>
             <span className="dailyRentalFee">
               <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 / 일
             </span>
-            <span className="modifiedAt">{p.modifiedAt}</span>
+            <span className="modifiedAt">
+              {nowYear !== year
+                ? `${nowYear - year}년 전`
+                : nowMonth !== month
+                ? `${nowMonth - month}개월 전`
+                : nowDate !== date
+                ? `${nowDate - date}일 전`
+                : nowHour !== hour
+                ? `${nowHour - hour}시간 전`
+                : nowMinute !== minute
+                ? `${nowMinute - minute}분 전`
+                : null}
+            </span>
           </LikeListCard>
         );
       })}
-    </LikeListWrap>
+    </LikeListWrapper>
   );
 };
-const LikeListWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 42px 30px;
-  padding-bottom: 296px;
-`;
-
-const LikeListCard = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  img {
-    width: 255px;
-    height: 255px;
-    margin-bottom: 16px;
-    border-radius: 10px;
-  }
-  h3 {
-    margin: 0 0 4px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #323232;
-  }
-  .mapData {
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 350;
-    color: #777;
-  }
-  .dailyRentalFee {
-    font-size: 16px;
-    font-weight: 700;
-    color: #323232;
-  }
-  .modifiedAt {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: 14px;
-    font-weight: 350;
-    color: #777;
-  }
-`;
 
 export default LikeList;
