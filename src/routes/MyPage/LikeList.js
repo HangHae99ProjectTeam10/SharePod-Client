@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   HorizontalLine,
   LikeListCard,
+  LikeListCardDailyRentalFee,
+  LikeListCardImg,
+  LikeListCardModifiedAt,
+  LikeListMapData,
   LikeListWrapper,
   Wrapper,
 } from "./LikeList.style";
@@ -157,7 +161,7 @@ const LikeList = () => {
   const nowDate = getDate(nowTimeData);
   const nowHour = getHours(nowTimeData);
   const nowMinute = getMinutes(nowTimeData);
-
+  const pageAmount = 5;
   return (
     <Wrapper>
       <h3>찜한 내역</h3>
@@ -170,18 +174,17 @@ const LikeList = () => {
           const date = getDate(dataDate);
           const hour = getHours(dataDate);
           const minute = getMinutes(dataDate);
-
           return (
             <LikeListCard>
-              <img src={p.imageUrl1} />
+              <LikeListCardImg src={p.imageUrl1} />
               <h4>{p.title}</h4>
-              <span className="mapData">
+              <LikeListMapData>
                 <LocationOnOutlinedIcon /> 서울 {p.mapData}
-              </span>
-              <span className="dailyRentalFee">
+              </LikeListMapData>
+              <LikeListCardDailyRentalFee>
                 <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 / 일
-              </span>
-              <span className="modifiedAt">
+              </LikeListCardDailyRentalFee>
+              <LikeListCardModifiedAt>
                 {nowYear !== year
                   ? `${nowYear - year}년 전`
                   : nowMonth !== month
@@ -193,7 +196,7 @@ const LikeList = () => {
                   : nowMinute !== minute
                   ? `${nowMinute - minute}분 전`
                   : null}
-              </span>
+              </LikeListCardModifiedAt>
             </LikeListCard>
           );
         })}
