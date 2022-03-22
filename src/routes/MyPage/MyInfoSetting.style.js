@@ -42,6 +42,6 @@ export const MyPageButtons = styled.div`
 `;
 
 export const SelectedContent = styled.div`
-  padding-left: 25px 31px;
+  padding: 25px 165px 215px 31px;
   background-color: ${bg_gray_color};
 `;

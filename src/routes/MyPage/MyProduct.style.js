@@ -10,7 +10,7 @@ import {
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  margin: 25px 31px;
+  width: 824px;
   padding: 39px 30px;
   background-color: #fff;
 `;
@@ -106,14 +106,15 @@ export const MyProductListBox = styled.div`
 
 export const MyProductCardWrapper = styled.div`
   display: flex;
-  padding: 20px 30px;
+  width: 724px;
+  padding: 20px 30px 20px 0;
+  box-sizing: border-box;
   .MyProductCard_ProductInfoBox_ButtonsBox {
     margin-top: 64px;
     button {
       width: 255px;
       height: 56px;
       box-sizing: border-box;
-      margin-right: 28px;
       border-radius: 28px;
       cursor: pointer;
     }
@@ -121,6 +122,7 @@ export const MyProductCardWrapper = styled.div`
       border: 1px solid #ddd;
       color: #555;
       background-color: #fff;
+      margin-right: 28px;
     }
     .confirm {
       border: none;

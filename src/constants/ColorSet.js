@@ -8,4 +8,6 @@ export const font_charcoal_gray_color = "#555";
 export const font_light_charcoal_gray_color = "#777";
 export const font_light_gray_color = "#999";
 export const font_black_color = "#242424";
+export const Icon_light_gray_color = "#BAB9BD";
 export const line_light_gray_color = "#EDEDED";
+export const Input_box_disabled_color = "#ECECEE";

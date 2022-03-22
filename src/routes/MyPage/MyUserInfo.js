@@ -6,15 +6,19 @@ import { mapDataList } from "constants/mapDataList";
 import {
   Buttons,
   Form,
-  HeaderSpace,
-  InfoBox,
-  MyUserInfoWrap,
+  HorizontalLine,
+  MapDataWrapper,
+  MyUserInfoWrapper,
+  NickNameWrapper,
+  PhotoIconWrapper,
   Profile,
   ProfileUploader,
+  UserNameWrapper,
   useStyles,
 } from "./MyUserInfo.style";
 import { useDispatch, useSelector } from "react-redux";
 import MyPageService from "services/myPage";
+import CameraAltRoundedIcon from "@mui/icons-material/CameraAltRounded";
 
 const MyUserInfo = () => {
   const dispatch = useDispatch();
@@ -23,7 +27,6 @@ const MyUserInfo = () => {
 
   const [profileImg, setProfileImg] = useState();
   const [imageSrc, setImageSrc] = useState();
-  const [nickname, setNickname] = useState();
   const [userRegion, setUserRegion] = useState();
   const [user, setUser] = useState(null);
 
@@ -78,8 +81,9 @@ const MyUserInfo = () => {
     dispatch(MyPageService.editMyInfoData(data, imageSrc));
   };
   return (
-    <MyUserInfoWrap>
-      <HeaderSpace />
+    <MyUserInfoWrapper>
+      <h3>내 프로필 관리</h3>
+      <HorizontalLine />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Profile>
           <ProfileUploader>
@@ -90,53 +94,50 @@ const MyUserInfo = () => {
             ></div>
             <input
               type="file"
+              id="profileImg"
               onChange={(e) => {
                 handleFileInput(e);
               }}
             />
           </ProfileUploader>
-          <div className="userTextInfo">
-            <span className="nickname">{nickname}</span>
-            <span className="mapdata">서울시 {userRegion}</span>
-          </div>
+          <PhotoIconWrapper for="profileImg">
+            <CameraAltRoundedIcon />
+          </PhotoIconWrapper>
         </Profile>
-        <div className="idBox">
-          <span>아이디(이메일)</span>
-          <input {...register("username")} name="username" />
-        </div>
-        <div className="nicknameBox">
+        <NickNameWrapper>
           <span>닉네임</span>
           <input {...register("nickName")} />
-        </div>
-        <div className="mapdataBox">
+        </NickNameWrapper>
+        <UserNameWrapper>
+          <span>이메일</span>
+          <input {...register("username")} readOnly name="username" />
+        </UserNameWrapper>
+        <MapDataWrapper>
           <span className="boxTitle">내 동네 설정</span>
           <div className="myMap">
-            <span>서울시</span>
-            <div className="dropdownOutter">
-              <Select
-                {...register("userRegion")}
-                // defaultValue={userRegion ? userRegion : "강서구"}
-                className={classes.selectSmCity}
-              >
-                {mapDataList.map((p) => {
-                  return (
-                    <MenuItem key={p} value={p}>
-                      {p}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </div>
+            <span className="seoulCity">서울시</span>
+            <Select
+              {...register("userRegion")}
+              className={classes.selectSmCity}
+            >
+              {mapDataList.map((p) => {
+                return (
+                  <MenuItem key={p} value={p}>
+                    {p}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           </div>
-        </div>
+        </MapDataWrapper>
         <Buttons>
-          <button className="cancel">변경취소하기</button>
+          <button className="cancel">변경 취소하기</button>
           <button className="save" type="submit">
             저장하기
           </button>
         </Buttons>
       </Form>
-    </MyUserInfoWrap>
+    </MyUserInfoWrapper>
   );
 };
 
