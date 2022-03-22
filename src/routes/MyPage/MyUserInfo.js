@@ -19,7 +19,7 @@ import MyPageService from "services/myPage";
 const MyUserInfo = () => {
   const dispatch = useDispatch();
   const classes = useStyles;
-  const userInfo = useSelector((state) => state.myPage.user_info);
+  const { userInfo } = useSelector(({ myPage }) => myPage.myPageData);
 
   const [profileImg, setProfileImg] = useState();
   const [imageSrc, setImageSrc] = useState();
@@ -32,18 +32,20 @@ const MyUserInfo = () => {
   }, [user]);
 
   useEffect(() => {
-    setProfileImg(userInfo.userImg);
-    setUserRegion(userInfo.userRegion);
-    setTimeout(() => {
-      setUser(
-        {
-          username: userInfo.username,
-          nickName: userInfo.nickName,
-          userRegion: userInfo.userRegion,
-        },
-        1000
-      );
-    });
+    if (userInfo) {
+      setProfileImg(userInfo.userImg);
+      setUserRegion(userInfo.userRegion);
+      setTimeout(() => {
+        setUser(
+          {
+            username: userInfo.username,
+            nickName: userInfo.nickName,
+            userRegion: userInfo.userRegion,
+          },
+          1000
+        );
+      });
+    }
   }, [userInfo]);
 
   const handleFileInput = (e) => {
@@ -83,7 +85,7 @@ const MyUserInfo = () => {
           <ProfileUploader>
             <div
               style={{
-                backgroundImage: `url("https://sharepods.s3.ap-northeast-2.amazonaws.com/jjb9973ade-70bc-4433-807b-6c4534c5ad29_1.jpg")`,
+                backgroundImage: `url(${profileImg})`,
               }}
             ></div>
             <input

@@ -34,7 +34,7 @@ const MyProduct = () => {
     setPageViews(e.target.value);
     console.log(pageViews);
   };
-  const myPageData = useSelector((state) => state.myPage.user_info);
+  const myPageData = useSelector(({ myPage }) => myPage.myPageData);
   const userInfo = myPageData.userInfo;
   const MyBoardList = myPageData.userMyBoard;
   return (
