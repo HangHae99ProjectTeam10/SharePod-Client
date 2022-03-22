@@ -8,6 +8,7 @@ const ProductService = {
         http
           .get(`/board?limit=${postAmount}`)
           .then((res) => {
+            console.log(res);
             dispatch(getProductList(res.data.listdata));
           })
           .catch((err) => console.log("게시글 불러오기 :", err));

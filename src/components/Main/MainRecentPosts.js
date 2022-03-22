@@ -43,6 +43,10 @@ const MainRecentPosts = () => {
   const moveToDetail = (boardId) => {
     history.push(`/product/product-detail/${boardId}`);
   };
+
+  const moveToSearchList = () => {
+    history.push(`/product/product-search`);
+  };
   return (
     <Wrapper>
       <FlexBox>
@@ -50,7 +54,7 @@ const MainRecentPosts = () => {
           <Title>최근 대여 게시글</Title>
           <SubTitle>| 지금 올라온 게시글을 확인해보세요.</SubTitle>
         </TitleBox>
-        <ViewMoreBtn>전체보기</ViewMoreBtn>
+        <ViewMoreBtn onClick={moveToSearchList}>전체보기</ViewMoreBtn>
       </FlexBox>
 
       {/* 이미지 시작 */}

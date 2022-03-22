@@ -5,7 +5,6 @@ import Header from "../components/common/Header";
 import MyPage from "./MyPage";
 import Product from "./Product";
 import Auth from "./Auth";
-import UploadPageButton from "components/common/UploadPageButton";
 import { useSelector } from "react-redux";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {

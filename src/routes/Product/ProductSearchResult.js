@@ -14,14 +14,14 @@ const ProductSearchResult = () => {
   const [searchFilter, setSearchFilter] = useState("recent");
   const [searchMapData, setSearchMapData] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
-  const postAmount = 999;
+  const postAmount = 8;
 
   const handleSearchFilter = (e) => {
     setSearchFilter(e.target.value);
   };
 
   useEffect(() => {
-    dispatch(ProductService.getProductList(postAmount, searchInfo));
+    dispatch(ProductService.getProductList(postAmount));
   }, []);
 
   const searchInfo = {
@@ -29,16 +29,16 @@ const ProductSearchResult = () => {
     searchMapData,
     searchTitle,
   };
-  const productSearchList = useSelector((state) => state.board.boardList);
+  const { product_list } = useSelector(({ product }) => product);
 
   return (
     <ProductSearchResultWrap>
-      <div className="dropdownWrap">
+      {/* <div className="dropdownWrap">
         <Dropdown options={mapDataList} changeData={setSearchMapData} />
-      </div>
+      </div> */}
       <div className="boardTop">
         <span className="boardAmount">
-          총 {productSearchList && productSearchList.length}개
+          총 {product_list && product_list.length}개
         </span>
         <div className="boardFilterButtons">
           <label className={searchFilter === "recent" ? "checked" : null}>
@@ -76,11 +76,11 @@ const ProductSearchResult = () => {
         </div>
       </div>
       <ProductSearchResultBoard>
-        {productSearchList &&
-          productSearchList.map((p, idx) => {
+        {product_list &&
+          product_list.map((p, idx) => {
             return (
-              <ProductCard onClick={() => {}} key={idx}>
-                <img src={p.firstImgUrl} />
+              <ProductCard onClick={() => {}} key={p.boardId}>
+                <img src={p.firstImgUrl} alt="" />
                 <button className={"p.isLiked" ? "isLiked like" : "like"}>
                   ❤
                 </button>
