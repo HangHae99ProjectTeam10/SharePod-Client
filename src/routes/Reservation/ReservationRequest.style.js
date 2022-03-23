@@ -1,7 +1,19 @@
-import { bg_gray_color, purple_heart_color } from "constants/ColorSet";
+import {
+  bg_gray_color,
+  font_charcoal_gray_color,
+  line_light_gray_color,
+  main_variant_color_2,
+  purple_heart_color,
+} from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
+  width: 100vw;
+`;
+
+export const ReservationRequestBox = styled.div`
+  width: 1000px;
+  margin: 0 auto;
   padding: 40px 164px 192px;
   background-color: #fff;
   h2 {
@@ -103,8 +115,34 @@ export const ReservationRentalEnd = styled.label`
   }
 `;
 
+export const ReservationCancelButton = styled.button`
+  width: 360px;
+  height: 56px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid ${line_light_gray_color};
+  border-radius: 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: ${font_charcoal_gray_color};
+  background-color: #fff;
+  cursor: pointer;
+`;
+
 export const ReservationModalWrapper = styled.div`
   width: 360px;
   height: 56px;
   box-sizing: border-box;
+  border-radius: 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: ${main_variant_color_2};
+  cursor: pointer;
+  button {
+    color: #fff;
+  }
+  button: active {
+    background-color: transparent;
+  }
 `;

@@ -1,5 +1,6 @@
 export const main_color = "#632EFA";
 export const main_variant_color = "#8F6AFB";
+export const main_variant_color_2 = "#5F29FA";
 export const secondary_color = "#FFC34A";
 export const red_color = "#EB0B34";
 export const purple_heart_color = "#4A2FC3";

@@ -3,11 +3,13 @@ import ReservationModal from "components/ReservationModal";
 import React, { useEffect, useState } from "react";
 import {
   HorizontalLine,
+  ReservationCancelButton,
   ReservationForm,
   ReservationModalWrapper,
   ReservationMyNickname,
   ReservationRentalEnd,
   ReservationRentalStart,
+  ReservationRequestBox,
   ReservationRequestProductImg,
   ReservationRequestProductInfo,
   ReservationRequestProductInfoBox,
@@ -50,45 +52,50 @@ const ReservationRequest = () => {
 
   return (
     <Wrapper>
-      <h2>대여하기</h2>
-      <HorizontalLine />
-      <ReservationRequestWrapper>
-        <ReservationRequestProductWrapper>
-          <ReservationRequestProductImg />
-          <ReservationRequestProductInfo>
-            <img />
-            <ReservationRequestProductInfoBox>
-              <span className="ReservationPartner">상대방 이름</span>
-              <span className="ReservationProduct">물품명</span>
-            </ReservationRequestProductInfoBox>
-          </ReservationRequestProductInfo>
-        </ReservationRequestProductWrapper>
-        <ReservationForm>
-          <ReservationMyNickname>
-            닉네임
-            <input />
-          </ReservationMyNickname>
-          <ReservationRentalStart>
-            대여 시작일
-            <div className="datePicker">
-              <ServerRequestDatePicker onChange={setRentalStartDate} />
-            </div>
-          </ReservationRentalStart>
-          <ReservationRentalEnd>
-            대여 종료일
-            <div className="datePicker">
-              <ServerRequestDatePicker onChange={setRentalEndDate} />
-            </div>
-          </ReservationRentalEnd>
-          <ReservationModalWrapper>
-            <ReservationModal
-              nickname={"nickname"}
-              startDay={startDay}
-              endDay={endDay}
-            />
-          </ReservationModalWrapper>
-        </ReservationForm>
-      </ReservationRequestWrapper>
+      <ReservationRequestBox>
+        <h2>대여하기</h2>
+        <HorizontalLine />
+        <ReservationRequestWrapper>
+          <ReservationRequestProductWrapper>
+            <ReservationRequestProductImg />
+            <ReservationRequestProductInfo>
+              <img />
+              <ReservationRequestProductInfoBox>
+                <span className="ReservationPartner">상대방 이름</span>
+                <span className="ReservationProduct">물품명</span>
+              </ReservationRequestProductInfoBox>
+            </ReservationRequestProductInfo>
+          </ReservationRequestProductWrapper>
+          <ReservationForm>
+            <ReservationMyNickname>
+              닉네임
+              <input />
+            </ReservationMyNickname>
+            <ReservationRentalStart>
+              대여 시작일
+              <div className="datePicker">
+                <ServerRequestDatePicker onChange={setRentalStartDate} />
+              </div>
+            </ReservationRentalStart>
+            <ReservationRentalEnd>
+              대여 종료일
+              <div className="datePicker">
+                <ServerRequestDatePicker onChange={setRentalEndDate} />
+              </div>
+            </ReservationRentalEnd>
+            <ReservationCancelButton type="button">
+              뒤로가기
+            </ReservationCancelButton>
+            <ReservationModalWrapper>
+              <ReservationModal
+                nickname={"nickname"}
+                startDay={startDay}
+                endDay={endDay}
+              />
+            </ReservationModalWrapper>
+          </ReservationForm>
+        </ReservationRequestWrapper>
+      </ReservationRequestBox>
     </Wrapper>
   );
 };
