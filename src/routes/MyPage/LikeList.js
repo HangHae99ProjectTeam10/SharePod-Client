@@ -8,12 +8,17 @@ import {
   LikeListCardModifiedAt,
   LikeListMapData,
   LikeListWrapper,
+  PageMoveButton,
+  PageNumsButtonWrapper,
+  PaginationButtons,
   Wrapper,
 } from "./LikeList.style";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
 const LikeList = () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [displayList, setDisplayList] = useState([]);
   const myLikedList = [
     {
       imageUrl1:
@@ -114,7 +119,7 @@ const LikeList = () => {
     {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
+      title: "맥북",
       mapData: "강서구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
@@ -122,7 +127,7 @@ const LikeList = () => {
     {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
+      title: "맥북",
       mapData: "강서구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
@@ -130,7 +135,7 @@ const LikeList = () => {
     {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
+      title: "맥북",
       mapData: "강서구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
@@ -138,7 +143,7 @@ const LikeList = () => {
     {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
+      title: "맥북",
       mapData: "강서구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
@@ -146,28 +151,40 @@ const LikeList = () => {
     {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
+      title: "맥북",
       mapData: "강서구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
     },
   ];
-  const { userLikedBoard } = useSelector(({ myPage }) => myPage.myPageData);
-  console.log(userLikedBoard);
+  useEffect(() => {
+    setDisplayList([]);
+    const addList = [];
+    for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
+      console.log(myLikedList[i]);
+      addList.push(myLikedList[i]);
+      console.log(addList);
+    }
+    console.log(addList);
+    setDisplayList(addList);
+  }, [pageNumber]);
 
+  const { userLikedBoard } = useSelector(({ myPage }) => myPage.myPageData);
+  console.log(displayList);
   const nowTimeData = new Date();
   const nowYear = getYear(nowTimeData);
   const nowMonth = getMonth(nowTimeData);
   const nowDate = getDate(nowTimeData);
   const nowHour = getHours(nowTimeData);
   const nowMinute = getMinutes(nowTimeData);
-  const pageAmount = 5;
+  const pageAmount = parseInt(myLikedList.length / 6);
+
   return (
     <Wrapper>
       <h3>찜한 내역</h3>
       <HorizontalLine />
       <LikeListWrapper>
-        {myLikedList.map((p) => {
+        {userLikedBoard.map((p) => {
           const dataDate = new Date(p.modifiedAt);
           const year = getYear(dataDate);
           const month = getMonth(dataDate);
@@ -201,6 +218,45 @@ const LikeList = () => {
           );
         })}
       </LikeListWrapper>
+      <PaginationButtons>
+        <PageMoveButton
+          className="prev"
+          onClick={() => {
+            if (pageNumber > 1) {
+              setPageNumber(pageNumber - 1);
+              console.log(pageNumber);
+            }
+          }}
+        >
+          {"<"}
+        </PageMoveButton>
+        <PageNumsButtonWrapper>
+          {[...Array(pageAmount)].map((n, idx) => {
+            return (
+              <span
+                className={pageNumber === idx + 1 ? "nums checked" : "nums"}
+                onClick={() => {
+                  setPageNumber(idx + 1);
+                  console.log(pageNumber);
+                }}
+              >
+                {idx + 1}
+              </span>
+            );
+          })}
+        </PageNumsButtonWrapper>
+        <PageMoveButton
+          className="next"
+          onClick={() => {
+            if (pageNumber < pageAmount) {
+              setPageNumber(pageNumber + 1);
+              console.log(pageNumber);
+            }
+          }}
+        >
+          {">"}
+        </PageMoveButton>
+      </PaginationButtons>
     </Wrapper>
   );
 };

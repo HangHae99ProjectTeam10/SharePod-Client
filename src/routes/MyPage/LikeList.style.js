@@ -1,9 +1,13 @@
-import { bg_gray_color } from "constants/ColorSet";
+import {
+  bg_gray_color,
+  line_light_gray_color,
+  main_color,
+} from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 824px;
-  padding: 39px 32px 296px 30px;
+  padding: 39px 32px 177px 30px;
   background-color: #fff;
   h3 {
     margin: 0 0 13px 0;
@@ -67,4 +71,44 @@ export const LikeListCardModifiedAt = styled.span`
   font-size: 14px;
   font-weight: 350;
   color: #777;
+`;
+
+export const PaginationButtons = styled.div`
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin: 58px auto 0;
+`;
+
+export const PageMoveButton = styled.div`
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 1px solid ${line_light_gray_color};
+  color: ${main_color};
+  box-sizing: border-box;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+`;
+
+export const PageNumsButtonWrapper = styled.div`
+  display: inline-block;
+  margin-right: 24px;
+  span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    margin-left: 24px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .checked {
+    background-color: ${main_color};
+    color: #fff;
+  }
 `;
