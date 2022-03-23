@@ -1,96 +1,118 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import styled from "styled-components";
-
-import Dropdown from "../../components/Dropdown";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { mapDataList } from "constants/mapDataList";
 import ProductService from "services/product";
+import {
+  ProductCard,
+  ProductSearchResultBoard,
+  ProductSearchResultWrap,
+  RegionSelectWrapper,
+  useStyles,
+} from "./ProductSearchResult.style";
+import { MenuItem, Select } from "@mui/material";
+import { history } from "redux/store";
 
 const ProductSearchResult = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const receivedSearchMapData = "강남구";
-  const urlData = "";
+
   const [searchFilter, setSearchFilter] = useState("recent");
   const [searchMapData, setSearchMapData] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
-  const postAmount = 999;
 
-  const handleSearchFilter = (e) => {
-    setSearchFilter(e.target.value);
+  const { product_list } = useSelector(({ product }) => product);
+  const { authUser } = useSelector(({ auth }) => auth);
+
+  const [selectRegion, setSelectRegion] = useState("");
+
+  const handleChangeSelect = (event) => {
+    setSelectRegion(event.target.value);
   };
 
+  /**TODO: 검색 필터 적용이 */
   useEffect(() => {
-    dispatch(ProductService.getProductList(postAmount, searchInfo));
-  }, []);
+    // startNum, category, boardRegion, filterType, searchTitle
+    dispatch(ProductService.getSearchList("", "", selectRegion, "", ""));
+  }, [dispatch, selectRegion]);
 
-  const searchInfo = {
-    searchFilter,
-    searchMapData,
-    searchTitle,
+  const moveToDetail = (id) => {
+    history.push(`/product/product-detail/${id}`);
   };
-  const productSearchList = useSelector((state) => state.board.boardList);
 
+  const onHandleFavoriteBtn = (boardId) => {
+    dispatch(ProductService.setFavorite(boardId));
+  };
   return (
     <ProductSearchResultWrap>
-      <div className="dropdownWrap">
-        <Dropdown options={mapDataList} changeData={setSearchMapData} />
-      </div>
+      <RegionSelectWrapper>
+        <Select
+          style={{
+            width: "300px",
+          }}
+          displayEmpty
+          value={selectRegion}
+          onChange={handleChangeSelect}
+          renderValue={
+            selectRegion !== ""
+              ? undefined
+              : () => <div>동네를 설정해주세요</div>
+          }
+        >
+          {mapDataList.map((p) => {
+            return (
+              <MenuItem key={p} value={p}>
+                {p}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </RegionSelectWrapper>
       <div className="boardTop">
         <span className="boardAmount">
-          총 {productSearchList && productSearchList.length}개
+          {/* 총 {search_list && search_list.length}개 */}
         </span>
         <div className="boardFilterButtons">
           <label className={searchFilter === "recent" ? "checked" : null}>
             최신순
-            <input
-              type="radio"
-              value="recent"
-              name="filter"
-              hidden
-              onChange={handleSearchFilter}
-            />
-          </label>
-          <span>|</span>
-          <label className={searchFilter === "cost" ? "checked" : null}>
-            가격 낮은 순
-            <input
-              type="radio"
-              value="cost"
-              name="filter"
-              hidden
-              onChange={handleSearchFilter}
-            />
-          </label>
-          <span>|</span>
-          <label className={searchFilter === "quality" ? "checked" : null}>
-            품질순
-            <input
-              type="radio"
-              value="quality"
-              name="filter"
-              hidden
-              onChange={handleSearchFilter}
-            />
           </label>
         </div>
       </div>
       <ProductSearchResultBoard>
-        {productSearchList &&
-          productSearchList.map((p, idx) => {
+        {product_list &&
+          product_list.map((p, idx) => {
             return (
-              <ProductCard onClick={() => {}} key={idx}>
-                <img src={p.firstImgUrl} />
-                <button className={"p.isLiked" ? "isLiked like" : "like"}>
-                  ❤
-                </button>
+              <ProductCard key={p.boardId}>
+                <img
+                  src={p.firstImgUrl}
+                  alt=""
+                  onClick={() => {
+                    moveToDetail(p.boardId);
+                  }}
+                />
+                {authUser && (
+                  <div
+                    className={classes.favoriteBtn}
+                    onClick={() => {
+                      onHandleFavoriteBtn(p.boardId);
+                    }}
+                  >
+                    {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  </div>
+                )}
+
                 <div className="boardInfo">
-                  <h3>{p.title}</h3>
-                  <span className="mapData">🌐 서울 {"p.mapData"}</span>
+                  <div className="boardInfo_title">{p.title}</div>
+                  <div className="mapData">
+                    <LocationOnIcon />
+                    서울 {p.boardRegion}
+                  </div>
                   <span className="dailyRentalFee">
                     <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일
                   </span>
-                  <span className="time">{"p.modifiedAt"}</span>
+                  <span className="time">1분전</span>
                 </div>
               </ProductCard>
             );
@@ -99,103 +121,5 @@ const ProductSearchResult = () => {
     </ProductSearchResultWrap>
   );
 };
-
-const ProductSearchResultWrap = styled.section`
-  width: 1142px;
-  margin: 0 auto;
-  padding: 74px 0;
-  .dropdownWrap {
-    width: 390px;
-    height: 48px;
-    margin: 0 auto 64px;
-  }
-  .boardTop {
-    display: flex;
-    justify-content: space-between;
-    .boardAmount {
-      font-size: 13px;
-      color: #8c8c8c;
-    }
-    .boardFilterButtons {
-      display: flex;
-      justify-content: space-between;
-      width: 300px;
-      label,
-      span {
-        font-size: 13px;
-        color: #8c8c8c;
-      }
-      .checked {
-        color: #000;
-      }
-      label {
-        cursor: pointer;
-      }
-    }
-  }
-`;
-
-const ProductSearchResultBoard = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px 30px;
-  margin-top: 11px;
-`;
-
-const ProductCard = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 263px;
-  img {
-    width: 263px;
-    height: 263px;
-    margin-bottom: 6px;
-    border-radius: 10px 10px 0 0;
-  }
-  .like {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    border: none;
-    background: transparent;
-    font-size: 18px;
-    color: #fff;
-  }
-  .isLiked {
-    color: #ef3dea;
-  }
-  .boardInfo {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    h3 {
-      margin: 0 0 2px;
-      font-size: 16px;
-      color: #777;
-    }
-    .mapData {
-      margin-bottom: 4px;
-      font-size: 13px;
-      color: #777;
-    }
-    .dailyRentalFee {
-      font-size: 11px;
-      color: #777;
-      strong {
-        margin-right: 3px;
-        font-size: 16px;
-        font-weight: 700;
-      }
-    }
-    .time {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      font-size: 12px;
-      color: #777;
-    }
-  }
-`;
 
 export default ProductSearchResult;

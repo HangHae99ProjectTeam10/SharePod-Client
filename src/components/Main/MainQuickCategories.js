@@ -30,24 +30,30 @@ const MainQuickCategories = () => {
       img: "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
     },
     {
-      title: "컴퓨터/게임",
+      title: "게임",
+      img: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+    },
+    {
+      title: "셀프케어",
+      img: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+    },
+    {
+      title: "공구/산업용품",
+      img: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+    },
+    {
+      title: "카메라",
       img: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
     },
   ];
   return (
     <Wrapper>
-      <Box>
-        <Title>빠른 카테고리</Title>
-        <SubTitle>인기 카테고리를 한눈에</SubTitle>
-      </Box>
       <CategoryCardListBox>
         {quickCategories.map((p, index) => {
           return (
             <CategoryCard key={index}>
+              <CategoryImg src={p.img} alt="" />
               <CategoryTitle>{p.title}</CategoryTitle>
-              <CategoryOverlay>
-                <CategoryImg src={p.img} alt="" />
-              </CategoryOverlay>
             </CategoryCard>
           );
         })}
