@@ -54,5 +54,6 @@ export const MyPageButtons = styled.div`
 export const SelectedContent = styled.div`
   padding: 25px 165px 215px 31px;
   width: 100%;
+  min-height: 900px;
   background-color: ${bg_gray_color};
 `;

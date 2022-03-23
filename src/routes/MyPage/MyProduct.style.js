@@ -113,6 +113,7 @@ export const MyProductCardWrapper = styled.div`
 
 export const ProductButtonsWrapper = styled.div`
   margin-top: 64px;
+  width: 600px;
   button {
     width: 255px;
     height: 56px;

@@ -1,12 +1,28 @@
 import { makeStyles } from "@mui/styles";
+import {
+  bg_gray_color,
+  font_berry_blue_color,
+  font_charcoal_gray_color,
+  line_light_gray_color,
+  main_color,
+} from "constants/ColorSet";
 import styled from "styled-components";
 
-export const WithdrawalWrap = styled.div``;
+export const Wrapper = styled.div`
+  background-color: #fff;
+  padding: 20px 32px 55px;
+  h3 {
+    margin-bottom: 14px;
+    font-size: 18px;
+    font-weight: 500;
+    color: ${font_berry_blue_color};
+  }
+`;
 
-export const HeaderSpace = styled.div`
-  width: 920px;
-  height: 87px;
-  background-color: #f2f3f4;
+export const HorizontalLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${bg_gray_color};
 `;
 
 export const WithdrawalForm = styled.form`
@@ -14,68 +30,77 @@ export const WithdrawalForm = styled.form`
   flex-direction: column;
   width: 539px;
   padding: 40px 0 0 221px;
-  h3 {
-    margin-bottom: 40px;
+  h4 {
+    margin-bottom: 62px;
     font-size: 20px;
     font-weight: 500;
-    color: #555;
+    color: ${font_charcoal_gray_color};
+    text-align: center;
   }
+`;
+
+export const WithdrawalUserName = styled.label`
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: ${font_charcoal_gray_color};
   input {
-    width: 300px;
+    margin-left: 50px;
+    padding: 17px 16px;
+    font-size: 16px;
+    color: ${font_charcoal_gray_color};
+    width: 380px;
     height: 56px;
     box-sizing: border-box;
-    border: 1px solid #ddd;
+    border: 1px solid ${line_light_gray_color};
     border-radius: 8px;
-    color: #ddd;
+    color: ${line_light_gray_color};
   }
-  .userId {
-    margin-bottom: 24px;
+`;
+
+export const WithdrawalPassword = styled.label`
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: ${font_charcoal_gray_color};
+  input {
+    margin-left: 37px;
+    padding: 17px 16px;
     font-size: 16px;
-    font-weight: 500;
-    color: #555;
-    input {
-      margin-left: 60px;
-      padding: 17px 16px;
-      font-size: 16px;
-      color: #555;
-    }
+    color: ${font_charcoal_gray_color};
+    width: 380px;
+    height: 56px;
+    box-sizing: border-box;
+    border: 1px solid ${line_light_gray_color};
+    border-radius: 8px;
+    color: ${line_light_gray_color};
   }
-  .password {
-    margin-bottom: 24px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
-    input {
-      margin-left: 101px;
-      padding: 17px 16px;
-      font-size: 16px;
-      color: #555;
-    }
-  }
-  .dropdownBox {
-    display: flex;
-    margin-bottom: 64px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
-    span {
-      margin-top: 17px;
-    }
+`;
+
+export const WithdrawalReason = styled.div`
+  display: flex;
+  margin-bottom: 89px;
+  font-size: 16px;
+  font-weight: 500;
+  color: ${font_charcoal_gray_color};
+  span {
+    margin-top: 17px;
   }
   .dropdownOuter {
-    width: 300px;
     height: 56px;
     box-sizing: border-box;
-    margin-left: 97px;
+    margin-left: 33px;
+    div {
+      width: 380px;
+      border-radius: 8px;
+    }
   }
 `;
 
 export const Buttons = styled.div`
-  margin-left: 85px;
   button {
-    width: 380px;
+    width: 255px;
     height: 56px;
-    margin-bottom: 16px;
     border: none;
     border-radius: 28px;
     font-size: 16px;
@@ -83,13 +108,14 @@ export const Buttons = styled.div`
     cursor: pointer;
   }
   .return {
-    border: 1px solid #ddd;
+    border: 1px solid ${line_light_gray_color};
     background-color: #fff;
-    color: #555;
+    color: ${font_charcoal_gray_color};
+    margin-right: 16px;
   }
   .withdrawal {
-    border: 1px solid #5f29fa;
-    background-color: #5f29fa;
+    border: 1px solid ${main_color};
+    background-color: ${main_color};
     color: #fff;
   }
 `;

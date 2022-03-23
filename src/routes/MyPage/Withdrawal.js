@@ -4,10 +4,13 @@ import { withdrawalReasonList } from "constants/withdrawalReasonList";
 import {} from "./MyUserInfo.style";
 import {
   Buttons,
-  HeaderSpace,
+  HorizontalLine,
   useStyles,
   WithdrawalForm,
-  WithdrawalWrap,
+  WithdrawalPassword,
+  WithdrawalReason,
+  WithdrawalUserName,
+  Wrapper,
 } from "./Withdrawal.style";
 import { MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,23 +31,24 @@ const Withdrawal = () => {
     dispatch(MyPageService.withdrawalMyId(data));
   };
   return (
-    <WithdrawalWrap>
-      <HeaderSpace />
+    <Wrapper>
+      <h3>회원 탈퇴</h3>
+      <HorizontalLine />
       <WithdrawalForm onSubmit={handleSubmit(onSubmit)}>
-        <h3>SHARE POD 서비스를 탈퇴하시나요?</h3>
-        <label className="userId">
-          아이디(이메일)
+        <h4>SHARE POD 서비스를 탈퇴하시나요?</h4>
+        <WithdrawalUserName>
+          이메일
           <input
             defaultValue={userInfo.username}
             readOnly
             {...register("username")}
           />
-        </label>
-        <label className="password">
+        </WithdrawalUserName>
+        <WithdrawalPassword>
           비밀번호
           <input type="password" {...register("password")} />
-        </label>
-        <div className="dropdownBox">
+        </WithdrawalPassword>
+        <WithdrawalReason>
           <span>탈퇴 사유</span>
           <div className="dropdownOuter">
             <Select
@@ -61,7 +65,7 @@ const Withdrawal = () => {
               })}
             </Select>
           </div>
-        </div>
+        </WithdrawalReason>
         <Buttons>
           <button className="return">돌아가기</button>
           <button className="withdrawal" type="submit">
@@ -69,7 +73,7 @@ const Withdrawal = () => {
           </button>
         </Buttons>
       </WithdrawalForm>
-    </WithdrawalWrap>
+    </Wrapper>
   );
 };
 
