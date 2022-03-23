@@ -31,7 +31,15 @@ export default function ReservationModal(props) {
   const handleClose = () => setOpen(false);
   return (
     <ModalWrapper>
-      <Button onClick={handleOpen}>대여 예약하기</Button>
+      <Button
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        onClick={handleOpen}
+      >
+        대여 예약하기
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
