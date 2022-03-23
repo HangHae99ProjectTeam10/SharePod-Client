@@ -1,86 +1,105 @@
+import {
+  bg_gray_color,
+  font_glare_black,
+  font_light_gray_color,
+  line_light_gray_color,
+} from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
-  padding: 40px 154px;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${bg_gray_color};
 `;
 
 export const ChatSection = styled.div`
   display: flex;
-  height: 687px;
-  border-radius: 8px;
+  width: 1140px;
+  margin: 0 auto;
+  height: 100%;
 `;
 
 export const ChatSelectBox = styled.div`
-  width: 293px;
-  background-color: #ededed;
-  border-radius: 8px 0 0 8px;
+  // width: 360px;
+  background-color: #fff;
+  border: 1px solid ${line_light_gray_color};
 `;
-
-export const ChatField = styled.div`
-  position: relative;
-  width: 847px;
-  background: #fdfdfd;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.09);
-  border-radius: 0 8px 8px 0;
-`;
-
 export const ChatSelectBoxHeader = styled.div`
-  position: relative;
-  padding: 20px 24px;
-  height: 61px;
-  color: #8c8c8c;
-  button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 26px;
-    width: 24px;
-    height: 24px;
-    box-sizing: border-box;
-    border: none;
-    color: #8c8c8c;
-    font-size: 24px;
-    background: transparent;
-    cursor: pointer;
+  display: flex;
+  padding: 16px 19px;
+  border-bottom: 1px solid ${line_light_gray_color};
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  h3 {
+    margin: 10px 0 0 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: ${font_glare_black};
   }
 `;
 
 export const RecentPartnerBox = styled.div`
-  padding: 14px 24px;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 80vh;
 `;
 
-export const RecentPartenerCard = styled.div`
+export const RecentPartnerCard = styled.div`
   display: flex;
-  margin-bottom: 25px;
+  border: 1px solid ${line_light_gray_color};
+  padding: 16px 24px 16px 18px;
   cursor: pointer;
-  img {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
-    margin-right: 8px;
+`;
+
+export const RecentPartnerUserImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-right: 13px;
+`;
+
+export const RecentPartnerCardTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  box-sizing: border-box;
+  .nickname {
+    margin: 10px 4px 0 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: ${font_glare_black};
   }
-  div {
-    display: flex;
-    flex-direction: column;
-    width: 208px;
-    span {
-      margin-bottom: 2px;
-      font-size: 14px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      color: #777;
-    }
-    .nickname {
-      font-weight: 700;
-    }
-    .recentMessage {
-      font-weight: 400;
-    }
+  .boardData {
+    font-size: 12px;
+    color: ${font_light_gray_color};
+  }
+  .recentMessage {
+    margin-bottom: 2px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #777;
   }
 `;
+
+export const RecentPartnerProductImg = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-left: 53px;
+  border-radius: 10px;
+`;
+
+export const ChatFieldWrapper = styled.div`
+  position: relative;
+  width: 847px;
+  background: #fdfdfd;
+  border-radius: 0 8px 8px 0;
+`;
+
+export const ChatFieldHeader = styled.div``;
 
 export const BoardInfo = styled.div`
   padding: 18px 24px;

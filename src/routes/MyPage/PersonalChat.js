@@ -2,8 +2,8 @@ import React from "react";
 import {
   Blank,
   BoardInfo,
-  BoxHeader,
-  ChatField,
+  ChatFieldHeader,
+  ChatFieldWrapper,
   ChatSection,
   ChatSelectBox,
   ChatSelectBoxHeader,
@@ -12,13 +12,18 @@ import {
   MessageField,
   MyMessageCard,
   PartnersMessageCard,
-  RecentPartenerCard,
   RecentPartnerBox,
+  RecentPartnerCard,
+  RecentPartnerCardTextWrapper,
+  RecentPartnerProductImg,
+  RecentPartnerUserImg,
   Wrapper,
 } from "./PersonalChat.style";
 
 const PersonalChat = () => {
   const myNickname = "다빌려";
+  const userImg =
+    "https://cdn.pixabay.com/photo/2018/03/08/11/29/animalia-3208412_1280.jpg";
   const partner = {
     nickname: "쉐어팟단골",
     userImg:
@@ -31,55 +36,241 @@ const PersonalChat = () => {
       nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간2",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간3",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간4",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간5",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간6",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간7",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
     {
       userImg:
         "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간8",
+      nickname: "복제인간1",
       recentMessage:
         "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
+    },
+    {
+      userImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      nickname: "복제인간1",
+      recentMessage:
+        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
+      boardImg:
+        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
+      userRegion: "강남구",
+      createdAt: "3일 전",
     },
   ];
 
@@ -139,31 +330,36 @@ const PersonalChat = () => {
 
   return (
     <Wrapper>
-      <h2>🗨 1:1 채팅하기</h2>
       <ChatSection>
         <ChatSelectBox>
           <ChatSelectBoxHeader>
+            <img src={userImg} />
             <h3>{myNickname}</h3>
           </ChatSelectBoxHeader>
           <RecentPartnerBox>
             {recentPartnerList.map((p) => {
               return (
-                <RecentPartenerCard>
-                  <img src={p.userImg} />
-                  <div>
-                    <span className="nickname">{p.nickname}</span>
+                <RecentPartnerCard>
+                  <RecentPartnerUserImg src={p.userImg} />
+                  <RecentPartnerCardTextWrapper>
+                    <div className="flex-wrapper">
+                      <span className="nickname">{p.nickname}</span>
+                      <span className="boardData">
+                        서울시 {p.userRegion} · {p.createdAt}
+                      </span>
+                    </div>
                     <span className="recentMessage">{p.recentMessage}</span>
-                  </div>
-                </RecentPartenerCard>
+                  </RecentPartnerCardTextWrapper>
+                  <RecentPartnerProductImg src={p.boardImg} />
+                </RecentPartnerCard>
               );
             })}
           </RecentPartnerBox>
         </ChatSelectBox>
-        <ChatField>
-          <BoxHeader>
+        <ChatFieldWrapper>
+          <ChatFieldHeader>
             <h3>{partner.nickname}</h3>
-            <button>×</button>
-          </BoxHeader>
+          </ChatFieldHeader>
           <BoardInfo>
             <img src={boardInfo.imageUrl1} />
             <div>
@@ -242,7 +438,7 @@ const PersonalChat = () => {
             <input placeholder="메세지를 입력하세요." />
             <button>보내기 ✉</button>
           </MessageBar>
-        </ChatField>
+        </ChatFieldWrapper>
       </ChatSection>
     </Wrapper>
   );
