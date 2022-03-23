@@ -35,6 +35,7 @@ export const ImgRadioBox = styled.div`
 `;
 export const ImgHiddenRadioBtn = styled.input`
   display: none;
+
   &:checked {
     border: 1px solid black;
   }
@@ -45,16 +46,23 @@ export const ImgRadioOption = styled.img`
   height: 80px;
   border-radius: 10px;
   object-fit: cover;
+  margin-right: 20px;
 `;
-export const VideoRadioOption = styled.video`
+export const VideoRadioOption = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 10px;
   object-fit: cover;
+  background: ${bg_gray_color};
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${font_dark_gray_color};
 `;
 export const ProductListWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   margin-top: 20px;
 `;
 

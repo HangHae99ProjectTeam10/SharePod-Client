@@ -5,6 +5,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 
 import {
   ImgHiddenRadioBtn,
@@ -47,82 +48,15 @@ const TabPanel = (props) => {
 };
 
 const ProductDetail = () => {
-  const board = {
-    title: "테스트용 게시글",
-    videourl:
-      "https://ak.picdn.net/shutterstock/videos/1072000261/preview/stock-footage-empty-green-screen-display-laptop-for-watching-and-paste-background-e-business-blog-or-gaming-app.webm",
-    imgurl1:
-      "https://cdn.pixabay.com/photo/2017/10/10/21/47/laptop-2838921_1280.jpg",
-    imgurl2:
-      "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-    imgurl3:
-      "https://cdn.pixabay.com/photo/2015/08/13/01/00/keyboard-886462_1280.jpg",
-    contents: "테스트용 컨텐츠. 게시글에 대한 설명을 적어놓는 부분입니다.",
-    originprice: 20000000,
-    dailyrentalfee: 20000,
-    nickname: "테스터",
-    userimg:
-      "https://media.vlpt.us/images/apphia39/post/fac4f95f-1589-4696-8cfd-53b27685206d/github.png",
-    mapdata: "구로구",
-    category: "디지털 가전",
-    boardquility: "A",
-    isliked: true,
-    likecount: 10,
-    modifiedat: "2022-03-07T01:31:44+09:00",
-  };
-
-  const [selectedImg, setSelectedImg] = useState("0");
-
   const dispatch = useDispatch();
   const { id } = useParams();
   const { product_detail } = useSelector(({ product }) => product);
-  const {
-    boardQuaility,
-    boardRegion,
-    boardTag,
-    category,
-    contents,
-    dailyRentalFee,
-    firstImgUrl,
-    lastImgUrl,
-    likeCount,
-    liked,
-    modifiedAt,
-    nickName,
-    originPrice,
-    secondImgUrl,
-    sellerImg,
-    sellerRegion,
-    title,
-    videoUrl,
-  } = product_detail;
-  console.log("prodcut-detail", product_detail);
+
+  const [selectedImg, setSelectedImg] = useState("0");
+
   const handleSelectedImg = (e) => {
     setSelectedImg(e.target.value);
   };
-
-  useEffect(() => {
-    dispatch(ProductService.getOneProductDetail(id));
-  }, []);
-
-  const product_img_list = [
-    {
-      src: "https://ak.picdn.net/shutterstock/videos/1072000261/preview/stock-footage-empty-green-screen-display-laptop-for-watching-and-paste-background-e-business-blog-or-gaming-app.webm",
-      id: 0,
-    },
-    {
-      src: "https://cdn.pixabay.com/photo/2017/10/10/21/47/laptop-2838921_1280.jpg",
-      id: 1,
-    },
-    {
-      src: "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      id: 2,
-    },
-    {
-      src: "https://cdn.pixabay.com/photo/2015/08/13/01/00/keyboard-886462_1280.jpg",
-      id: 3,
-    },
-  ];
 
   const [value, setValue] = React.useState(0);
 
@@ -135,6 +69,9 @@ const ProductDetail = () => {
       "aria-controls": `simple-tabpanel-${index}`,
     };
   }
+  useEffect(() => {
+    dispatch(ProductService.getOneProductDetail(id));
+  }, []);
   return (
     <Wrapper>
       <ProductCategory>
@@ -147,51 +84,46 @@ const ProductDetail = () => {
           <ImgRadioBox>
             <ImgThumbnail>
               {selectedImg === "0" ? (
-                <ImgThumbnailVideo controls>
-                  <source src={product_img_list[selectedImg]?.src}></source>
+                <ImgThumbnailVideo controls autoplay>
+                  <source src={product_detail?.videoUrl}></source>
                 </ImgThumbnailVideo>
               ) : (
                 <ImgThumbnailVideoImg
-                  src={product_img_list[selectedImg]?.src}
+                  src={product_detail?.imgFiles[0]}
                   alt="this is thumbnail image"
                 />
               )}
             </ImgThumbnail>
             <ProductListWrapper>
-              {product_img_list.map((p) => {
-                if (p.id === 0) {
-                  return (
-                    <Box key={p.id}>
-                      <ImgHiddenRadioBtn
-                        type="radio"
-                        name="select"
-                        id={p.id}
-                        onChange={handleSelectedImg}
-                        value={p.id}
-                      />
-                      <label htmlFor={p.id}>
-                        <VideoRadioOption>
-                          <source src={board.videourl}></source>
-                        </VideoRadioOption>
-                      </label>
-                    </Box>
-                  );
-                } else {
-                  return (
-                    <Box key={p.id}>
-                      <ImgHiddenRadioBtn
-                        type="radio"
-                        name="select"
-                        id={p.id}
-                        onChange={handleSelectedImg}
-                        value={p.id}
-                      />
-                      <label htmlFor={p.id}>
-                        <ImgRadioOption src={p.src} alt="this is image" />
-                      </label>
-                    </Box>
-                  );
-                }
+              <Box>
+                <ImgHiddenRadioBtn
+                  type="radio"
+                  name="select"
+                  id="thisisvideo"
+                  onChange={handleSelectedImg}
+                  value={0}
+                />
+                <label htmlFor="thisisvideo">
+                  <VideoRadioOption>
+                    <VideoCallOutlinedIcon fontSize="large" />
+                  </VideoRadioOption>
+                </label>
+              </Box>
+              {product_detail?.imgFiles?.map((p, index) => {
+                return (
+                  <Box key={p}>
+                    <ImgHiddenRadioBtn
+                      type="radio"
+                      name="select"
+                      id={p}
+                      onChange={handleSelectedImg}
+                      value={index + 1}
+                    />
+                    <label htmlFor={p}>
+                      <ImgRadioOption src={p} alt="this is image" />
+                    </label>
+                  </Box>
+                );
               })}
             </ProductListWrapper>
           </ImgRadioBox>
@@ -199,15 +131,17 @@ const ProductDetail = () => {
         <ProductInfoBox>
           <InfoBoxTop>
             <section>
-              <h2>{title}</h2>
+              <h2>{product_detail?.title}</h2>
               <div className="info_top_price_wrapper">
-                <p className="info_top_price">{dailyRentalFee}</p>
+                <p className="info_top_price">
+                  {product_detail?.dailyRentalFee?.toLocaleString()}
+                </p>
                 <p className="info_top_unit">원 / 1일 대여기준 </p>
               </div>
               <Divider />
               <div className="info_top_reaction">
                 <FavoriteIcon fontSize="small" />
-                <span>{likeCount}</span>
+                <span>{product_detail?.likeCount}</span>
                 <WatchLaterIcon fontSize="small" />
                 <span>10시간 전</span>
               </div>
@@ -225,12 +159,12 @@ const ProductDetail = () => {
           <InfoBoxMiddle>
             <div className="info_bottom_left">
               <div className="profile_box">
-                <img src={sellerImg} alt="" />
+                <img src={product_detail?.sellerImg} alt="" />
                 <div className="profile_info">
-                  <p>{nickName}</p>
+                  <p>{product_detail?.nickName}</p>
                   <div className="profile_info_location">
                     <LocationOnIcon />
-                    <span>서울 {sellerRegion}</span>
+                    <span>서울 {product_detail?.sellerRegion}</span>
                   </div>
                 </div>
               </div>
@@ -238,20 +172,30 @@ const ProductDetail = () => {
             <div className="info_bottom_right">
               <div className="info_box">
                 <span className="info_bottom_right_title">상품상태</span>
-                <span className="info_bottom_right_desc">{boardQuaility}</span>
+                <span className="info_bottom_right_desc">
+                  {product_detail?.boardQuaility}
+                </span>
               </div>
               <div className="info_box">
                 <span className="info_bottom_right_title">상품원가</span>
-                <span className="info_bottom_right_desc">{originPrice}</span>
+                <span className="info_bottom_right_desc">
+                  {product_detail?.originPrice?.toLocaleString()}
+                </span>
               </div>
               <div className="info_box">
                 <span className="info_bottom_right_title">거래지역</span>
-                <span className="info_bottom_right_desc">{boardRegion}</span>
+                <span className="info_bottom_right_desc">
+                  {product_detail?.boardRegion}
+                </span>
               </div>
               <div className="info_box">
                 <span className="info_bottom_right_title">상품태그</span>
-                <span className="info_bottom_right_tag">#{category}</span>
-                <span className="info_bottom_right_tag">#{boardRegion}</span>
+                <span className="info_bottom_right_tag">
+                  #{product_detail?.category}
+                </span>
+                <span className="info_bottom_right_tag">
+                  #{product_detail?.boardRegion}
+                </span>
               </div>
             </div>
           </InfoBoxMiddle>
@@ -280,9 +224,9 @@ const ProductDetail = () => {
           <ProductDetailDesWrapper>
             <div className="desc_box_left">
               <p>상품정보</p>
-              <div>{contents}</div>
+              <div>{product_detail?.contents}</div>
               <p>카테고리</p>
-              <div>{category}</div>
+              <div>{product_detail?.category}</div>
             </div>
             <div className="desc_box_right">
               <p>대여 시 주의사항</p>

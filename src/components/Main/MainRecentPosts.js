@@ -41,6 +41,7 @@ const MainRecentPosts = () => {
   }, []);
 
   const moveToDetail = (boardId) => {
+    dispatch(ProductService.getOneProductDetail(boardId));
     history.push(`/product/product-detail/${boardId}`);
   };
 

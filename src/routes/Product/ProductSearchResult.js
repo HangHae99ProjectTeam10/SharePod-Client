@@ -28,9 +28,9 @@ const ProductSearchResult = () => {
     setSearchFilter(e.target.value);
   };
 
-  useEffect(() => {
-    dispatch(ProductService.getProductList(postAmount));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(ProductService.getProductList(postAmount));
+  // }, []);
 
   const searchInfo = {
     searchFilter,

@@ -13,7 +13,7 @@ const ProductService = {
           .get(`/board?limit=${postAmount}`)
           .then((res) => {
             console.log(res);
-            dispatch(getProductList(res.data.listdata));
+            dispatch(getProductList(res.data.listData));
           })
           .catch((err) => console.log("게시글 불러오기 :", err));
       };
