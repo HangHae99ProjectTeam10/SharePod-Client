@@ -38,7 +38,13 @@ const Header = () => {
       {authUser ? (
         <FlexBox>
           <Button color="#4a2fc3">로그아웃</Button>
-          <ProfileImg src={authUser.userImg} alt="this is profile img" />
+          <ProfileImg
+            src={authUser.userImg}
+            alt="this is profile img"
+            onClick={() => {
+              history.push("/mypage");
+            }}
+          />
         </FlexBox>
       ) : (
         <FlexBox>
