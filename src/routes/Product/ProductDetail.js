@@ -85,6 +85,26 @@ const ProductDetail = () => {
       dispatch(ProductService.setFavoriteIndetail(boardId));
     }
   };
+
+  const moveToBorrow = () => {
+    if (!authUser) {
+      window.alert("로그인을 해주세요");
+      history.push("/auth/signin");
+    } else {
+      /**TODO:빌리는 작업 */
+      // dispatch(ProductService.setFavoriteIndetail(boardId));
+    }
+  };
+
+  const moveToChat = () => {
+    if (!authUser) {
+      window.alert("로그인을 해주세요");
+      history.push("/auth/signin");
+    } else {
+      /**TODO:빌리는 작업 */
+      // dispatch(ProductService.setFavoriteIndetail(boardId));
+    }
+  };
   return (
     <Wrapper>
       <ProductCategory>
@@ -224,8 +244,12 @@ const ProductDetail = () => {
           </InfoBoxMiddle>
           <InfoBoxBottom>
             <div className="info_middle_btns">
-              <button className="info_middle_btn_1">대여하기</button>
-              <button className="info_middle_btn_2">1:1 채팅하기</button>
+              <button className="info_middle_btn_1" onClick={moveToBorrow}>
+                대여하기
+              </button>
+              <button className="info_middle_btn_2" onClick={moveToChat}>
+                1:1 채팅하기
+              </button>
             </div>
           </InfoBoxBottom>
         </ProductInfoBox>
@@ -259,8 +283,9 @@ const ProductDetail = () => {
                 거래 시작 24시간 전부터는 예약을 취소하면 대여료가 환불되지
                 않습니다. 제품이 정상적으로 작동되는지 구외 다른 이상은 없는지,
                 렌터와 오너가 함께 꼼꼼이 확인한 다음 거래를 시작하고
-                종료하세요. 물론 구성품도 빠짐없이 체크를 하셔야 합니다. [파손
-                및 분실주의] 공유하는 사람의 소중한 물건을 조심해서 사용해
+                종료하세요. 물론 구성품도 빠짐없이 체크를 하셔야 합니다. <br />
+                <br />
+                [파손 및 분실주의] 공유하는 사람의 소중한 물건을 조심해서 사용해
                 주세요. 대여 중 파손 및 고장이 발생하거나 제품을 분실하면
                 공유하는 사람에게 적정 비용(수리비, 또는 상품 중고가)를
                 보상하셔야 합니다.

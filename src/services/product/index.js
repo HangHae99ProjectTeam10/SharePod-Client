@@ -11,7 +11,9 @@ import {
 const ProductService = {
   getProductList: () => {
     return function (dispatch, getState, history) {
-      const userId = getState().auth.authUser.userId;
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
       http
         .get(`/board?userId=${userId}`)
         .then((res) => {
@@ -23,7 +25,9 @@ const ProductService = {
 
   addProduct: (data, mediaFiles) => {
     return function (dispatch, getState, history) {
-      const userId = getState().auth.authUser.userId;
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
       const boardData = {
         ...data,
         userId: userId,
