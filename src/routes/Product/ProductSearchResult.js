@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import styled from "styled-components";
-
-import Dropdown from "../../components/Dropdown";
 import { mapDataList } from "constants/mapDataList";
 import ProductService from "services/product";
 import {
@@ -12,39 +10,41 @@ import {
   ProductSearchResultBoard,
   ProductSearchResultWrap,
   RegionSelectWrapper,
+  useStyles,
 } from "./ProductSearchResult.style";
-import { InputLabel, MenuItem, Select } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
+import { history } from "redux/store";
 
 const ProductSearchResult = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
-  const receivedSearchMapData = "강남구";
-  const urlData = "";
+
   const [searchFilter, setSearchFilter] = useState("recent");
   const [searchMapData, setSearchMapData] = useState("");
   const [searchTitle, setSearchTitle] = useState("");
-  const postAmount = 8;
 
-  const handleSearchFilter = (e) => {
-    setSearchFilter(e.target.value);
-  };
-
-  // useEffect(() => {
-  //   dispatch(ProductService.getProductList(postAmount));
-  // }, []);
-
-  const searchInfo = {
-    searchFilter,
-    searchMapData,
-    searchTitle,
-  };
   const { product_list } = useSelector(({ product }) => product);
+  const { authUser } = useSelector(({ auth }) => auth);
 
-  const [selectValue, setSelectValue] = useState("");
+  const [selectRegion, setSelectRegion] = useState("");
 
   const handleChangeSelect = (event) => {
-    setSelectValue(event.target.value);
+    setSelectRegion(event.target.value);
   };
 
+  /**TODO: 검색 필터 적용이 */
+  useEffect(() => {
+    // startNum, category, boardRegion, filterType, searchTitle
+    dispatch(ProductService.getSearchList("", "", selectRegion, "", ""));
+  }, [dispatch, selectRegion]);
+
+  const moveToDetail = (id) => {
+    history.push(`/product/product-detail/${id}`);
+  };
+
+  const onHandleFavoriteBtn = (boardId) => {
+    dispatch(ProductService.setFavorite(boardId));
+  };
   return (
     <ProductSearchResultWrap>
       <RegionSelectWrapper>
@@ -53,10 +53,10 @@ const ProductSearchResult = () => {
             width: "300px",
           }}
           displayEmpty
-          value={selectValue}
+          value={selectRegion}
           onChange={handleChangeSelect}
           renderValue={
-            selectValue !== ""
+            selectRegion !== ""
               ? undefined
               : () => <div>동네를 설정해주세요</div>
           }
@@ -72,7 +72,7 @@ const ProductSearchResult = () => {
       </RegionSelectWrapper>
       <div className="boardTop">
         <span className="boardAmount">
-          총 {product_list && product_list.length}개
+          {/* 총 {search_list && search_list.length}개 */}
         </span>
         <div className="boardFilterButtons">
           <label className={searchFilter === "recent" ? "checked" : null}>
@@ -84,21 +84,30 @@ const ProductSearchResult = () => {
         {product_list &&
           product_list.map((p, idx) => {
             return (
-              <ProductCard onClick={() => {}} key={p.boardId}>
-                <img src={p.firstImgUrl} alt="" />
-                <FavoriteBorderIcon
-                  style={{
-                    position: "absolute",
-                    right: "3%",
-                    top: "3%",
-                    color: "white",
+              <ProductCard key={p.boardId}>
+                <img
+                  src={p.firstImgUrl}
+                  alt=""
+                  onClick={() => {
+                    moveToDetail(p.boardId);
                   }}
                 />
+                {authUser && (
+                  <div
+                    className={classes.favoriteBtn}
+                    onClick={() => {
+                      onHandleFavoriteBtn(p.boardId);
+                    }}
+                  >
+                    {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  </div>
+                )}
+
                 <div className="boardInfo">
                   <div className="boardInfo_title">{p.title}</div>
                   <div className="mapData">
                     <LocationOnIcon />
-                    서울 종로구
+                    서울 {p.boardRegion}
                   </div>
                   <span className="dailyRentalFee">
                     <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일

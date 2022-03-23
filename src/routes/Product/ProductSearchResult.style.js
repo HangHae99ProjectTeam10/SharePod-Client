@@ -1,3 +1,4 @@
+import { makeStyles } from "@mui/styles";
 import { font_deep_gray_color } from "constants/ColorSet";
 import styled from "styled-components";
 
@@ -97,3 +98,12 @@ export const ProductCard = styled.div`
     }
   }
 `;
+export const useStyles = makeStyles((theme) => ({
+  favoriteBtn: {
+    position: "absolute",
+    right: "3%",
+    top: "3%",
+    color: "white",
+    cursor: "pointer",
+  },
+}));

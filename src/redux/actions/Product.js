@@ -2,6 +2,8 @@ import {
   ADD_PRODUCT,
   GET_ONE_PRODUCT_DETAIL,
   GET_PRODUCT_LIST,
+  GET_SEARCH_LIST,
+  SET_FAVORITE_ACTION,
 } from "constants/ActionTypes";
 
 export const getProductList = (product_list) => {
@@ -27,6 +29,22 @@ export const getOneProductDetail = (product) => {
     dispatch({
       type: GET_ONE_PRODUCT_DETAIL,
       payload: product,
+    });
+  };
+};
+export const getSearchList = (product_list) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_SEARCH_LIST,
+      payload: product_list,
+    });
+  };
+};
+export const setFavoriteAction = (boardId) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_FAVORITE_ACTION,
+      payload: boardId,
     });
   };
 };

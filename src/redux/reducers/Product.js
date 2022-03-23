@@ -2,11 +2,14 @@ import {
   ADD_PRODUCT,
   GET_ONE_PRODUCT_DETAIL,
   GET_PRODUCT_LIST,
+  GET_SEARCH_LIST,
+  SET_FAVORITE_ACTION,
 } from "constants/ActionTypes";
 
 const INIT_STATE = {
   product_list: [],
   product_detail: {},
+  search_list: [],
 };
 
 const Product = (state = INIT_STATE, action) => {
@@ -24,6 +27,23 @@ const Product = (state = INIT_STATE, action) => {
     case GET_ONE_PRODUCT_DETAIL: {
       return {
         product_detail: action.payload,
+      };
+    }
+    case GET_SEARCH_LIST: {
+      return {
+        search_list: action.payload,
+      };
+    }
+    case SET_FAVORITE_ACTION: {
+      const index = state.product_list.findIndex(
+        (p) => p.boardId === action.payload
+      );
+      const _product_list = state.product_list;
+      const isliked = _product_list[index]?.isLiked;
+      _product_list[index].isLiked = !isliked;
+      return {
+        ...state,
+        product_list: _product_list,
       };
     }
 

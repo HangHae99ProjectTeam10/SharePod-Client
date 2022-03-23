@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
@@ -34,6 +35,7 @@ const MainRecentPosts = () => {
   const classes = useStyles();
 
   const { product_list } = useSelector(({ product }) => product);
+  const { authUser } = useSelector(({ auth }) => auth);
   const postAmount = 8;
 
   useEffect(() => {
@@ -71,7 +73,12 @@ const MainRecentPosts = () => {
               >
                 <PostCardWrapper>
                   <PostCardImgWrapper>
-                    <FavoriteBorderIcon className={classes.favoriteIcon} />
+                    {authUser && (
+                      <div className={classes.favoriteIcon}>
+                        {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                      </div>
+                    )}
+
                     <PostCardImg src={p.firstImgUrl} alt="" />
                   </PostCardImgWrapper>
                   <PostCardInfoWrapper>
