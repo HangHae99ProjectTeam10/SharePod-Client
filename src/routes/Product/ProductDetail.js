@@ -23,12 +23,14 @@ import {
   ProductDetailWrapper,
   ProductInfoBox,
   ProductListWrapper,
+  useStyles,
   VideoRadioOption,
   Wrapper,
 } from "./ProductDetail.style";
 import { useDispatch, useSelector } from "react-redux";
 import ProductService from "services/product";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { history } from "redux/store";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -48,9 +50,11 @@ const TabPanel = (props) => {
 };
 
 const ProductDetail = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { id } = useParams();
   const { product_detail } = useSelector(({ product }) => product);
+  const { authUser } = useSelector(({ auth }) => auth);
 
   const [selectedImg, setSelectedImg] = useState("0");
 
@@ -58,10 +62,10 @@ const ProductDetail = () => {
     setSelectedImg(e.target.value);
   };
 
-  const [value, setValue] = React.useState(0);
+  const [tabValue, setTabValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
   };
   function a11yProps(index) {
     return {
@@ -71,7 +75,16 @@ const ProductDetail = () => {
   }
   useEffect(() => {
     dispatch(ProductService.getOneProductDetail(id));
-  }, []);
+  }, [dispatch, id]);
+
+  const onHandleFavoriteBtn = (boardId) => {
+    if (!authUser) {
+      window.alert("로그인을 해주세요");
+      history.push("/auth/signin");
+    } else {
+      dispatch(ProductService.setFavoriteIndetail(boardId));
+    }
+  };
   return (
     <Wrapper>
       <ProductCategory>
@@ -146,13 +159,23 @@ const ProductDetail = () => {
                 <span>10시간 전</span>
               </div>
             </section>
-            <div className="info_top_favoritebtn">
-              <FavoriteBorderIcon
-                fontSize="small"
-                style={{
-                  color: "#4A2FC3",
-                }}
-              />
+            <div
+              className="info_top_favoritebtn"
+              onClick={() => {
+                onHandleFavoriteBtn(id);
+              }}
+            >
+              {product_detail?.liked ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  className={classes.favoriteBtn}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  className={classes.favoriteBtn}
+                />
+              )}
             </div>
           </InfoBoxTop>
 
@@ -211,8 +234,8 @@ const ProductDetail = () => {
       <Box sx={{ width: "100%" }} my={3}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
-            value={value}
-            onChange={handleChange}
+            value={tabValue}
+            onChange={handleTabChange}
             aria-label="basic tabs example"
           >
             <Tab label="상세설명" {...a11yProps(0)} />
@@ -220,7 +243,7 @@ const ProductDetail = () => {
           </Tabs>
         </Box>
 
-        <TabPanel value={value} index={0}>
+        <TabPanel value={tabValue} index={0}>
           <ProductDetailDesWrapper>
             <div className="desc_box_left">
               <p>상품정보</p>
@@ -245,7 +268,7 @@ const ProductDetail = () => {
             </div>
           </ProductDetailDesWrapper>
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={tabValue} index={1}>
           Item Two
         </TabPanel>
       </Box>

@@ -4,6 +4,7 @@ import {
   GET_PRODUCT_LIST,
   GET_SEARCH_LIST,
   SET_FAVORITE_ACTION,
+  SET_FAVORITE_ACTION_IN_DETAIL,
 } from "constants/ActionTypes";
 
 export const getProductList = (product_list) => {
@@ -44,6 +45,14 @@ export const setFavoriteAction = (boardId) => {
   return (dispatch) => {
     dispatch({
       type: SET_FAVORITE_ACTION,
+      payload: boardId,
+    });
+  };
+};
+export const setFavoriteActionInDetail = (boardId) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_FAVORITE_ACTION_IN_DETAIL,
       payload: boardId,
     });
   };

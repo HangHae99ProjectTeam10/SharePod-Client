@@ -5,28 +5,17 @@ import {
   getProductList,
   getSearchList,
   setFavoriteAction,
+  setFavoriteActionInDetail,
 } from "redux/actions/Product";
 
 const ProductService = {
-  getProductList: (postAmount, searchInfo) => {
-    if (!searchInfo) {
-      return function (dispatch, getState, history) {
-        http
-          .get(`/board?limit=${postAmount}`)
-          .then((res) => {
-            console.log(res);
-            dispatch(getProductList(res.data.listData));
-          })
-          .catch((err) => console.log("게시글 불러오기 :", err));
-      };
-    }
+  getProductList: () => {
     return function (dispatch, getState, history) {
       const userId = getState().auth.authUser.userId;
       http
-        .get(`/board?userId=${userId}}`)
+        .get(`/board?userId=${userId}`)
         .then((res) => {
-          console.log(res);
-          dispatch(getProductList(res.data.listdata));
+          dispatch(getProductList(res.data.listData));
         })
         .catch((err) => console.log("게시글 불러오기 :", err));
     };
@@ -101,10 +90,22 @@ const ProductService = {
           userId: userId,
         })
         .then((res) => {
-          console.log(res);
           dispatch(setFavoriteAction(boardId));
-          // dispatch(getSearchList(res.data.listData));
-          // dispatch(getOneProductDetail(res.data.data));
+        });
+    };
+  },
+
+  setFavoriteIndetail: (boardId) => {
+    return function (dispatch, getState) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .post(`/like/${boardId}`, {
+          userId: userId,
+        })
+        .then((res) => {
+          dispatch(setFavoriteActionInDetail(boardId));
         });
     };
   },

@@ -4,6 +4,7 @@ import {
   GET_PRODUCT_LIST,
   GET_SEARCH_LIST,
   SET_FAVORITE_ACTION,
+  SET_FAVORITE_ACTION_IN_DETAIL,
 } from "constants/ActionTypes";
 
 const INIT_STATE = {
@@ -44,6 +45,15 @@ const Product = (state = INIT_STATE, action) => {
       return {
         ...state,
         product_list: _product_list,
+      };
+    }
+    case SET_FAVORITE_ACTION_IN_DETAIL: {
+      const liked = state.product_detail?.liked;
+      const _product_detail = state.product_detail;
+      _product_detail.liked = !liked;
+      return {
+        ...state,
+        product_detail: _product_detail,
       };
     }
 

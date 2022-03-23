@@ -1,3 +1,4 @@
+import { makeStyles } from "@mui/styles";
 import {
   bg_gray_color,
   font_dark_gray_color,
@@ -145,6 +146,7 @@ export const InfoBoxTop = styled.div`
     justify-content: center;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
   }
 `;
 
@@ -257,3 +259,9 @@ export const ProductDetailDesWrapper = styled.div`
     font-size: 1.3rem;
   }
 `;
+
+export const useStyles = makeStyles((theme) => ({
+  favoriteBtn: {
+    color: "#4A2FC3",
+  },
+}));

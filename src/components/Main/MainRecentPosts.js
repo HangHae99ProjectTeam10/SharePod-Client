@@ -39,8 +39,8 @@ const MainRecentPosts = () => {
   const postAmount = 8;
 
   useEffect(() => {
-    dispatch(ProductService.getProductList(postAmount));
-  }, []);
+    dispatch(ProductService.getProductList());
+  }, [dispatch]);
 
   const moveToDetail = (boardId) => {
     dispatch(ProductService.getOneProductDetail(boardId));
