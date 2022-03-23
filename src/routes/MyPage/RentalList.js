@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   HorizontalLine,
   RentalCard,
@@ -17,16 +18,14 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 
 const RentalList = () => {
   const [myRentalRole, setMyRentalRole] = useState("1");
-  const [rentalState, setRentalState] = useState("대여 중");
   const handleRoleRadioButton = (e) => {
     setMyRentalRole(e.target.value);
   };
 
-  const handleStateRadioButton = (e) => {
-    setRentalState(e.target.value);
-  };
-  const myNickname = "다빌려";
-
+  const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
+  const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
+  console.log(rentBuyList);
+  console.log(rentSellList);
   const BoardList = [
     {
       imageUrl1:
@@ -177,35 +176,59 @@ const RentalList = () => {
         </label>
       </TopButtons>
       <RentalCardBox>
-        {BoardList.map((p) => {
-          const role =
-            myRentalRole === "1"
-              ? !(p.nickname === myNickname)
-              : p.nickname === myNickname;
-          if (role) {
-            return (
-              <RentalCard>
-                <RentalCardImg src={p.imageUrl1} />
-                <RentalCardInfoWrapper>
-                  <h3>{p.title}</h3>
-                  <RentalCardMapData>
-                    <LocationOnOutlinedIcon /> 서울 {p.mapData}
-                  </RentalCardMapData>
-                  <RentalCardDate>
-                    <CalendarTodayOutlinedIcon /> {p.rentalStart}-{p.rentalEnd}
-                  </RentalCardDate>
-                  <RentalCardDailyRentalFee>
-                    <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /
-                    1일
-                  </RentalCardDailyRentalFee>
-                  <RentalCardQualityConfirmButton>
-                    품질 확인하기
-                  </RentalCardQualityConfirmButton>
-                </RentalCardInfoWrapper>
-              </RentalCard>
-            );
-          }
-        })}
+        {myRentalRole === "1"
+          ? rentBuyList.length
+            ? rentBuyList.map((p) => {
+                return (
+                  <RentalCard>
+                    <RentalCardImg src={p.firstImgUrl} />
+                    <RentalCardInfoWrapper>
+                      <h3>{p.boardTitle}</h3>
+                      <RentalCardMapData>
+                        <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
+                      </RentalCardMapData>
+                      <RentalCardDate>
+                        <CalendarTodayOutlinedIcon /> {p.startRental}-
+                        {p.endRental}
+                      </RentalCardDate>
+                      <RentalCardDailyRentalFee>
+                        <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원
+                        / 1일
+                      </RentalCardDailyRentalFee>
+                      <RentalCardQualityConfirmButton>
+                        품질 확인하기
+                      </RentalCardQualityConfirmButton>
+                    </RentalCardInfoWrapper>
+                  </RentalCard>
+                );
+              })
+            : null
+          : rentSellList.length
+          ? rentSellList.map((p) => {
+              return (
+                <RentalCard>
+                  <RentalCardImg src={p.firstImgUrl} />
+                  <RentalCardInfoWrapper>
+                    <h3>{p.boardTitle}</h3>
+                    <RentalCardMapData>
+                      <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
+                    </RentalCardMapData>
+                    <RentalCardDate>
+                      <CalendarTodayOutlinedIcon /> {p.startRental}-
+                      {p.endRental}
+                    </RentalCardDate>
+                    <RentalCardDailyRentalFee>
+                      <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /
+                      1일
+                    </RentalCardDailyRentalFee>
+                    <RentalCardQualityConfirmButton>
+                      품질 확인하기
+                    </RentalCardQualityConfirmButton>
+                  </RentalCardInfoWrapper>
+                </RentalCard>
+              );
+            })
+          : null}
       </RentalCardBox>
     </Wrapper>
   );

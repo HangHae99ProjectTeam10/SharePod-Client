@@ -17,7 +17,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
 const LikeList = () => {
-  const [pageNumber, setPageNumber] = useState(1);
+  //  const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
   const myLikedList = [
     {
@@ -157,27 +157,27 @@ const LikeList = () => {
       modifiedAt: "2022-03-20T16:23:03.056",
     },
   ];
-  useEffect(() => {
-    setDisplayList([]);
-    const addList = [];
-    for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
-      console.log(myLikedList[i]);
-      addList.push(myLikedList[i]);
-      console.log(addList);
-    }
-    console.log(addList);
-    setDisplayList(addList);
-  }, [pageNumber]);
+  // useEffect(() => {
+  //   setDisplayList([]);
+  //   const addList = [];
+  //   for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
+  //     console.log(myLikedList[i]);
+  //     addList.push(myLikedList[i]);
+  //     console.log(addList);
+  //   }
+  //   console.log(addList);
+  //   setDisplayList(addList);
+  // }, [pageNumber]);
+  // const pageAmount = parseInt(myLikedList.length / 6);
 
   const { userLikedBoard } = useSelector(({ myPage }) => myPage.myPageData);
-  console.log(displayList);
+  console.log(userLikedBoard);
   const nowTimeData = new Date();
   const nowYear = getYear(nowTimeData);
   const nowMonth = getMonth(nowTimeData);
   const nowDate = getDate(nowTimeData);
   const nowHour = getHours(nowTimeData);
   const nowMinute = getMinutes(nowTimeData);
-  const pageAmount = parseInt(myLikedList.length / 6);
 
   return (
     <Wrapper>
@@ -193,13 +193,13 @@ const LikeList = () => {
           const minute = getMinutes(dataDate);
           return (
             <LikeListCard>
-              <LikeListCardImg src={p.imageUrl1} />
-              <h4>{p.title}</h4>
+              <LikeListCardImg src={p.firstImg} />
+              <h4>{p.boardTitle}</h4>
               <LikeListMapData>
                 <LocationOnOutlinedIcon /> 서울 {p.mapData}
               </LikeListMapData>
               <LikeListCardDailyRentalFee>
-                <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 / 일
+                <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 / 1 일
               </LikeListCardDailyRentalFee>
               <LikeListCardModifiedAt>
                 {nowYear !== year
@@ -218,7 +218,7 @@ const LikeList = () => {
           );
         })}
       </LikeListWrapper>
-      <PaginationButtons>
+      {/* <PaginationButtons>
         <PageMoveButton
           className="prev"
           onClick={() => {
@@ -256,7 +256,7 @@ const LikeList = () => {
         >
           {">"}
         </PageMoveButton>
-      </PaginationButtons>
+      </PaginationButtons> */}
     </Wrapper>
   );
 };
