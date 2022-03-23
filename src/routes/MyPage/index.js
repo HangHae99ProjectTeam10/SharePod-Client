@@ -9,7 +9,7 @@ const MyPage = ({ match }) => {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route
-          path={`${requestedUrl}/myinfo`}
+          path={`${requestedUrl}`}
           exact
           component={lazy(() => import(`./MyInfoSetting`))}
         />
