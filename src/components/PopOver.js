@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { font_light_gray_color } from "constants/ColorSet";
 
-export default function BasicPopover() {
+const BasicPopover = React.forwardRef(() => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -83,7 +83,8 @@ export default function BasicPopover() {
       </Popover>
     </PopoverWrapper>
   );
-}
+});
+export default BasicPopover;
 
 const PopoverWrapper = styled.div`
   position: relative;

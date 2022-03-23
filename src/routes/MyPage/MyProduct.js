@@ -94,9 +94,9 @@ const MyProduct = () => {
             <div className="productListBoxInner">
               {MyBoardList.length ? (
                 <>
-                  {MyBoardList.map((p) => {
+                  {MyBoardList.map((p, idx) => {
                     return (
-                      <MyProductCardWrapper>
+                      <MyProductCardWrapper key={idx}>
                         <ProductImg src={p.firstImg} />
                         <ProductInfoWrapper>
                           <ProductTitle>{p.boardTitle}</ProductTitle>

@@ -84,9 +84,9 @@ const ChatList = () => {
       <h3>1 : 1 채팅 내역</h3>
       <HorizontalLine />
       <ChatListWrapper>
-        {myChatList.map((p) => {
+        {myChatList.map((p, idx) => {
           return (
-            <ChatCard>
+            <ChatCard key={idx}>
               <ChatPartnerProfileImg src={p.userImg} />
               <ChatCardTextWrapper>
                 <ChatPartnerInfo>

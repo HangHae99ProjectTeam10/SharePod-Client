@@ -178,9 +178,9 @@ const RentalList = () => {
       <RentalCardBox>
         {myRentalRole === "1"
           ? rentBuyList.length
-            ? rentBuyList.map((p) => {
+            ? rentBuyList.map((p, idx) => {
                 return (
-                  <RentalCard>
+                  <RentalCard key={idx}>
                     <RentalCardImg src={p.firstImgUrl} />
                     <RentalCardInfoWrapper>
                       <h3>{p.boardTitle}</h3>

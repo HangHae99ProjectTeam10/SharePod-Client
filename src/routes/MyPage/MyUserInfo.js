@@ -27,7 +27,7 @@ const MyUserInfo = () => {
 
   const [profileImg, setProfileImg] = useState();
   const [imageSrc, setImageSrc] = useState();
-  const [userRegion, setUserRegion] = useState();
+  const [userRegion, setUserRegion] = useState("");
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -76,9 +76,11 @@ const MyUserInfo = () => {
   } = useForm({});
 
   const onSubmit = (data) => {
-    console.log(data, imageSrc);
-
     dispatch(MyPageService.editMyInfoData(data, imageSrc));
+  };
+
+  const handleChangeSelect = (e) => {
+    setUserRegion(e.target.value);
   };
   return (
     <Wrapper>
@@ -100,7 +102,7 @@ const MyUserInfo = () => {
               }}
             />
           </ProfileUploader>
-          <PhotoIconWrapper for="profileImg">
+          <PhotoIconWrapper htmlFor="profileImg">
             <CameraAltRoundedIcon />
           </PhotoIconWrapper>
         </Profile>
@@ -119,6 +121,8 @@ const MyUserInfo = () => {
             <Select
               {...register("userRegion")}
               className={classes.selectSmCity}
+              value={userRegion}
+              onChange={handleChangeSelect}
             >
               {mapDataList.map((p) => {
                 return (

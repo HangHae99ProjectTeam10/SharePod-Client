@@ -37,8 +37,7 @@ const MyPageService = {
       http
         .patch(`/user/${userId}`, userFormData)
         .then((res) => {
-          console.log(res);
-          dispatch(editMyInfo(res));
+          window.alert("회원 정보를 수정했습니다.");
         })
         .catch((err) => console.log("회원정보 수정:", err));
     };
