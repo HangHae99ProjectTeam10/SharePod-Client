@@ -8,3 +8,5 @@ export const SET_FAVORITE_ACTION = "set_favorite_action";
 export const SET_FAVORITE_ACTION_IN_DETAIL = "set_favorite_action_in_detail";
 
 export const GET_MY_PAGE = "get_my_page";
+
+export const ADD_RESERVATION = "add_reservation";
