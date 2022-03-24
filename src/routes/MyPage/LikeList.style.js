@@ -44,6 +44,7 @@ export const LikeListCardImg = styled.img`
   height: 235px;
   margin-bottom: 16px;
   border-radius: 10px;
+  object-fit: cover;
 `;
 
 export const LikeListMapData = styled.div`

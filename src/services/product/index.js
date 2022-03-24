@@ -3,7 +3,6 @@ import {
   addOneProduct,
   getOneProductDetail,
   getProductList,
-  getSearchList,
   setFavoriteAction,
   setFavoriteActionInDetail,
 } from "redux/actions/Product";
@@ -52,6 +51,39 @@ const ProductService = {
           alert("게시글이 등록되었습니다.");
           dispatch(addOneProduct(res.data.boardData));
           history.push("/");
+        })
+        .catch((err) => console.log("게시글 등록 실패: ", err.response));
+    };
+  },
+  editProduct: (boradId, data, mediaFiles) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      const boardData = {
+        ...data,
+        userId: userId,
+      };
+      const formData = new FormData();
+      formData.append(
+        "patchRequestDTO",
+        new Blob([JSON.stringify(boardData)], { type: "application/json" })
+      );
+
+      formData.append("imgFiles", mediaFiles.firstImgUrl);
+      formData.append("imgFiles", mediaFiles.secondImgUrl);
+      formData.append("imgFiles", mediaFiles.lastImgUrl);
+      formData.append("videoFile", mediaFiles.videoUrl);
+      http
+        .patch(`/board/${boradId}`, formData, {
+          Headers: {
+            "content-type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          alert("게시글이 수정되었습니다.");
+          // dispatch(addOneProduct(res.data.boardData));
+          history.goBack();
         })
         .catch((err) => console.log("게시글 등록 실패: ", err.response));
     };

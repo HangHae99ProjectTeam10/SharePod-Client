@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
   ButtonsWrapper,
@@ -29,17 +29,25 @@ import {
 } from "./MyProduct.style";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BasicPopover from "components/PopOver";
+import { history } from "redux/store";
 
 const MyProduct = () => {
-  const history = useHistory();
   const [pageViews, setPageViews] = useState("product");
+
   const handleRadioButton = (e) => {
     setPageViews(e.target.value);
-    console.log(pageViews);
   };
   const myPageData = useSelector(({ myPage }) => myPage.myPageData);
   const userInfo = myPageData.userInfo;
   const MyBoardList = myPageData.userMyBoard;
+
+  const moveToEditProduct = (id) => {
+    history.push(`/product/edit-product/${id}`);
+  };
+
+  const moveToDetail = (id) => {
+    history.push(`/product/product-detail/${id}`);
+  };
   return (
     <Wrapper>
       <h3>내 상품 관리</h3>
@@ -97,7 +105,10 @@ const MyProduct = () => {
                   {MyBoardList.map((p, idx) => {
                     return (
                       <MyProductCardWrapper key={idx}>
-                        <ProductImg src={p.firstImg} />
+                        <ProductImg
+                          src={p.firstImg}
+                          onClick={() => moveToDetail(p.boardId)}
+                        />
                         <ProductInfoWrapper>
                           <ProductTitle>{p.boardTitle}</ProductTitle>
                           <ProductMapData>
@@ -109,13 +120,17 @@ const MyProduct = () => {
                             원 / 일
                           </ProductDailyRentalFee>
                           <ProductButtonsWrapper>
-                            <button className="edit">게시글 수정</button>
+                            <button
+                              className="edit"
+                              onClick={() => moveToEditProduct(p.boardId)}
+                            >
+                              게시글 수정
+                            </button>
                             <button className="confirm">거래 요청 확인</button>
                           </ProductButtonsWrapper>
                         </ProductInfoWrapper>
-                        <MoreVertButton>
-                          <BasicPopover></BasicPopover>
-                        </MoreVertButton>
+
+                        <BasicPopover boardId={p.boardId} />
                       </MyProductCardWrapper>
                     );
                   })}
