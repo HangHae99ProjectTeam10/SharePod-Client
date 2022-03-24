@@ -11,10 +11,12 @@ import {
   Wrapper,
 } from "./Header.style";
 import { history } from "redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import JWTAuth from "services/auth";
 
 const Header = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const moveToMain = () => {
     history.push("/");
@@ -26,6 +28,9 @@ const Header = () => {
     history.push("/auth/signup");
   };
 
+  const onLogout = () => {
+    dispatch(JWTAuth.onLogout());
+  };
   const { authUser } = useSelector(({ auth }) => auth);
 
   return (
@@ -37,7 +42,9 @@ const Header = () => {
       </SearchInputWrapper>
       {authUser ? (
         <FlexBox>
-          <Button color="#4a2fc3">로그아웃</Button>
+          <Button color="#4a2fc3" onClick={onLogout}>
+            로그아웃
+          </Button>
           <ProfileImg
             src={authUser.userImg}
             alt="this is profile img"

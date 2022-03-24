@@ -84,7 +84,7 @@ const ProductSearchResult = () => {
         {product_list &&
           product_list.map((p, idx) => {
             return (
-              <ProductCard key={p.boardId}>
+              <ProductCard key={p.id}>
                 <img
                   src={p.firstImgUrl}
                   alt=""

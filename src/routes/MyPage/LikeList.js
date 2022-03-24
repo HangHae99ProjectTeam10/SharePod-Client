@@ -192,7 +192,7 @@ const LikeList = () => {
           const hour = getHours(dataDate);
           const minute = getMinutes(dataDate);
           return (
-            <LikeListCard>
+            <LikeListCard key={p.boardId}>
               <LikeListCardImg src={p.firstImg} />
               <h4>{p.boardTitle}</h4>
               <LikeListMapData>

@@ -5,8 +5,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { font_light_gray_color } from "constants/ColorSet";
+import { makeStyles } from "@mui/styles";
+import { useDispatch } from "react-redux";
+import MyPageService from "services/myPage";
 
-const BasicPopover = React.forwardRef(() => {
+const BasicPopover = React.forwardRef((props, ref) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -20,11 +25,23 @@ const BasicPopover = React.forwardRef(() => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const onHandleDelete = () => {
+    if (window.confirm("삭제 하시겠습니까?")) {
+      console.log("삭제");
+      dispatch(MyPageService.deleteProduct(props.boardId));
+    } else {
+      handleClose();
+    }
+  };
+
   return (
     <PopoverWrapper>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        <MoreVertOutlinedIcon />
-      </Button>
+      <MoreVertOutlinedIcon
+        aria-describedby={id}
+        onClick={handleClick}
+        className={classes.moreBtn}
+      />
+
       <Popover
         id={id}
         open={open}
@@ -35,6 +52,7 @@ const BasicPopover = React.forwardRef(() => {
           horizontal: "right",
         }}
         transformOrigin={{
+          vertical: "bottom",
           horizontal: "right",
         }}
       >
@@ -48,6 +66,7 @@ const BasicPopover = React.forwardRef(() => {
             style={{
               cursor: "pointer",
             }}
+            onClick={onHandleDelete}
           >
             삭제
           </Typography>
@@ -87,19 +106,17 @@ const BasicPopover = React.forwardRef(() => {
 export default BasicPopover;
 
 const PopoverWrapper = styled.div`
-  position: relative;
-  button {
-    position: absolute;
-    top: -100px;
-    right: 20px;
-    span {
-      display: none;
-    }
-  }
-  button,
-  button:hover {
-    box-shadow: none;
-    background-color: transparent;
-    color: ${font_light_gray_color};
-  }
+  position: absolute;
+  top: 0px;
+  right: 0px;
 `;
+const useStyles = makeStyles(() => ({
+  moreBtn: {
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+    marginTop: "20px",
+    color: "#999",
+    cursor: "pointer",
+  },
+}));
