@@ -24,131 +24,7 @@ const RentalList = () => {
 
   const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
   const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
-  console.log(rentBuyList);
-  console.log(rentSellList);
-  const BoardList = [
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "다빌려",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "다빌려",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "대여 중",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "다빌려",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "다빌려",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "대여 중",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "대여 중",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "대여 중",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2019/09/17/21/32/piano-4484621_960_720.jpg",
-      title: "맥북프로 XX년형",
-      nickname: "쉐어팟단골",
-      mapData: "구로구",
-      rentalStart: "2022.03.16",
-      rentalEnd: "2022.03.18",
-      state: "반납완료",
-      dailyRentalFee: 3000,
-    },
-  ];
+
   return (
     <Wrapper>
       <h3>대여 내역</h3>
@@ -204,9 +80,9 @@ const RentalList = () => {
               })
             : null
           : rentSellList.length
-          ? rentSellList.map((p) => {
+          ? rentSellList.map((p, idx) => {
               return (
-                <RentalCard>
+                <RentalCard key={idx}>
                   <RentalCardImg src={p.firstImgUrl} />
                   <RentalCardInfoWrapper>
                     <h3>{p.boardTitle}</h3>
