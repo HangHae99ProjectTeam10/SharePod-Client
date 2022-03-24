@@ -1,4 +1,5 @@
 import {
+  bg_gray_color,
   bg_light_gray_color,
   font_black_color,
   font_charcoal_gray_color,
@@ -6,6 +7,7 @@ import {
   font_light_charcoal_gray_color,
   line_light_gray_color,
   main_color,
+  secondary_color,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
@@ -105,8 +107,8 @@ export const MyProductListBox = styled.div`
 `;
 
 export const MyProductCardWrapper = styled.div`
+  position: relative;
   display: flex;
-  width: 724px;
   padding: 20px 30px 20px 0;
   box-sizing: border-box;
 `;
@@ -120,17 +122,25 @@ export const ProductButtonsWrapper = styled.div`
     box-sizing: border-box;
     border-radius: 28px;
     cursor: pointer;
+    transition: background-color 0.5s;
   }
   .edit {
     border: 1px solid #ddd;
     color: #555;
     background-color: #fff;
     margin-right: 28px;
+
+    &:hover {
+      background: ${bg_gray_color};
+    }
   }
   .confirm {
     border: none;
     color: #fff;
     background-color: #632efa;
+    &:hover {
+      background: ${secondary_color};
+    }
   }
 `;
 
@@ -217,4 +227,5 @@ export const ProductImg = styled.img`
   height: 200px;
   margin-right: 26px;
   border-radius: 8px;
+  object-fit: cover;
 `;

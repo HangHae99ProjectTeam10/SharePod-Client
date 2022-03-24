@@ -25,6 +25,7 @@ const Product = (state = INIT_STATE, action) => {
         product_list: [action.payload, ...state.product_list],
       };
     }
+
     case GET_ONE_PRODUCT_DETAIL: {
       return {
         product_detail: action.payload,

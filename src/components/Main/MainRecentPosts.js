@@ -68,7 +68,7 @@ const MainRecentPosts = () => {
               <Box
                 key={index}
                 onClick={() => {
-                  moveToDetail(p.boardId);
+                  moveToDetail(p.id);
                 }}
               >
                 <PostCardWrapper>
