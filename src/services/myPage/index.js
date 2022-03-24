@@ -5,7 +5,9 @@ const MyPageService = {
   getMyPageData: () => {
     return function (dispatch, getState, history) {
       const userInfo = getState((state) => state);
-      const userId = userInfo.auth.authUser.userId;
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
       const MyPageData = getState((state) => state);
       http
         .get(`user/${userId}`)
@@ -46,7 +48,9 @@ const MyPageService = {
   withdrawalMyId: (data) => {
     return function (dispatch, getState, history) {
       const userInfo = getState((state) => state);
-      const userId = userInfo.auth.authUser.userId;
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
       console.log(data);
 
       http
