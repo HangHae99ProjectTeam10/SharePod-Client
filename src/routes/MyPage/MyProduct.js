@@ -40,6 +40,10 @@ const MyProduct = () => {
   const myPageData = useSelector(({ myPage }) => myPage.myPageData);
   const userInfo = myPageData.userInfo;
   const MyBoardList = myPageData.userMyBoard;
+
+  const ToRequestConfirm = () => {
+    history.push("/reservation/confirm");
+  };
   return (
     <Wrapper>
       <h3>내 상품 관리</h3>
@@ -110,7 +114,12 @@ const MyProduct = () => {
                           </ProductDailyRentalFee>
                           <ProductButtonsWrapper>
                             <button className="edit">게시글 수정</button>
-                            <button className="confirm">거래 요청 확인</button>
+                            <button
+                              className="confirm"
+                              onClick={ToRequestConfirm}
+                            >
+                              거래 요청 확인
+                            </button>
                           </ProductButtonsWrapper>
                         </ProductInfoWrapper>
                         <MoreVertButton>

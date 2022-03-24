@@ -1,6 +1,7 @@
 import {
   bg_gray_color,
   bg_light_gray_color,
+  font_anthracite_gray_color,
   font_charcoal_gray_color,
   font_dark_gray_color,
   line_light_gray_color,
@@ -22,6 +23,7 @@ export const ReservationRequestBox = styled.div`
     margin: 0 0 24px;
     font-size: 24px;
     font-weight: 700;
+    color: ${font_anthracite_gray_color};
   }
 `;
 
