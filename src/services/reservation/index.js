@@ -1,7 +1,23 @@
 import http from "api/http";
-import { addReservation } from "redux/actions/Reservation";
+import {
+  addReservation,
+  getReservationRequestList,
+} from "redux/actions/Reservation";
 
 const ReservationService = {
+  getReservationRequestList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId;
+      http
+        .get(`/reservation/${userId}`)
+        .then((res) => {
+          console.log(res.data);
+          dispatch(getReservationRequestList(res.data.reservationList));
+        })
+        .catch((err) => console.log("거래요청 목록 불러오기 :", err.response));
+    };
+  },
+
   addReservation: (data, boardId) => {
     return function (dispatch, getState, history) {
       http
@@ -16,6 +32,18 @@ const ReservationService = {
           history.replace(`/product/product-detail/${boardId}`);
         })
         .catch((err) => console.log("거래요청 실패: ", err.response));
+    };
+  },
+  postReservationConfirm: (data, boardId) => {
+    return function (dispatch, getState, history) {
+      console.log(data, boardId);
+      http
+        .post(`/reservation/response/${boardId}`, data)
+        .then((res) => {
+          console.log(res);
+          history.push("/reservation/confirm");
+        })
+        .catch((err) => console.log("거래확인 실패: ", err.response));
     };
   },
 };

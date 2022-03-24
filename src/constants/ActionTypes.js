@@ -10,3 +10,4 @@ export const SET_FAVORITE_ACTION_IN_DETAIL = "set_favorite_action_in_detail";
 export const GET_MY_PAGE = "get_my_page";
 
 export const ADD_RESERVATION = "add_reservation";
+export const GET_RESERVATION_REQUEST_LIST = "get_reservation_request_list";
