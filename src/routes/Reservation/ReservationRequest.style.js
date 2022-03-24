@@ -1,6 +1,8 @@
 import {
   bg_gray_color,
+  bg_light_gray_color,
   font_charcoal_gray_color,
+  font_dark_gray_color,
   line_light_gray_color,
   main_variant_color_2,
   purple_heart_color,
@@ -41,7 +43,6 @@ export const ReservationRequestProductImg = styled.img`
   height: 360px;
   border-radius: 10px;
   margin-bottom: 18px;
-  background-color: #555;
 `;
 
 export const ReservationRequestProductInfo = styled.div`
@@ -51,12 +52,21 @@ export const ReservationRequestProductInfo = styled.div`
     width: 76px;
     height: 76px;
     border-radius: 38px;
-    background-color: #555;
   }
 `;
 
 export const ReservationRequestProductInfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-left: 10px;
+  span {
+    font-size: 12px;
+    font-weight: 600;
+    color: ${font_dark_gray_color};ya
+  }
+  .ReservationProduct {
+    margin: 15px 0 5px;
+  }
 `;
 
 export const ReservationForm = styled.form`
@@ -78,6 +88,8 @@ export const ReservationMyNickname = styled.label`
     margin-bottom: 24px;
     border: 1px solid ${purple_heart_color};
     border-radius: 8px;
+    background-color: ${bg_light_gray_color};
+    color: ${font_charcoal_gray_color};
     padding: 17px;
   }
   input:focus {

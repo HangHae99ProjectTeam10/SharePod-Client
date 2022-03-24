@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import ServerRequestDatePicker from "components/DatePicker";
 import ReservationModal from "components/ReservationModal";
-import React, { useEffect, useState } from "react";
 import {
   HorizontalLine,
   ReservationCancelButton,
@@ -17,18 +19,28 @@ import {
   ReservationRequestWrapper,
   Wrapper,
 } from "./ReservationRequest.style";
+import { history } from "redux/store";
 
 const ReservationRequest = () => {
   const [rentalStartDate, setRentalStartDate] = useState();
   const [rentalEndDate, setRentalEndDate] = useState();
   const [startDay, setStartDay] = useState();
   const [endDay, setEndDay] = useState();
+  const [dateCheck, setDateCheck] = useState(false);
+  const { authUser } = useSelector(({ auth }) => auth);
+
+  const boardInfo = window.location.search.split("?")[1].split("&");
+  const boardTitle = decodeURI(boardInfo[0]);
+  const productImg = boardInfo[1];
+  const sellerNickname = decodeURI(boardInfo[2]);
+  const sellerProfile = boardInfo[3];
+  const boardId = boardInfo[4];
 
   const changeStartDay = () => {
     const startYear = rentalStartDate.getFullYear();
     const startMonth = rentalStartDate.getMonth();
     const startDate = rentalStartDate.getDate();
-    setStartDay(`${startYear}-${startMonth + 1}-${startDate}`);
+    setStartDay(`${startYear}-0${startMonth + 1}-${startDate}`);
   };
 
   useEffect(() => {
@@ -41,7 +53,7 @@ const ReservationRequest = () => {
     const endYear = rentalEndDate.getFullYear();
     const endMonth = rentalEndDate.getMonth();
     const endDate = rentalEndDate.getDate();
-    setEndDay(`${endYear}-${endMonth + 1}-${endDate}`);
+    setEndDay(`${endYear}-0${endMonth + 1}-${endDate}`);
   };
 
   useEffect(() => {
@@ -49,7 +61,9 @@ const ReservationRequest = () => {
       changeEndDay(rentalEndDate);
     }
   }, [rentalEndDate]);
-
+  const moveToDetail = () => {
+    history.goBack();
+  };
   return (
     <Wrapper>
       <ReservationRequestBox>
@@ -57,19 +71,21 @@ const ReservationRequest = () => {
         <HorizontalLine />
         <ReservationRequestWrapper>
           <ReservationRequestProductWrapper>
-            <ReservationRequestProductImg />
+            <ReservationRequestProductImg src={productImg} />
             <ReservationRequestProductInfo>
-              <img />
+              <img src={sellerProfile} />
               <ReservationRequestProductInfoBox>
-                <span className="ReservationPartner">상대방 이름</span>
-                <span className="ReservationProduct">물품명</span>
+                <span className="ReservationProduct">{boardTitle}</span>
+                <span className="ReservationPartner">
+                  작성자 : {sellerNickname}
+                </span>
               </ReservationRequestProductInfoBox>
             </ReservationRequestProductInfo>
           </ReservationRequestProductWrapper>
           <ReservationForm>
             <ReservationMyNickname>
               닉네임
-              <input />
+              <input readOnly value={authUser.nickname} />
             </ReservationMyNickname>
             <ReservationRentalStart>
               대여 시작일
@@ -83,14 +99,16 @@ const ReservationRequest = () => {
                 <ServerRequestDatePicker onChange={setRentalEndDate} />
               </div>
             </ReservationRentalEnd>
-            <ReservationCancelButton type="button">
+            <ReservationCancelButton type="button" onClick={moveToDetail}>
               뒤로가기
             </ReservationCancelButton>
             <ReservationModalWrapper>
               <ReservationModal
-                nickname={"nickname"}
+                nickname={authUser.nickname}
                 startDay={startDay}
                 endDay={endDay}
+                userId={authUser.userId}
+                boardId={boardId}
               />
             </ReservationModalWrapper>
           </ReservationForm>

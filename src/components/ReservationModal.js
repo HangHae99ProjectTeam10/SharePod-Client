@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
 import { history } from "../redux/store";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import ReservationService from "services/reservation";
 
 const style = {
   position: "absolute",
@@ -25,10 +28,44 @@ const style = {
 };
 
 export default function ReservationModal(props) {
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const nickname = props.nickname;
+  const startDay = props.startDay;
+  const endDay = props.endDay;
+
+  React.useEffect(() => {
+    reset({
+      startRental: startDay,
+      endRental: endDay,
+      userId: props.userId,
+    });
+  }, [props]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({});
+
+  const onSubmit = (data) => {
+    if (!startDay || !endDay) {
+      alert("날짜를 입력해주세요");
+    } else if (
+      parseInt(startDay.split("-").join("")) >
+      parseInt(endDay.split("-").join(""))
+    ) {
+      alert("시작일을 종료일보다 앞선 날짜로 설정하세요");
+    } else {
+      dispatch(ReservationService.addReservation(data, props.boardId));
+    }
+  };
+
   return (
     <ModalWrapper>
       <Button
@@ -50,27 +87,35 @@ export default function ReservationModal(props) {
           <ModalTitle id="modal-modal-title" variant="h6" component="h2">
             거래 요청
           </ModalTitle>
-          <ReservationInfoBox>
-            <div className="nickname">
-              <span>대여자</span>
-              <span>{props.nickname}</span>
-            </div>
-            <div className="startDate">
-              <span>대여 시작일</span>
-              <span>{props.startDay}</span>
-            </div>
-            <div className="endDate">
-              <span>대여 종료일</span>
-              <span>{props.endDay}</span>
-            </div>
-          </ReservationInfoBox>
-          <Buttons>
-            대여를 신청 하시겠습니까?
-            <div>
-              <ModalButton onClick={() => {}}>돌아가기</ModalButton>
-              <ModalButton onClick={() => {}}>신청하기</ModalButton>
-            </div>
-          </Buttons>
+          <ReservationForm onSubmit={handleSubmit(onSubmit)}>
+            <ReservationInfo>
+              <ReservationNickname>
+                대여자
+                <input value={nickname} readOnly />
+              </ReservationNickname>
+              <ReservationStartDay>
+                대여 시작일
+                <input value={startDay} {...register("startRental")} />
+              </ReservationStartDay>
+              <ReservationEndDay>
+                대여 종료일
+                <input value={endDay} {...register("endRental")} />
+              </ReservationEndDay>
+            </ReservationInfo>
+            <Buttons>
+              대여를 신청 하시겠습니까?
+              <div>
+                <ModalButton
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  취소하기
+                </ModalButton>
+                <ModalButton type="submit">신청하기</ModalButton>
+              </div>
+            </Buttons>
+          </ReservationForm>
         </Box>
       </Modal>
     </ModalWrapper>
@@ -95,22 +140,60 @@ const Input = styled.input`
   border: 1px solid #e3e3e3;
 `;
 
-const ReservationInfoBox = styled.div`
+const ReservationInfo = styled.div`
   margin: 0 auto;
   width: 286px;
   height: 168px;
   border: 1px solid #c4c4c4;
   border-width: 1px 0px;
+  padding-left: 90px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  div {
-    display: flex;
-    justify-content: space-around;
-  }
-  span {
+`;
+
+const ReservationNickname = styled.label`
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  color: #8c8c8c;
+  input {
     font-size: 14px;
+    border: none;
     color: #8c8c8c;
+  }
+  input: focus {
+    outline: none;
+  }
+`;
+
+const ReservationStartDay = styled.label`
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  color: #8c8c8c;
+  input {
+    font-size: 14px;
+    border: none;
+    color: #8c8c8c;
+  }
+  input: focus {
+    outline: none;
+  }
+`;
+
+const ReservationEndDay = styled.label`
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  color: #8c8c8c;
+  input {
+    font-size: 14px;
+    border: none;
+    color: #8c8c8c;
+  }
+  input: focus {
+    outline: none;
   }
 `;
 
@@ -138,3 +221,5 @@ const ModalButton = styled.button`
   font-size: 14px;
   margin-right: 7px;
 `;
+
+const ReservationForm = styled.form``;
