@@ -41,6 +41,10 @@ const MyProduct = () => {
   const userInfo = myPageData.userInfo;
   const MyBoardList = myPageData.userMyBoard;
 
+  const ToRequestConfirm = () => {
+    history.push("/reservation/confirm");
+  };
+
   const moveToEditProduct = (id) => {
     history.push(`/product/edit-product/${id}`);
   };
@@ -126,7 +130,12 @@ const MyProduct = () => {
                             >
                               게시글 수정
                             </button>
-                            <button className="confirm">거래 요청 확인</button>
+                            <button
+                              className="confirm"
+                              onClick={ToRequestConfirm}
+                            >
+                              거래 요청 확인
+                            </button>
                           </ProductButtonsWrapper>
                         </ProductInfoWrapper>
 

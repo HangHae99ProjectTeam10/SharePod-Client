@@ -91,8 +91,13 @@ const ProductDetail = () => {
       window.alert("로그인을 해주세요");
       history.push("/auth/signin");
     } else {
-      /**TODO:빌리는 작업 */
-      // dispatch(ProductService.setFavoriteIndetail(boardId));
+      history.push(
+        `/reservation/request/?${product_detail?.title}&${
+          product_detail?.imgFiles[0]
+        }&${product_detail?.nickName}&${
+          product_detail?.sellerImg
+        }&${window.location.pathname.split("/").pop()}`
+      );
     }
   };
 
