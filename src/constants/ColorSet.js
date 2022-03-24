@@ -7,6 +7,7 @@ export const purple_heart_color = "#4A2FC3";
 export const suva_gray_color = "#8C8C8C";
 export const bg_gray_color = "#F2F3F8";
 export const bg_light_gray_color = "#FBFBFE";
+export const font_deep_black_color = "#191919";
 export const font_black_color = "#242424";
 export const font_anthracite_gray_color = "#373f41";
 export const font_dark_gray_color = "#3E3E3E";

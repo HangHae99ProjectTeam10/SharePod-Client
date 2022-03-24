@@ -1,5 +1,9 @@
-import React from "react";
+import ReservationConfirmModal from "components/ReservationConfirmModal";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getReservationRequestList } from "redux/actions/Reservation";
 import { history } from "redux/store";
+import ReservationService from "services/reservation";
 import {
   HorizontalLine,
   ReservationConfirmBox,
@@ -19,24 +23,14 @@ import {
 } from "./ReservationConfirm.style";
 
 const ReservationConfirm = () => {
-  const requestList = [
-    {
-      partnerName: "레몬티",
-      productImg:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-    },
-    {
-      partnerName: "레몬티",
-      productImg:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-    },
-    {
-      partnerName: "레몬티",
-      productImg:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-    },
-  ];
-  const requestAmount = requestList.length;
+  const { request_list } = useSelector(({ reservation }) => reservation);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ReservationService.getReservationRequestList());
+  }, []);
+
+  const requestAmount = request_list.length;
 
   const moveToBack = () => {
     history.goBack();
@@ -55,36 +49,70 @@ const ReservationConfirm = () => {
           <ReservationConfirmListWrapper>
             {requestAmount ? (
               <>
-                {requestList.map((p, idx) => {
+                {request_list.map((p, idx) => {
                   return (
-                    <ReservationConfirmCardWrapper>
+                    <ReservationConfirmCardWrapper key={idx}>
                       <ReservationConfirmCardInfoTable>
                         <ReservationConfirmCardInfoTableHeader>
                           <div className="cardNumberHeader">순번</div>
                           <div className="productInfoHeader">상품정보</div>
-                          <div>거래자 정보</div>
+                          <div className="partnerInfoHeader">거래자 정보</div>
                         </ReservationConfirmCardInfoTableHeader>
                         <ReservationConfirmCardInfoTableBody>
                           <ReservationConfirmCardNumber>
                             {idx + 1}
                           </ReservationConfirmCardNumber>
                           <ReservationConfirmCardInfoContents>
-                            <img src={p.productImg} />
+                            <img src={p.boardImg} />
                             <span>{p.boardTitle}</span>
                           </ReservationConfirmCardInfoContents>
-                          <ReservationConfirmCardRequestInfo></ReservationConfirmCardRequestInfo>
+                          <ReservationConfirmCardRequestInfo>
+                            <div>
+                              <span className="reservationRequestInfoTitle">
+                                닉네임
+                              </span>
+                              <span className="reservationRequestInfoContent">
+                                {p.nickName}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="reservationRequestInfoTitle">
+                                대여 시작일
+                              </span>
+                              <span className="reservationRequestInfoContent">
+                                {p.startRental}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="reservationRequestInfoTitle">
+                                대여 종료일
+                              </span>
+                              <span className="reservationRequestInfoContent">
+                                {p.endRental}
+                              </span>
+                            </div>
+                          </ReservationConfirmCardRequestInfo>
                         </ReservationConfirmCardInfoTableBody>
                       </ReservationConfirmCardInfoTable>
                       <ReservationConfirmButtonWrapper>
                         <p>
-                          <strong>
-                            {p.partnerName} 님이 대여 요청을 하셨습니다.
-                          </strong>
+                          <strong>{p.nickName}</strong> 님이 대여 요청을
+                          하셨습니다.
                         </p>
-                        <button className="reservationRefuse">거절하기</button>
-                        <button className="reservationConfirm">
-                          신청 수락하기
-                        </button>
+                        <div className="reservationRefuse">
+                          <ReservationConfirmModal
+                            actionType="refuse"
+                            boardId={p.boardId}
+                            buyerNickName={p.nickName}
+                          />
+                        </div>
+                        <div className="reservationConfirm">
+                          <ReservationConfirmModal
+                            actionType="confirm"
+                            boardId={p.boardId}
+                            buyerNickName={p.nickName}
+                          />
+                        </div>
                       </ReservationConfirmButtonWrapper>
                     </ReservationConfirmCardWrapper>
                   );

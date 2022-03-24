@@ -1,6 +1,10 @@
 import {
   bg_gray_color,
+  bg_light_gray_color,
   font_anthracite_gray_color,
+  font_charcoal_gray_color,
+  font_dark_gray_color,
+  font_deep_black_color,
   font_deep_gray_color,
   line_light_gray_color,
   line_purple_color,
@@ -89,6 +93,9 @@ export const ReservationConfirmCardInfoTableHeader = styled.div`
   .productInfoHeader {
     width: 408px;
   }
+  .partnerInfoHeader {
+    width: 284px;
+  }
 `;
 
 export const ReservationConfirmCardInfoTableBody = styled.div`
@@ -101,17 +108,18 @@ export const ReservationConfirmCardNumber = styled.div`
   align-items: center;
   width: 64px;
   box-sizing: border-box;
+  border-right: 1px solid ${line_light_gray_color};
   font-size: 16px;
   color: ${font_deep_gray_color};
 `;
 
 export const ReservationConfirmCardInfoContents = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 408px;
   box-sizing: border-box;
-  padding: 66px 0 69px;
+  border-right: 1px solid ${line_light_gray_color};
+  padding: 66px 28px 69px;
   overflow: hidden;
   img {
     width: 118px;
@@ -120,14 +128,83 @@ export const ReservationConfirmCardInfoContents = styled.div`
     border-radius: 10px;
   }
   span {
+    font-size: 16px;
+    color: ${font_dark_gray_color};
   }
 `;
 
-export const ReservationConfirmCardRequestInfo = styled.div``;
-
-export const ReservationConfirmButtonWrapper = styled.div`
+export const ReservationConfirmCardRequestInfo = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 284px;
+  border-right: 1px solid ${line_light_gray_color};
+  padding: 15px 0;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .reservationRequestInfoTitle {
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: ${font_deep_gray_color};
+    }
+    .reservationRequestInfoContent {
+      font-size: 16px;
+      color: ${font_dark_gray_color};
+    }
+  }
+`;
+
+export const ReservationConfirmButtonWrapper = styled.div`
+  width: 350px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${bg_light_gray_color};
+  p {
+    font-size: 18px;
+    font-weight: 400;
+    color: ${font_deep_black_color};
+    margin-bottom: 30px;
+    strong {
+      font-weight: 700;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+    width: 285px;
+    height: 56px;
+    border-radius: 28px;
+    overflow: hidden;
+    button {
+      background: none;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    button:hover {
+      background: none;
+    }
+  }
+  .reservationRefuse {
+    margin-bottom: 16px;
+    border: 1px solid ${line_light_gray_color};
+    background-color: #fff;
+    button {
+      color: ${font_charcoal_gray_color};
+    }
+  }
+  .reservationConfirm {
+    border: 1px solid ${main_variant_color_2};
+    background-color: ${main_variant_color_2};
+    button {
+      color: #fff;
+    }
+  }
 `;
 
 export const ReservationConfirmNothingWrapper = styled.div`
@@ -144,6 +221,7 @@ export const ReservationConfirmNothingWrapper = styled.div`
   button {
     width: 360px;
     height: 56px;
+    border: none;
     border-radius: 28px;
     background-color: ${main_color};
     font-size: 18px;
