@@ -21,3 +21,4 @@ export const Icon_light_gray_color = "#BAB9BD";
 export const line_light_gray_color = "#EDEDED";
 export const line_purple_color = "#622FF4";
 export const Input_box_disabled_color = "#ECECEE";
+export const font_gray_color_777 = "#777777";
