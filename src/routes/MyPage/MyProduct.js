@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
   ButtonsWrapper,
   ContentWrapper,
+  HorizontalLine,
   Logo,
   MoreVertButton,
   MyInfoWrapper,
@@ -55,6 +56,7 @@ const MyProduct = () => {
   return (
     <Wrapper>
       <h3>내 상품 관리</h3>
+      <HorizontalLine />
       <MyInfoWrapper>
         <ProfileImg src={userInfo.userImg} />
         <TextInfoWrapper>
