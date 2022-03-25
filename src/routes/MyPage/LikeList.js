@@ -17,7 +17,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
 const LikeList = () => {
-  //  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
   const myLikedList = [
     {
@@ -80,7 +80,7 @@ const LikeList = () => {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
       title: "레보네이트 공기청정기",
-      mapData: "강서구",
+      mapData: "동대문구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
     },
@@ -88,7 +88,7 @@ const LikeList = () => {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
       title: "레보네이트 공기청정기",
-      mapData: "강서구",
+      mapData: "동대문구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
     },
@@ -96,7 +96,7 @@ const LikeList = () => {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
       title: "레보네이트 공기청정기",
-      mapData: "강서구",
+      mapData: "동대문구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
     },
@@ -104,7 +104,7 @@ const LikeList = () => {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
       title: "레보네이트 공기청정기",
-      mapData: "강서구",
+      mapData: "동대문구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
     },
@@ -112,7 +112,7 @@ const LikeList = () => {
       imageUrl1:
         "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
       title: "레보네이트 공기청정기",
-      mapData: "강서구",
+      mapData: "동대문구",
       dailyRentalFee: 2000,
       modifiedAt: "2022-03-20T16:23:03.056",
     },
@@ -157,21 +157,19 @@ const LikeList = () => {
       modifiedAt: "2022-03-20T16:23:03.056",
     },
   ];
-  // useEffect(() => {
-  //   setDisplayList([]);
-  //   const addList = [];
-  //   for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
-  //     console.log(myLikedList[i]);
-  //     addList.push(myLikedList[i]);
-  //     console.log(addList);
-  //   }
-  //   console.log(addList);
-  //   setDisplayList(addList);
-  // }, [pageNumber]);
-  // const pageAmount = parseInt(myLikedList.length / 6);
 
   const { userLikedBoard } = useSelector(({ myPage }) => myPage.myPageData);
-  console.log(userLikedBoard);
+
+  useEffect(() => {
+    setDisplayList([]);
+    const addList = [];
+    for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
+      addList.push(userLikedBoard[i]);
+    }
+    setDisplayList(addList);
+  }, [pageNumber]);
+  const pageAmount = parseInt(Math.ceil(userLikedBoard.length / 6));
+
   const nowTimeData = new Date();
   const nowYear = getYear(nowTimeData);
   const nowMonth = getMonth(nowTimeData);
@@ -184,7 +182,10 @@ const LikeList = () => {
       <h3>찜한 내역</h3>
       <HorizontalLine />
       <LikeListWrapper>
-        {userLikedBoard.map((p) => {
+        {displayList.map((p) => {
+          if (!p) {
+            return;
+          }
           const dataDate = new Date(p.modifiedAt);
           const year = getYear(dataDate);
           const month = getMonth(dataDate);
@@ -218,13 +219,12 @@ const LikeList = () => {
           );
         })}
       </LikeListWrapper>
-      {/* <PaginationButtons>
+      <PaginationButtons>
         <PageMoveButton
           className="prev"
           onClick={() => {
             if (pageNumber > 1) {
               setPageNumber(pageNumber - 1);
-              console.log(pageNumber);
             }
           }}
         >
@@ -237,7 +237,6 @@ const LikeList = () => {
                 className={pageNumber === idx + 1 ? "nums checked" : "nums"}
                 onClick={() => {
                   setPageNumber(idx + 1);
-                  console.log(pageNumber);
                 }}
               >
                 {idx + 1}
@@ -250,13 +249,12 @@ const LikeList = () => {
           onClick={() => {
             if (pageNumber < pageAmount) {
               setPageNumber(pageNumber + 1);
-              console.log(pageNumber);
             }
           }}
         >
           {">"}
         </PageMoveButton>
-      </PaginationButtons> */}
+      </PaginationButtons>
     </Wrapper>
   );
 };

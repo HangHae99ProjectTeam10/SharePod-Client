@@ -6,7 +6,9 @@ import {
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  position: relative;
   width: 824px;
+  height: 1070px;
   padding: 39px 32px 177px 30px;
   background-color: #fff;
   h3 {
@@ -75,6 +77,10 @@ export const LikeListCardModifiedAt = styled.span`
 `;
 
 export const PaginationButtons = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 400px;
+  transform: translateX(-50%);
   list-style-type: none;
   display: flex;
   justify-content: center;
