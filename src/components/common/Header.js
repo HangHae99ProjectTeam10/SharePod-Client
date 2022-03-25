@@ -33,11 +33,21 @@ const Header = () => {
   };
   const { authUser } = useSelector(({ auth }) => auth);
 
+  const searchAction = (p) => {
+    if (p.code === "Enter") {
+      console.log(p.target.value);
+      history.push(`/product/product-search/?${p.target.value}`);
+    }
+  };
+
   return (
     <Wrapper>
       <Logo src="/logo.png" alt="logo" onClick={moveToMain} />
       <SearchInputWrapper>
-        <SearchInputBox placeholder="물품명을 입력해주세요" />
+        <SearchInputBox
+          placeholder="물품명을 입력해주세요"
+          onKeyPress={searchAction}
+        />
         <SearchIcon className={classes.searchIcon} />
       </SearchInputWrapper>
       {authUser ? (
