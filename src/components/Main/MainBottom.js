@@ -28,8 +28,10 @@ const BottomImgCard = (props) => {
       <ExampleProfileImgWrapper>
         <ExampleProfileImg src={props.profile} alt="" />
         <ExampleProfileInfoBox>
-          <ExampleProfileName>홍길동</ExampleProfileName>
-          <ExampleProfileLocation>서울시 강남구</ExampleProfileLocation>
+          <ExampleProfileName>{props.name}</ExampleProfileName>
+          <ExampleProfileLocation>
+            서울시 {props.location}
+          </ExampleProfileLocation>
         </ExampleProfileInfoBox>
       </ExampleProfileImgWrapper>
       <ExampleReelsImg src={props.reels} alt="example1" />
