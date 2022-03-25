@@ -15,9 +15,19 @@ export const Wrapper = styled.div`
   width: 824px;
   padding: 39px 30px;
   background-color: #fff;
+  h3 {
+    margin: 0 0 14px;
+  }
+`;
+
+export const HorizontalLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${bg_gray_color};
 `;
 
 export const MyInfoWrapper = styled.div`
+  margin-top: 40px;
   display: flex;
   border: 1px solid ${line_light_gray_color};
   padding: 32px 62px;
@@ -212,6 +222,9 @@ export const ServicePreparingWrapper = styled.div`
 `;
 
 export const ServicePreparingInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   text-align: center;
   h4 {
@@ -221,7 +234,11 @@ export const ServicePreparingInner = styled.div`
   }
 `;
 
-export const Logo = styled.div``;
+export const Logo = styled.div`
+  width: 173px;
+  height: 40px;
+  background-image: url(${(props) => props.src});
+`;
 export const ProductImg = styled.img`
   width: 200px;
   height: 200px;

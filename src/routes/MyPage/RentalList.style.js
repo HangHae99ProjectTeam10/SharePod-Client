@@ -1,13 +1,18 @@
 import {
   bg_gray_color,
   font_berry_blue_color,
+  font_charcoal_gray_color,
   font_cool_gray_color,
+  line_light_gray_color,
+  main_color,
   main_variant_color,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  position: relative;
   width: 824px;
+  height: 1070px;
   padding: 20px 32px;
   background-color: #fff;
   h3 {
@@ -129,4 +134,78 @@ export const RentalCardQualityConfirmButton = styled.button`
   padding: 16px;
   background-color: #f2f3f4;
   cursor: pointer;
+`;
+
+export const PaginationButtons = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 300px;
+  transform: translateX(-50%);
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin: 58px auto 0;
+`;
+
+export const PageMoveButton = styled.div`
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 1px solid ${line_light_gray_color};
+  color: ${main_color};
+  box-sizing: border-box;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+`;
+
+export const PageNumsButtonWrapper = styled.div`
+  display: inline-block;
+  margin-right: 24px;
+  span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    margin-left: 24px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .checked {
+    background-color: ${main_color};
+    color: #fff;
+  }
+`;
+
+export const NothingPostedWrapper = styled.div`
+  margin: auto;
+  padding: 146px 200px 400px;
+`;
+
+export const NothingPostedInner = styled.div`
+  text-align: center;
+  p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: ${font_charcoal_gray_color};
+  }
+  button {
+    margin-bottom: 16px;
+    width: 294px;
+    height: 56px;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background-color: ${main_color};
+  }
+  .toWriteBoard {
+    border: 1px solid ${line_light_gray_color};
+    color: ${font_charcoal_gray_color};
+    background-color: #fff;
 `;
