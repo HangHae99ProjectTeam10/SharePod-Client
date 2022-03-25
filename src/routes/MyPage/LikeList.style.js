@@ -1,5 +1,6 @@
 import {
   bg_gray_color,
+  font_charcoal_gray_color,
   line_light_gray_color,
   main_color,
 } from "constants/ColorSet";
@@ -117,5 +118,29 @@ export const PageNumsButtonWrapper = styled.div`
   .checked {
     background-color: ${main_color};
     color: #fff;
+  }
+`;
+
+export const NothingPostedWrapper = styled.div`
+  padding: 146px 200px 400px;
+`;
+
+export const NothingPostedInner = styled.div`
+  text-align: center;
+  p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: ${font_charcoal_gray_color};
+  }
+  button {
+    width: 294px;
+    height: 56px;
+    border: none;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: ${main_color};
+    cursor: pointer;
   }
 `;

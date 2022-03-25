@@ -222,6 +222,9 @@ export const ServicePreparingWrapper = styled.div`
 `;
 
 export const ServicePreparingInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   text-align: center;
   h4 {
@@ -231,7 +234,11 @@ export const ServicePreparingInner = styled.div`
   }
 `;
 
-export const Logo = styled.div``;
+export const Logo = styled.div`
+  width: 173px;
+  height: 40px;
+  background-image: url(${(props) => props.src});
+`;
 export const ProductImg = styled.img`
   width: 200px;
   height: 200px;

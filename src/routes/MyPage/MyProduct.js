@@ -165,7 +165,7 @@ const MyProduct = () => {
         ) : (
           <ServicePreparingWrapper>
             <ServicePreparingInner>
-              <Logo></Logo>
+              <Logo src="/logo.png"></Logo>
               <h4>서비스 준비중입니다. 곧 만나요!</h4>
               <p>
                 현재 페이지를 준비하고 있으니 조금만 기다려주세요. 감사합니다.

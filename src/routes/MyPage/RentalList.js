@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   HorizontalLine,
+  NothingPostedInner,
+  NothingPostedWrapper,
   RentalCard,
   RentalCardBox,
   RentalCardDailyRentalFee,
@@ -15,6 +17,7 @@ import {
 } from "./RentalList.style";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import { history } from "redux/store";
 
 const RentalList = () => {
   const [myRentalRole, setMyRentalRole] = useState("1");
@@ -24,8 +27,7 @@ const RentalList = () => {
 
   const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
   const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
-  console.log(rentBuyList);
-  console.log(rentSellList);
+
   const BoardList = [
     {
       imageUrl1:
@@ -176,37 +178,11 @@ const RentalList = () => {
         </label>
       </TopButtons>
       <RentalCardBox>
-        {myRentalRole === "1"
-          ? rentBuyList.length
-            ? rentBuyList.map((p, idx) => {
-                return (
-                  <RentalCard key={idx}>
-                    <RentalCardImg src={p.firstImgUrl} />
-                    <RentalCardInfoWrapper>
-                      <h3>{p.boardTitle}</h3>
-                      <RentalCardMapData>
-                        <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
-                      </RentalCardMapData>
-                      <RentalCardDate>
-                        <CalendarTodayOutlinedIcon /> {p.startRental}-
-                        {p.endRental}
-                      </RentalCardDate>
-                      <RentalCardDailyRentalFee>
-                        <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원
-                        / 1일
-                      </RentalCardDailyRentalFee>
-                      <RentalCardQualityConfirmButton>
-                        품질 확인하기
-                      </RentalCardQualityConfirmButton>
-                    </RentalCardInfoWrapper>
-                  </RentalCard>
-                );
-              })
-            : null
-          : rentSellList.length
-          ? rentSellList.map((p) => {
+        {myRentalRole === "1" ? (
+          rentBuyList.length ? (
+            rentBuyList.map((p, idx) => {
               return (
-                <RentalCard>
+                <RentalCard key={idx}>
                   <RentalCardImg src={p.firstImgUrl} />
                   <RentalCardInfoWrapper>
                     <h3>{p.boardTitle}</h3>
@@ -228,7 +204,67 @@ const RentalList = () => {
                 </RentalCard>
               );
             })
-          : null}
+          ) : (
+            <NothingPostedWrapper>
+              <NothingPostedInner>
+                <p>대여한 물품이 없습니다.</p>
+                <button
+                  onClick={() => {
+                    history.push("/product/product-search");
+                  }}
+                >
+                  물품 둘러보기
+                </button>
+              </NothingPostedInner>
+            </NothingPostedWrapper>
+          )
+        ) : rentSellList.length ? (
+          rentSellList.map((p) => {
+            return (
+              <RentalCard>
+                <RentalCardImg src={p.firstImgUrl} />
+                <RentalCardInfoWrapper>
+                  <h3>{p.boardTitle}</h3>
+                  <RentalCardMapData>
+                    <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
+                  </RentalCardMapData>
+                  <RentalCardDate>
+                    <CalendarTodayOutlinedIcon /> {p.startRental}-{p.endRental}
+                  </RentalCardDate>
+                  <RentalCardDailyRentalFee>
+                    <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /
+                    1일
+                  </RentalCardDailyRentalFee>
+                  <RentalCardQualityConfirmButton>
+                    품질 확인하기
+                  </RentalCardQualityConfirmButton>
+                </RentalCardInfoWrapper>
+              </RentalCard>
+            );
+          })
+        ) : (
+          <NothingPostedWrapper>
+            <NothingPostedInner>
+              <p>공유한 상품이 없습니다.</p>
+              <button
+                className="toWriteBoard"
+                onClick={() => {
+                  history.push("/product/upload-product");
+                }}
+              >
+                상품 등록하기
+              </button>
+              <button
+                className="toRequestConfirm"
+                onClick={() => {
+                  history.push("/reservation/confirm");
+                }}
+              >
+                거래요청 확인하기
+              </button>
+            </NothingPostedInner>
+          </NothingPostedWrapper>
+        )}
       </RentalCardBox>
     </Wrapper>
   );
