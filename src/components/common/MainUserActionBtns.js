@@ -25,6 +25,7 @@ const ActionBtnsWrapper = styled.div`
   position: fixed;
   right: 5%;
   top: 70%;
+  z-index: 100;
 `;
 
 const BtnBackground = styled.div`
