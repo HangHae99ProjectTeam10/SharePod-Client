@@ -43,6 +43,7 @@ const ProductSearchResult = () => {
   };
 
   const onHandleFavoriteBtn = (boardId) => {
+    console.log(boardId);
     dispatch(ProductService.setFavorite(boardId));
   };
   return (
@@ -89,14 +90,14 @@ const ProductSearchResult = () => {
                   src={p.firstImgUrl}
                   alt=""
                   onClick={() => {
-                    moveToDetail(p.boardId);
+                    moveToDetail(p.id);
                   }}
                 />
                 {authUser && (
                   <div
                     className={classes.favoriteBtn}
                     onClick={() => {
-                      onHandleFavoriteBtn(p.boardId);
+                      onHandleFavoriteBtn(p.id);
                     }}
                   >
                     {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}

@@ -38,7 +38,7 @@ const Product = (state = INIT_STATE, action) => {
     }
     case SET_FAVORITE_ACTION: {
       const index = state.product_list.findIndex(
-        (p) => p.boardId === action.payload
+        (p) => p.id === action.payload
       );
       const _product_list = state.product_list;
       const isliked = _product_list[index]?.isLiked;
