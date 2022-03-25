@@ -190,8 +190,9 @@ const RentalList = () => {
                       <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
                     </RentalCardMapData>
                     <RentalCardDate>
-                      <CalendarTodayOutlinedIcon /> {p.startRental}-
-                      {p.endRental}
+                      <CalendarTodayOutlinedIcon />{" "}
+                      {p.startRental.split("-").join(".")}-
+                      {p.endRental.split("-").join(".")}
                     </RentalCardDate>
                     <RentalCardDailyRentalFee>
                       <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /
@@ -229,7 +230,9 @@ const RentalList = () => {
                     <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
                   </RentalCardMapData>
                   <RentalCardDate>
-                    <CalendarTodayOutlinedIcon /> {p.startRental}-{p.endRental}
+                    <CalendarTodayOutlinedIcon />{" "}
+                    {p.startRental.split("-").join(".")}-
+                    {p.endRental.split("-").join(".")}
                   </RentalCardDate>
                   <RentalCardDailyRentalFee>
                     <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /

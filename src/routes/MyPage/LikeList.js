@@ -184,7 +184,7 @@ const LikeList = () => {
     <Wrapper>
       <h3>찜한 내역</h3>
       <HorizontalLine />
-      {displayList.length1 == 0 ? (
+      {userLikedBoard.length !== 0 ? (
         <>
           <LikeListWrapper>
             {displayList.map((p) => {

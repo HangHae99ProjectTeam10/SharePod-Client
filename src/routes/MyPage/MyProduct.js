@@ -63,10 +63,10 @@ const MyProduct = () => {
           <MyNickName>{userInfo.nickName}</MyNickName>
           <TextInfoDataWrapper>
             <span>
-              쉐어팟과 함께한지 <strong>53일 째</strong>
+              쉐어팟과 함께한지 <strong>00일 째</strong>
             </span>
             <span>
-              공유중인 상품 <strong>5 개</strong>
+              공유중인 상품 <strong>{MyBoardList.length} 개</strong>
             </span>
           </TextInfoDataWrapper>
         </TextInfoWrapper>
