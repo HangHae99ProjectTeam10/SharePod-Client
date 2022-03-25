@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
   ButtonsWrapper,
   ContentWrapper,
+  HorizontalLine,
   Logo,
   MoreVertButton,
   MyInfoWrapper,
@@ -55,16 +56,17 @@ const MyProduct = () => {
   return (
     <Wrapper>
       <h3>내 상품 관리</h3>
+      <HorizontalLine />
       <MyInfoWrapper>
         <ProfileImg src={userInfo.userImg} />
         <TextInfoWrapper>
           <MyNickName>{userInfo.nickName}</MyNickName>
           <TextInfoDataWrapper>
             <span>
-              쉐어팟과 함께한지 <strong>53일 째</strong>
+              쉐어팟과 함께한지 <strong>00일 째</strong>
             </span>
             <span>
-              공유중인 상품 <strong>5 개</strong>
+              공유중인 상품 <strong>{MyBoardList.length} 개</strong>
             </span>
           </TextInfoDataWrapper>
         </TextInfoWrapper>
@@ -163,7 +165,7 @@ const MyProduct = () => {
         ) : (
           <ServicePreparingWrapper>
             <ServicePreparingInner>
-              <Logo></Logo>
+              <Logo src="/logo.png"></Logo>
               <h4>서비스 준비중입니다. 곧 만나요!</h4>
               <p>
                 현재 페이지를 준비하고 있으니 조금만 기다려주세요. 감사합니다.

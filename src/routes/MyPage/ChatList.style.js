@@ -4,6 +4,7 @@ import {
   font_charcoal_gray_color,
   font_dark_gray_color,
   font_light_charcoal_gray_color,
+  main_color,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
@@ -81,5 +82,29 @@ export const ChatCardSide = styled.div`
     width: 65px;
     height: 65px;
     border-radius: 10px;
+  }
+`;
+
+export const NothingPostedWrapper = styled.div`
+  padding: 146px 200px 400px;
+`;
+
+export const NothingPostedInner = styled.div`
+  text-align: center;
+  p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: ${font_charcoal_gray_color};
+  }
+  button {
+    width: 294px;
+    height: 56px;
+    border: none;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background-color: ${main_color};
+    cursor: pointer;
   }
 `;
