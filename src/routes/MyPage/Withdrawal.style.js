@@ -2,13 +2,18 @@ import { makeStyles } from "@mui/styles";
 import {
   bg_gray_color,
   font_berry_blue_color,
+  font_black_color,
   font_charcoal_gray_color,
+  font_light_gray_color,
   line_light_gray_color,
   main_color,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  width: 1000px;
+  height: 626px;
+  box-sizing: border-box;
   background-color: #fff;
   padding: 20px 32px 55px;
   h3 {
@@ -43,18 +48,20 @@ export const WithdrawalUserName = styled.label`
   margin-bottom: 24px;
   font-size: 16px;
   font-weight: 500;
-  color: ${font_charcoal_gray_color};
   input {
-    margin-left: 50px;
-    padding: 17px 16px;
-    font-size: 16px;
-    color: ${font_charcoal_gray_color};
-    width: 380px;
-    height: 56px;
     box-sizing: border-box;
+    margin-left: 50px;
     border: 1px solid ${line_light_gray_color};
     border-radius: 8px;
-    color: ${line_light_gray_color};
+    padding: 17px 16px;
+    font-size: 16px;
+    color: ${font_light_gray_color};
+    width: 380px;
+    height: 56px;
+    background-color: ${bg_gray_color};
+  }
+  input:focus {
+    outline: none;
   }
 `;
 
@@ -62,18 +69,16 @@ export const WithdrawalPassword = styled.label`
   margin-bottom: 24px;
   font-size: 16px;
   font-weight: 500;
-  color: ${font_charcoal_gray_color};
   input {
     margin-left: 37px;
     padding: 17px 16px;
     font-size: 16px;
-    color: ${font_charcoal_gray_color};
+    color: ${font_black_color};
     width: 380px;
     height: 56px;
     box-sizing: border-box;
     border: 1px solid ${line_light_gray_color};
     border-radius: 8px;
-    color: ${line_light_gray_color};
   }
 `;
 

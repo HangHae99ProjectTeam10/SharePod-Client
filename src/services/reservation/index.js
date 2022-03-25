@@ -31,7 +31,7 @@ const ReservationService = {
           dispatch(addReservation(res.data.boardData));
           history.replace(`/product/product-detail/${boardId}`);
         })
-        .catch((err) => console.log("거래요청 실패: ", err.response));
+        .catch((err) => window.alert(err.response.data.msg));
     };
   },
   postReservationConfirm: (data, boardId) => {

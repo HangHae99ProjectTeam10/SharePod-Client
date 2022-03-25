@@ -21,7 +21,11 @@ const ProductSearchResult = () => {
 
   const [searchFilter, setSearchFilter] = useState("recent");
   const [searchMapData, setSearchMapData] = useState("");
-  const [searchTitle, setSearchTitle] = useState("");
+  const [searchTitle, setSearchTitle] = useState(
+    window.location.search.split("?")[1]
+      ? decodeURI(window.location.search.split("?")[1])
+      : ""
+  );
 
   const { product_list } = useSelector(({ product }) => product);
   const { authUser } = useSelector(({ auth }) => auth);
@@ -35,8 +39,10 @@ const ProductSearchResult = () => {
   /**TODO: 검색 필터 적용이 */
   useEffect(() => {
     // startNum, category, boardRegion, filterType, searchTitle
-    dispatch(ProductService.getSearchList("", "", selectRegion, "", ""));
-  }, [dispatch, selectRegion]);
+    dispatch(
+      ProductService.getSearchList("", "", selectRegion, "", searchTitle)
+    );
+  }, [dispatch, selectRegion, searchTitle]);
 
   const moveToDetail = (id) => {
     history.push(`/product/product-detail/${id}`);
