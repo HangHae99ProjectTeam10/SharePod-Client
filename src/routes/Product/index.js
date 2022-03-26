@@ -32,6 +32,10 @@ const Product = ({ match }) => {
           path={`${requestedUrl}/product-search`}
           component={lazy(() => import(`./ProductSearchResult`))}
         />
+        <Route
+          path={`${requestedUrl}/product-quality-certification`}
+          component={lazy(() => import(`./ProductQualityCertification`))}
+        />
       </Switch>
     </Suspense>
   );
