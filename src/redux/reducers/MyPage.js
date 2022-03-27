@@ -2,12 +2,14 @@ import {
   DELETE_PRODUCT,
   GET_MY_PAGE_LIKE_LIST,
   GET_MY_PAGE_MY_INFO,
+  GET_MY_PAGE_PRODUCT_LIST,
 } from "constants/ActionTypes";
 
 const INIT_STATE = {
   myPageData: [],
   myInfo: null,
   likeList: [],
+  productList: [],
 };
 
 const MyPage = (state = INIT_STATE, action) => {
@@ -22,13 +24,18 @@ const MyPage = (state = INIT_STATE, action) => {
         likeList: action.payload,
       };
     }
+    case GET_MY_PAGE_PRODUCT_LIST: {
+      return {
+        productList: action.payload,
+      };
+    }
     case DELETE_PRODUCT: {
-      const myBoardList = state.myPageData?.userMyBoard.filter(
+      const myBoardList = state.productList?.filter(
         (p) => p.boardId !== action.payload
       );
 
       return {
-        myPageData: { ...state.myPageData, userMyBoard: myBoardList },
+        productList: myBoardList,
       };
     }
     default:

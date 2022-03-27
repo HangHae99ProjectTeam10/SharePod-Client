@@ -2,16 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   HorizontalLine,
-  LikeListCard,
-  LikeListCardDailyRentalFee,
-  LikeListCardImg,
-  LikeListCardModifiedAt,
-  LikeListMapData,
   LikeListWrapper,
   NothingPostedInner,
   NothingPostedWrapper,
-  PageMoveButton,
-  PageNumsButtonWrapper,
   PaginationButtons,
   Wrapper,
 } from "./LikeList.style";

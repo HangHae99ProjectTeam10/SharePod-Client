@@ -157,6 +157,7 @@ export const ProductButtonsWrapper = styled.div`
 export const ProductInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 25px;
   svg {
     vertical-align: bottom;
     width: 14px;
@@ -242,7 +243,6 @@ export const Logo = styled.div`
 export const ProductImg = styled.img`
   width: 200px;
   height: 200px;
-  margin-right: 26px;
   border-radius: 8px;
   object-fit: cover;
 `;

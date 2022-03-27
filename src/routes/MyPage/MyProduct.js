@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
@@ -31,16 +31,21 @@ import {
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BasicPopover from "components/PopOver";
 import { history } from "redux/store";
+import MyPageService from "services/myPage";
 
 const MyProduct = () => {
+  const dispatch = useDispatch();
   const [pageViews, setPageViews] = useState("product");
+  const { authUser } = useSelector(({ auth }) => auth);
+  const { productList } = useSelector(({ myPage }) => myPage);
+
+  useEffect(() => {
+    dispatch(MyPageService.getMyProductList());
+  }, [dispatch]);
 
   const handleRadioButton = (e) => {
     setPageViews(e.target.value);
   };
-  const myPageData = useSelector(({ myPage }) => myPage.myPageData);
-  const userInfo = myPageData.userInfo;
-  const MyBoardList = myPageData.userMyBoard;
 
   const ToRequestConfirm = () => {
     history.push("/reservation/confirm");
@@ -58,15 +63,15 @@ const MyProduct = () => {
       <h3>내 상품 관리</h3>
       <HorizontalLine />
       <MyInfoWrapper>
-        <ProfileImg src={userInfo.userImg} />
+        <ProfileImg src={authUser?.userImg} />
         <TextInfoWrapper>
-          <MyNickName>{userInfo.nickName}</MyNickName>
+          <MyNickName>{authUser?.nickName}</MyNickName>
           <TextInfoDataWrapper>
             <span>
               쉐어팟과 함께한지 <strong>00일 째</strong>
             </span>
             <span>
-              공유중인 상품 <strong>{MyBoardList.length} 개</strong>
+              공유중인 상품 <strong>{productList?.length} 개</strong>
             </span>
           </TextInfoDataWrapper>
         </TextInfoWrapper>
@@ -74,7 +79,7 @@ const MyProduct = () => {
       <ButtonsWrapper>
         <RadioButtonWrapper>
           <label className={pageViews === "product" ? "checked" : null}>
-            내 상품 {MyBoardList.length}
+            내 상품 {productList?.length}
             <input
               type="radio"
               name="myProductSelect"
@@ -106,20 +111,23 @@ const MyProduct = () => {
         {pageViews === "product" ? (
           <MyProductListBox>
             <div className="productListBoxInner">
-              {MyBoardList.length ? (
+              {productList?.length ? (
                 <>
-                  {MyBoardList.map((p, idx) => {
+                  {productList?.map((p, idx) => {
                     return (
                       <MyProductCardWrapper key={idx}>
-                        <ProductImg
-                          src={p.firstImg}
-                          onClick={() => moveToDetail(p.boardId)}
-                        />
+                        <div>
+                          <ProductImg
+                            src={p.firstImg}
+                            onClick={() => moveToDetail(p.boardId)}
+                          />
+                        </div>
+
                         <ProductInfoWrapper>
                           <ProductTitle>{p.boardTitle}</ProductTitle>
                           <ProductMapData>
                             <LocationOnOutlinedIcon /> 서울{" "}
-                            {userInfo.userRegion}
+                            {authUser?.userRegion}
                           </ProductMapData>
                           <ProductDailyRentalFee>
                             <strong>{p.dailyRentalFee.toLocaleString()}</strong>{" "}
