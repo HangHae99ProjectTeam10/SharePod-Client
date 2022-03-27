@@ -1,19 +1,20 @@
 import http from "api/http";
-import { getMyPage, editMyInfo, deleteProduct } from "redux/actions/MyPage";
+import {
+  editMyInfo,
+  deleteProduct,
+  getMyPageMyInfo,
+} from "redux/actions/MyPage";
 
 const MyPageService = {
-  getMyPageData: () => {
+  getMyInfo: () => {
     return function (dispatch, getState, history) {
-      const userInfo = getState((state) => state);
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
-      const MyPageData = getState((state) => state);
       http
         .get(`user/${userId}`)
         .then((res) => {
-          dispatch(getMyPage(res.data.userInfo));
-          dispatch(getMyPage(res.data));
+          dispatch(getMyPageMyInfo(res.data.userInfo));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
     };

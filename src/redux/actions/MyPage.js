@@ -1,10 +1,10 @@
-import { DELETE_PRODUCT, GET_MY_PAGE } from "constants/ActionTypes";
+import { DELETE_PRODUCT, GET_MY_PAGE_MY_INFO } from "constants/ActionTypes";
 
-export const getMyPage = (my_page_data) => {
+export const getMyPageMyInfo = (my_info) => {
   return (dispatch) => {
     dispatch({
-      type: GET_MY_PAGE,
-      payload: my_page_data,
+      type: GET_MY_PAGE_MY_INFO,
+      payload: my_info,
     });
   };
 };

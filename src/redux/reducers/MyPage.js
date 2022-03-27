@@ -1,14 +1,15 @@
-import { DELETE_PRODUCT, GET_MY_PAGE } from "constants/ActionTypes";
+import { DELETE_PRODUCT, GET_MY_PAGE_MY_INFO } from "constants/ActionTypes";
 
 const INIT_STATE = {
   myPageData: [],
+  myInfo: null,
 };
 
 const MyPage = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case GET_MY_PAGE: {
+    case GET_MY_PAGE_MY_INFO: {
       return {
-        myPageData: action.payload,
+        myInfo: action.payload,
       };
     }
     case DELETE_PRODUCT: {
