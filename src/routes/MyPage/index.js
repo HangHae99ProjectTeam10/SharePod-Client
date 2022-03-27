@@ -16,7 +16,7 @@ const MyPage = ({ match }) => {
         <Route
           path={`${requestedUrl}/personal-chat`}
           exact
-          component={lazy(() => import(`./PersonalChat`))}
+          component={lazy(() => import(`./PersonalChat2`))}
         />
       </Switch>
     </Suspense>

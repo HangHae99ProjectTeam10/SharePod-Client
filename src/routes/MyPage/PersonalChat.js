@@ -1,8 +1,70 @@
-import React from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import * as StompJs from "@stomp/stompjs";
+import * as SockJS from "sockjs-client";
 import styled from "styled-components";
 
 const PersonalChat = () => {
+  // const wsSourceUrl = "http://13.125.219.196/chat/room";
+  // const $websocket = useRef(null);
+  // let topics = ["/topic/" + userId];
+
+  const client = useRef({});
+  const [chatMessages, setChatMessages] = useState([]);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    connect();
+
+    return () => disconnect();
+  }, []);
+
+  const connect = () => {
+    client.current = new StompJs.Client({
+      brokerURL: "ws://13.125.219.196/ws-stomp", // 웹소켓 서버로 직접 접속
+      // webSocketFactory: () => new SockJS("/ws-stomp"), // proxy를 통한 접속
+      // connectHeaders: {
+      //   "auth-token": "spring-chat-auth-token",
+      // },
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 10000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      onConnect: () => {
+        subscribe();
+      },
+      onStompError: (frame) => {
+        console.error(frame);
+      },
+    });
+
+    client.current.activate();
+  };
+
+  const disconnect = () => {
+    client.current.deactivate();
+  };
+
+  const subscribe = () => {
+    client.current.subscribe(`/sub/chat/room/7`, ({ body }) => {
+      setChatMessages((_chatMessages) => [..._chatMessages, JSON.parse(body)]);
+    });
+  };
+
+  const publish = (message) => {
+    if (!client.current.connected) {
+      return;
+    }
+
+    client.current.publish({
+      destination: "/pub/chat",
+      body: JSON.stringify({ roomSeq: "", message }),
+    });
+
+    setMessage("");
+  };
+
   const myNickname = "다빌려";
   const partner = {
     nickname: "쉐어팟단골",
@@ -131,9 +193,9 @@ const PersonalChat = () => {
             <h3>{myNickname}</h3>
           </BoxHeader>
           <RecentPartnerBox>
-            {recentPartnerList.map((p) => {
+            {recentPartnerList.map((p, idx) => {
               return (
-                <RecentPartenerCard>
+                <RecentPartenerCard key={idx}>
                   <img src={p.userImg} />
                   <div>
                     <span className="nickname">{p.nickname}</span>
@@ -159,13 +221,19 @@ const PersonalChat = () => {
               </span>
             </div>
           </BoardInfo>
-          <MessageField>
+          {/* <SockJsClient
+            url={wsSourceUrl}
+            topics={["/topics/all"]}
+            onMessage={(msg) => console.log(msg)}
+            ref={$websocket}
+          /> */}
+          {/* <MessageField>
             {messageList.map((p, idx, lst) => {
               if (p.nickname === myNickname) {
                 return (
                   <>
                     {idx === 0 ? (
-                      <DateNotice>
+                      <DateNotice key={idx}>
                         <div></div>
                         <span>{p.createAt}</span>
                       </DateNotice>
@@ -191,17 +259,17 @@ const PersonalChat = () => {
               return (
                 <>
                   {idx === 0 ? (
-                    <DateNotice>
+                    <DateNotice key={idx}>
                       <div></div>
                       <span>{p.createAt}</span>
                     </DateNotice>
                   ) : p.createAt !== lst[idx - 1].createAt ? (
-                    <DateNotice>
+                    <DateNotice key={idx}>
                       <div></div>
                       <span>{p.createAt}</span>
                     </DateNotice>
                   ) : null}
-                  <PartnersMessageCard>
+                  <PartnersMessageCard key={idx}>
                     {p.nickname !== lst[idx - 1].nickname ? <img /> : <Blank />}
                     <div>
                       {p.nickname !== lst[idx - 1].nickname && (
@@ -222,7 +290,7 @@ const PersonalChat = () => {
                 </>
               );
             })}
-          </MessageField>
+          </MessageField> */}
           <MessageBar>
             <input placeholder="메세지를 입력하세요." />
             <button>보내기 ✉</button>
