@@ -1,8 +1,13 @@
-import { DELETE_PRODUCT, GET_MY_PAGE_MY_INFO } from "constants/ActionTypes";
+import {
+  DELETE_PRODUCT,
+  GET_MY_PAGE_LIKE_LIST,
+  GET_MY_PAGE_MY_INFO,
+} from "constants/ActionTypes";
 
 const INIT_STATE = {
   myPageData: [],
   myInfo: null,
+  likeList: [],
 };
 
 const MyPage = (state = INIT_STATE, action) => {
@@ -10,6 +15,11 @@ const MyPage = (state = INIT_STATE, action) => {
     case GET_MY_PAGE_MY_INFO: {
       return {
         myInfo: action.payload,
+      };
+    }
+    case GET_MY_PAGE_LIKE_LIST: {
+      return {
+        likeList: action.payload,
       };
     }
     case DELETE_PRODUCT: {

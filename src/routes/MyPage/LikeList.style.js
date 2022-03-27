@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   position: relative;
   width: 824px;
   height: 1070px;
-  padding: 39px 32px 177px 30px;
+  padding: 30px;
   background-color: #fff;
   h3 {
     margin: 0 0 13px 0;
@@ -78,14 +78,9 @@ export const LikeListCardModifiedAt = styled.span`
 `;
 
 export const PaginationButtons = styled.div`
-  position: absolute;
-  left: 50%;
-  bottom: 400px;
-  transform: translateX(-50%);
-  list-style-type: none;
+  margin-top: 100px;
   display: flex;
   justify-content: center;
-  margin: 58px auto 0;
 `;
 
 export const PageMoveButton = styled.div`

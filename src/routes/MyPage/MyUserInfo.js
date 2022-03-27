@@ -28,6 +28,7 @@ const MyUserInfo = () => {
 
   const [profileImg, setProfileImg] = useState();
   const [imageSrc, setImageSrc] = useState();
+  const [userRegion, setUserRegion] = useState("");
 
   useEffect(() => {
     dispatch(MyPageService.getMyInfo());
@@ -35,6 +36,7 @@ const MyUserInfo = () => {
 
   useEffect(() => {
     setProfileImg(myInfo?.userImg);
+    setUserRegion(myInfo?.userRegion);
   }, [myInfo]);
 
   const handleFileInput = (e) => {
@@ -56,6 +58,10 @@ const MyUserInfo = () => {
 
   const onSubmit = (data) => {
     dispatch(MyPageService.editMyInfoData(data, imageSrc));
+  };
+
+  const handleSelectChange = (e) => {
+    setUserRegion(e.target.value);
   };
 
   return (
@@ -103,7 +109,9 @@ const MyUserInfo = () => {
               <Select
                 {...register("userRegion")}
                 className={classes.selectSmCity}
-                defaultValue={myInfo.userRegion}
+                value={userRegion || ""}
+                // value={userRegion || ""}
+                onChange={(e) => handleSelectChange(e)}
               >
                 {mapDataList.map((p) => {
                   return (

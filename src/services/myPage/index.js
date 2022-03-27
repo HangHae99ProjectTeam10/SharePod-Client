@@ -3,6 +3,7 @@ import {
   editMyInfo,
   deleteProduct,
   getMyPageMyInfo,
+  getMyPageLikeList,
 } from "redux/actions/MyPage";
 
 const MyPageService = {
@@ -12,9 +13,22 @@ const MyPageService = {
         ? getState().auth.authUser?.userId
         : "";
       http
-        .get(`user/${userId}`)
+        .get(`/user/${userId}`)
         .then((res) => {
           dispatch(getMyPageMyInfo(res.data.userInfo));
+        })
+        .catch((err) => console.log("마이페이지 불러오기:", err));
+    };
+  },
+  getMyLikeList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .get(`/user/like/${userId}`)
+        .then((res) => {
+          dispatch(getMyPageLikeList(res.data.userLikedBoard));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
     };
