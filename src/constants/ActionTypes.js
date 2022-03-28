@@ -12,3 +12,5 @@ export const GET_MY_PAGE = "get_my_page";
 
 export const ADD_RESERVATION = "add_reservation";
 export const GET_RESERVATION_REQUEST_LIST = "get_reservation_request_list";
+export const GET_CERTIFICATION_LIST = "get_certification_list";
+export const POST_CERTIFICATION_IMAGE = "post_certification_image";

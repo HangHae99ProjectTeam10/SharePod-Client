@@ -26,6 +26,8 @@ const RentalList = () => {
   const [myRentalRole, setMyRentalRole] = useState("1");
   const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
   const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
+  console.log(rentBuyList);
+  console.log(rentSellList);
   const [rentalList, setRentalList] = useState(rentBuyList);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
@@ -63,6 +65,12 @@ const RentalList = () => {
     setDisplayList(addList);
   }, [pageNumber, rentalList]);
 
+  const moveToCertification = (p) => {
+    history.push(
+      `/product/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}`
+    );
+  };
+
   return (
     <Wrapper>
       <h3>대여 내역</h3>
@@ -93,23 +101,29 @@ const RentalList = () => {
         {rentalList.length ? (
           displayList.map((p, idx) => {
             return (
-              <>
-                <RentalCard key={idx}>
+              <div key={idx}>
+                <RentalCard>
                   <RentalCardImg src={p.firstImgUrl} />
                   <RentalCardInfoWrapper>
                     <h3>{p.boardTitle}</h3>
                     <RentalCardMapData>
-                      <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
+                      <LocationOnOutlinedIcon /> 서울
+                      {p.boardRegion}
                     </RentalCardMapData>
                     <RentalCardDate>
-                      <CalendarTodayOutlinedIcon /> {p.startRental}~
-                      {p.endRental}
+                      <CalendarTodayOutlinedIcon />
+                      {p.startRental.split("-").join(".")}~
+                      {p.endRental.split("-").join(".")}
                     </RentalCardDate>
                     <RentalCardDailyRentalFee>
                       <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /
                       1일
                     </RentalCardDailyRentalFee>
-                    <RentalCardQualityConfirmButton>
+                    <RentalCardQualityConfirmButton
+                      onClick={() => {
+                        moveToCertification(p);
+                      }}
+                    >
                       품질 확인하기
                     </RentalCardQualityConfirmButton>
                   </RentalCardInfoWrapper>
@@ -153,7 +167,7 @@ const RentalList = () => {
                     {">"}
                   </PageMoveButton>
                 </PaginationButtons>
-              </>
+              </div>
             );
           })
         ) : myRentalRole === "1" ? (

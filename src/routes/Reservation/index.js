@@ -16,6 +16,10 @@ const Reservation = ({ match }) => {
           path={`${requestedUrl}/confirm`}
           component={lazy(() => import(`./ReservationConfirm`))}
         />
+        <Route
+          path={`${requestedUrl}/product-quality-certification`}
+          component={lazy(() => import(`./ProductQualityCertification`))}
+        />
       </Switch>
     </Suspense>
   );
