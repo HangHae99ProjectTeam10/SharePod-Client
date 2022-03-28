@@ -4,6 +4,7 @@ import {
   getReservationRequestList,
   getProductQualityCertification,
   postCertificationImg,
+  postCertificationConfirm,
 } from "redux/actions/Reservation";
 
 const ReservationService = {
@@ -63,19 +64,23 @@ const ReservationService = {
     };
   },
 
-  postProductQualityCertificationImage: (imgFile, authImgId) => {
+  postProductQualityCertificationImage: (imgFile, authImgId, idx) => {
     return function (dispatch, getState) {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
-
       const formData = new FormData();
       formData.append("authFile", imgFile);
+
+      const buyerId = getState().reservation.buyer_id;
+      const sellerId = getState().reservation.seller_id;
 
       http
         .post(`/auth/img/${userId}/${authImgId}`, formData)
         .then((res) => {
           console.log(res);
+          alert("품질 인증 이미지를 등록했습니다.");
+          dispatch(postCertificationImg(res.data, buyerId, sellerId, idx));
         })
         .catch((err) => console.log("품질인증 등록 실패: ", err.response));
     };
@@ -99,15 +104,12 @@ const ReservationService = {
         .then((res) => {
           if (res.data.check === true) {
             alert("품질인증을 확인했습니다.");
-            dispatch(
-              postCertificationImg(res.data, imgUrl, buyerId, sellerId, idx)
-            );
           } else {
             alert("품질인증을 거절했습니다.");
-            dispatch(
-              postCertificationImg(res.data, imgUrl, buyerId, sellerId, idx)
-            );
           }
+          dispatch(
+            postCertificationConfirm(res.data, imgUrl, buyerId, sellerId, idx)
+          );
         })
         .catch((err) => console.log("제품 상태 확인실패:", err));
     };

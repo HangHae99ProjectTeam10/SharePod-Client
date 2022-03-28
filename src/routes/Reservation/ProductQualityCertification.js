@@ -85,7 +85,8 @@ const ProductQualityCertification = () => {
     dispatch(
       ReservationService.postProductQualityCertificationImage(
         imgFileList[idx],
-        certification_list[idx].authImgId
+        certification_list[idx].authImgId,
+        idx
       )
     );
   };

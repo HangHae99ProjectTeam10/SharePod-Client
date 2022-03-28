@@ -3,6 +3,7 @@ import {
   GET_RESERVATION_REQUEST_LIST,
   GET_CERTIFICATION_LIST,
   POST_CERTIFICATION_IMAGE,
+  POST_CERTIFICATION_CONFIRM,
 } from "../../constants/ActionTypes";
 
 const INIT_STATE = {
@@ -30,7 +31,18 @@ const Reservation = (state = INIT_STATE, action) => {
       };
     }
     case POST_CERTIFICATION_IMAGE: {
-      console.log(action.payload.idx);
+      state.certification_list.splice(
+        action.payload.idx,
+        1,
+        action.payload.data
+      );
+      return {
+        certification_list: [...state.certification_list],
+        seller_id: action.payload.sellerId,
+        buyer_id: action.payload.buyerId,
+      };
+    }
+    case POST_CERTIFICATION_CONFIRM: {
       state.certification_list.splice(
         action.payload.idx,
         1,
