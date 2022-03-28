@@ -5,7 +5,9 @@ export const ADD_PRODUCT = "add_product";
 export const DELETE_PRODUCT = "delete_product";
 export const GET_ONE_PRODUCT_DETAIL = "get_one_product_detail";
 export const GET_SEARCH_LIST = "get_search_list";
+export const GET_SEARCH_LIST_MORE = "get_search_list_more";
 export const SET_FAVORITE_ACTION = "set_favorite_action";
+export const SET_FAVORITE_ACTION_IN_SEARCH = "set_favorite_action_in_search";
 export const SET_FAVORITE_ACTION_IN_DETAIL = "set_favorite_action_in_detail";
 
 export const GET_MY_PAGE = "get_my_page";
