@@ -1,5 +1,6 @@
 import {
   DELETE_PRODUCT,
+  GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_LIKE_LIST,
   GET_MY_PAGE_MY_INFO,
   GET_MY_PAGE_PRODUCT_LIST,
@@ -27,6 +28,15 @@ export const getMyPageProductList = (product_list) => {
     dispatch({
       type: GET_MY_PAGE_PRODUCT_LIST,
       payload: product_list,
+    });
+  };
+};
+
+export const getMyPageBuyList = (buy_list) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_MY_PAGE_BUY_LIST,
+      payload: buy_list,
     });
   };
 };

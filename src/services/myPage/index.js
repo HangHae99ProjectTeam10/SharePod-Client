@@ -47,6 +47,20 @@ const MyPageService = {
         .catch((err) => console.log("마이페이지 불러오기:", err));
     };
   },
+  getMyBuyList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .get(`/user/order/${userId}`)
+        .then((res) => {
+          console.log(res.data);
+          // dispatch(getMyPageProductList(res.data.userMyBoard));
+        })
+        .catch((err) => console.log("마이페이지 불러오기:", err));
+    };
+  },
 
   editMyInfoData: (data, userImg) => {
     return function (dispatch, getState, history) {
@@ -98,18 +112,17 @@ const MyPageService = {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
-      console.log(data);
 
       http
         .delete(`/user/${userId}`, {
-          data: data,
+          username: data.username,
+          password: data.password,
         })
         .then((res) => {
           localStorage.removeItem("persist:root");
           localStorage.removeItem("sharepod.token");
           localStorage.removeItem("sharepod.refresh.token");
           history.replace("/");
-          console.log(res);
           alert(res.data.msg);
           window.location.reload();
         })

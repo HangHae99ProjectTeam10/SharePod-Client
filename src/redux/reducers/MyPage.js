@@ -1,5 +1,6 @@
 import {
   DELETE_PRODUCT,
+  GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_LIKE_LIST,
   GET_MY_PAGE_MY_INFO,
   GET_MY_PAGE_PRODUCT_LIST,
@@ -10,6 +11,7 @@ const INIT_STATE = {
   myInfo: null,
   likeList: [],
   productList: [],
+  buyList: [],
 };
 
 const MyPage = (state = INIT_STATE, action) => {
@@ -27,6 +29,11 @@ const MyPage = (state = INIT_STATE, action) => {
     case GET_MY_PAGE_PRODUCT_LIST: {
       return {
         productList: action.payload,
+      };
+    }
+    case GET_MY_PAGE_BUY_LIST: {
+      return {
+        buyList: action.payload,
       };
     }
     case DELETE_PRODUCT: {
