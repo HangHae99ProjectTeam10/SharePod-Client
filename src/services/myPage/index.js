@@ -1,11 +1,13 @@
 import http from "api/http";
-import { getMyPage, editMyInfo } from "redux/actions/MyPage";
+import { getMyPage, editMyInfo, deleteProduct } from "redux/actions/MyPage";
 
 const MyPageService = {
   getMyPageData: () => {
     return function (dispatch, getState, history) {
       const userInfo = getState((state) => state);
-      const userId = userInfo.auth.authUser.userId;
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
       const MyPageData = getState((state) => state);
       http
         .get(`user/${userId}`)
@@ -42,11 +44,31 @@ const MyPageService = {
         .catch((err) => console.log("회원정보 수정:", err));
     };
   },
+  deleteProduct: (boardId) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .delete(`/board/${boardId}`, {
+          data: {
+            userId: userId,
+          },
+        })
+        .then((res) => {
+          alert("게시글이 삭제되었습니다.");
+          dispatch(deleteProduct(boardId));
+        })
+        .catch((err) => console.log("게시글 삭제 실패: ", err.response));
+    };
+  },
 
   withdrawalMyId: (data) => {
     return function (dispatch, getState, history) {
-      const userInfo = getState((state) => state);
-      const userId = userInfo.auth.authUser.userId;
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
       console.log(data);
 
       http

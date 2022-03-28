@@ -56,6 +56,8 @@ const ProductDetail = () => {
   const { product_detail } = useSelector(({ product }) => product);
   const { authUser } = useSelector(({ auth }) => auth);
 
+  const btnDisabled = authUser?.nickname === product_detail?.nickName;
+
   const [selectedImg, setSelectedImg] = useState("0");
 
   const handleSelectedImg = (e) => {
@@ -127,7 +129,7 @@ const ProductDetail = () => {
                 </ImgThumbnailVideo>
               ) : (
                 <ImgThumbnailVideoImg
-                  src={product_detail?.imgFiles[0]}
+                  src={product_detail?.imgFiles[selectedImg - 1]}
                   alt="this is thumbnail image"
                 />
               )}
@@ -184,24 +186,26 @@ const ProductDetail = () => {
                 <span>10시간 전</span>
               </div>
             </section>
-            <div
-              className="info_top_favoritebtn"
-              onClick={() => {
-                onHandleFavoriteBtn(id);
-              }}
-            >
-              {product_detail?.liked ? (
-                <FavoriteIcon
-                  fontSize="small"
-                  className={classes.favoriteBtn}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  fontSize="small"
-                  className={classes.favoriteBtn}
-                />
-              )}
-            </div>
+            {!btnDisabled && (
+              <div
+                className="info_top_favoritebtn"
+                onClick={() => {
+                  onHandleFavoriteBtn(id);
+                }}
+              >
+                {product_detail?.liked ? (
+                  <FavoriteIcon
+                    fontSize="small"
+                    className={classes.favoriteBtn}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    fontSize="small"
+                    className={classes.favoriteBtn}
+                  />
+                )}
+              </div>
+            )}
           </InfoBoxTop>
 
           <InfoBoxMiddle>
@@ -248,14 +252,16 @@ const ProductDetail = () => {
             </div>
           </InfoBoxMiddle>
           <InfoBoxBottom>
-            <div className="info_middle_btns">
-              <button className="info_middle_btn_1" onClick={moveToBorrow}>
-                대여하기
-              </button>
-              <button className="info_middle_btn_2" onClick={moveToChat}>
-                1:1 채팅하기
-              </button>
-            </div>
+            {!btnDisabled && (
+              <div className="info_middle_btns">
+                <button className="info_middle_btn_1" onClick={moveToBorrow}>
+                  대여하기
+                </button>
+                <button className="info_middle_btn_2" onClick={moveToChat}>
+                  1:1 채팅하기
+                </button>
+              </div>
+            )}
           </InfoBoxBottom>
         </ProductInfoBox>
       </ProductDetailWrapper>

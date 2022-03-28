@@ -1,4 +1,5 @@
 import {
+  bg_gray_color,
   bg_light_gray_color,
   font_black_color,
   font_charcoal_gray_color,
@@ -6,6 +7,7 @@ import {
   font_light_charcoal_gray_color,
   line_light_gray_color,
   main_color,
+  secondary_color,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
@@ -13,9 +15,19 @@ export const Wrapper = styled.div`
   width: 824px;
   padding: 39px 30px;
   background-color: #fff;
+  h3 {
+    margin: 0 0 14px;
+  }
+`;
+
+export const HorizontalLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${bg_gray_color};
 `;
 
 export const MyInfoWrapper = styled.div`
+  margin-top: 40px;
   display: flex;
   border: 1px solid ${line_light_gray_color};
   padding: 32px 62px;
@@ -105,8 +117,8 @@ export const MyProductListBox = styled.div`
 `;
 
 export const MyProductCardWrapper = styled.div`
+  position: relative;
   display: flex;
-  width: 724px;
   padding: 20px 30px 20px 0;
   box-sizing: border-box;
 `;
@@ -120,17 +132,25 @@ export const ProductButtonsWrapper = styled.div`
     box-sizing: border-box;
     border-radius: 28px;
     cursor: pointer;
+    transition: background-color 0.5s;
   }
   .edit {
     border: 1px solid #ddd;
     color: #555;
     background-color: #fff;
     margin-right: 28px;
+
+    &:hover {
+      background: ${bg_gray_color};
+    }
   }
   .confirm {
     border: none;
     color: #fff;
     background-color: #632efa;
+    &:hover {
+      background: ${secondary_color};
+    }
   }
 `;
 
@@ -202,6 +222,9 @@ export const ServicePreparingWrapper = styled.div`
 `;
 
 export const ServicePreparingInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   text-align: center;
   h4 {
@@ -211,10 +234,15 @@ export const ServicePreparingInner = styled.div`
   }
 `;
 
-export const Logo = styled.div``;
+export const Logo = styled.div`
+  width: 173px;
+  height: 40px;
+  background-image: url(${(props) => props.src});
+`;
 export const ProductImg = styled.img`
   width: 200px;
   height: 200px;
   margin-right: 26px;
   border-radius: 8px;
+  object-fit: cover;
 `;

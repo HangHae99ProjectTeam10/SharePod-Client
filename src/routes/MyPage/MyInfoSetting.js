@@ -22,6 +22,7 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { history } from "redux/store";
 
 const MyInfoSetting = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ const MyInfoSetting = () => {
     console.log(radioValue);
   };
   useEffect(() => {
+    if (!localStorage.getItem("sharepod.token")) {
+      alert("로그인이 필요합니다!");
+      history.replace("/auth/signin");
+    }
     dispatch(MyPageService.getMyPageData());
   }, []);
   return (

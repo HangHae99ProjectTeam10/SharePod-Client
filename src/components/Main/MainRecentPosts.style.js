@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   margin: 80px 0px;
+  padding: 0px 10rem;
 `;
 export const Title = styled.div`
   font-size: 1.4rem;

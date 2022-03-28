@@ -12,7 +12,10 @@ export const FullCarousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background: ${(props) => props.color || "#a496f8"};
+  // background: ${(props) => props.color || "#a496f8"};
+  background-image: url(${(props) => props.src});
+  background-size: 109%;
+  background-position: center;
   width: 1000px;
   height: 235px;
   border-radius: 20px;

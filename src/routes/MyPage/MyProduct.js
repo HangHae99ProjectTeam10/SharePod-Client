@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
   ButtonsWrapper,
   ContentWrapper,
+  HorizontalLine,
   Logo,
   MoreVertButton,
   MyInfoWrapper,
@@ -29,13 +30,13 @@ import {
 } from "./MyProduct.style";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import BasicPopover from "components/PopOver";
+import { history } from "redux/store";
 
 const MyProduct = () => {
-  const history = useHistory();
   const [pageViews, setPageViews] = useState("product");
+
   const handleRadioButton = (e) => {
     setPageViews(e.target.value);
-    console.log(pageViews);
   };
   const myPageData = useSelector(({ myPage }) => myPage.myPageData);
   const userInfo = myPageData.userInfo;
@@ -44,19 +45,28 @@ const MyProduct = () => {
   const ToRequestConfirm = () => {
     history.push("/reservation/confirm");
   };
+
+  const moveToEditProduct = (id) => {
+    history.push(`/product/edit-product/${id}`);
+  };
+
+  const moveToDetail = (id) => {
+    history.push(`/product/product-detail/${id}`);
+  };
   return (
     <Wrapper>
       <h3>내 상품 관리</h3>
+      <HorizontalLine />
       <MyInfoWrapper>
         <ProfileImg src={userInfo.userImg} />
         <TextInfoWrapper>
           <MyNickName>{userInfo.nickName}</MyNickName>
           <TextInfoDataWrapper>
             <span>
-              쉐어팟과 함께한지 <strong>53일 째</strong>
+              쉐어팟과 함께한지 <strong>00일 째</strong>
             </span>
             <span>
-              공유중인 상품 <strong>5 개</strong>
+              공유중인 상품 <strong>{MyBoardList.length} 개</strong>
             </span>
           </TextInfoDataWrapper>
         </TextInfoWrapper>
@@ -101,7 +111,10 @@ const MyProduct = () => {
                   {MyBoardList.map((p, idx) => {
                     return (
                       <MyProductCardWrapper key={idx}>
-                        <ProductImg src={p.firstImg} />
+                        <ProductImg
+                          src={p.firstImg}
+                          onClick={() => moveToDetail(p.boardId)}
+                        />
                         <ProductInfoWrapper>
                           <ProductTitle>{p.boardTitle}</ProductTitle>
                           <ProductMapData>
@@ -113,7 +126,12 @@ const MyProduct = () => {
                             원 / 일
                           </ProductDailyRentalFee>
                           <ProductButtonsWrapper>
-                            <button className="edit">게시글 수정</button>
+                            <button
+                              className="edit"
+                              onClick={() => moveToEditProduct(p.boardId)}
+                            >
+                              게시글 수정
+                            </button>
                             <button
                               className="confirm"
                               onClick={ToRequestConfirm}
@@ -122,9 +140,8 @@ const MyProduct = () => {
                             </button>
                           </ProductButtonsWrapper>
                         </ProductInfoWrapper>
-                        <MoreVertButton>
-                          <BasicPopover></BasicPopover>
-                        </MoreVertButton>
+
+                        <BasicPopover boardId={p.boardId} />
                       </MyProductCardWrapper>
                     );
                   })}
@@ -148,7 +165,7 @@ const MyProduct = () => {
         ) : (
           <ServicePreparingWrapper>
             <ServicePreparingInner>
-              <Logo></Logo>
+              <Logo src="/logo.png"></Logo>
               <h4>서비스 준비중입니다. 곧 만나요!</h4>
               <p>
                 현재 페이지를 준비하고 있으니 조금만 기다려주세요. 감사합니다.

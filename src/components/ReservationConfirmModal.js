@@ -53,7 +53,7 @@ export default function ReservationConfirmModal(props) {
         }}
         onClick={handleOpen}
       >
-        {actionType ? "대여 예약하기" : "거절하기"}
+        {actionType ? "신청 수락하기" : "거절하기"}
       </Button>
       <Modal
         open={open}
