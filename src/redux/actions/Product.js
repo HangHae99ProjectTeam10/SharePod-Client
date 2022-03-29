@@ -61,7 +61,7 @@ export const setFavoriteActionInDetail = (boardId) => {
   };
 };
 export const getReelsList = (videoData, selectedReelsNumber) => {
-  if (selectedReelsNumber === -1) {
+  if (selectedReelsNumber === 1) {
     return (dispatch) => {
       dispatch({
         type: GET_REELS_LIST,

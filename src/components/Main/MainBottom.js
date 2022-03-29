@@ -49,9 +49,10 @@ const BottomImgCard = (props) => {
               controls
               autoPlay
               muted
-              loop
               className="reelsVideo"
-              onClick={() => props._onClick(props.idx)}
+              onEnded={() =>
+                props._onClick((selectedReelsNumber) => selectedReelsNumber + 1)
+              }
             >
               <source src={props.videoUrl}></source>
             </FloatedReelsVideo>
@@ -111,22 +112,25 @@ const MainBottom = () => {
   const { reels_list } = useSelector(({ product }) => product);
   const [selectedReelsNumber, setSelectedReelsNumber] = useState(-1);
   const [carouselReelsNumber, setCarouselReelsNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    dispatch(ProductService.getProductReels(selectedReelsNumber));
+    dispatch(ProductService.getProductReels(carouselReelsNumber, setIsLoading));
   }, []);
 
   useEffect(() => {
-    if (
-      selectedReelsNumber >= reels_list?.length - 1 &&
-      selectedReelsNumber !== -1
-    ) {
-      console.log(selectedReelsNumber);
-      dispatch(ProductService.getProductReels(selectedReelsNumber));
+    if (carouselReelsNumber >= reels_list?.length - 1 && !isLoading) {
+      dispatch(
+        ProductService.getProductReels(carouselReelsNumber, setIsLoading)
+      );
     }
     if (selectedReelsNumber !== -1) {
       setCarouselReelsNumber(selectedReelsNumber + 1);
     }
-  }, [selectedReelsNumber]);
+  }, [selectedReelsNumber, carouselReelsNumber]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [reels_list]);
 
   const exampleData = [
     {
@@ -203,10 +207,10 @@ const MainBottom = () => {
               if (carouselReelsNumber < reels_list.length) {
                 setCarouselReelsNumber(carouselReelsNumber + 1);
               }
-              if (carouselReelsNumber >= reels_list.length - 2) {
-                console.log(carouselReelsNumber, reels_list.length - 2);
-                dispatch(ProductService.getProductReels(carouselReelsNumber));
-              }
+              // if (carouselReelsNumber >= reels_list.length - 2) {
+              //   console.log(carouselReelsNumber, reels_list.length - 2);
+              //   dispatch(ProductService.getProductReels(carouselReelsNumber));
+              // }
             }}
           >
             <ArrowForwardIcon />

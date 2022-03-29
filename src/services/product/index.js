@@ -146,10 +146,11 @@ const ProductService = {
         });
     };
   },
-  getProductReels: (selectedReelsNumber) => {
+  getProductReels: (carouselReelsNumber, setIsLoading) => {
+    setIsLoading(true);
     return function (dispatch) {
       http.get(`/board/video/`).then((res) => {
-        dispatch(getReelsList(res.data.videoData, selectedReelsNumber));
+        dispatch(getReelsList(res.data.videoData, carouselReelsNumber));
       });
     };
   },

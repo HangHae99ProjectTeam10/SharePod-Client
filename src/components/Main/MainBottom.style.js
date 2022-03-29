@@ -68,7 +68,9 @@ export const FloatedImgCardBox = styled.div`
 export const BottomImgCardBox = styled.div`
   position: relative;
   margin-right: 150px;
-  transform: translateX(-${(props) => (props.carouselReelsNumber - 1) * 450}px);
+  transform: translateX(
+    -${(props) => (props.carouselReelsNumber - 1) * 450 - 250}px
+  );
   transition-duration: 500ms;
   transition-property: transform;
 `;
