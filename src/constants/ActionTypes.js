@@ -12,6 +12,10 @@ export const GET_MY_PAGE_MY_INFO = "get_my_page_my_info";
 export const GET_MY_PAGE_LIKE_LIST = "get_my_page_like_list";
 export const GET_MY_PAGE_PRODUCT_LIST = "get_my_page_product_list";
 export const GET_MY_PAGE_BUY_LIST = "get_my_page_buy_list";
+export const GET_MY_PAGE_CHAT_LIST = "get_my_page_chat_list";
+export const GET_MY_PAGE_CHAT_ROOM_USER = "get_my_page_chat_room_user";
+export const GET_MY_PAGE_CHAT_ROOM_CONTENTS = "get_my_page_chat_room_contents";
+export const ADD_MY_PAGE_CHAT_LIST = "add_my_page_chat_list";
 
 export const ADD_RESERVATION = "add_reservation";
 export const GET_RESERVATION_REQUEST_LIST = "get_reservation_request_list";

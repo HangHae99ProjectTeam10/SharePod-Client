@@ -1,6 +1,10 @@
 import {
+  ADD_MY_PAGE_CHAT_LIST,
   DELETE_PRODUCT,
   GET_MY_PAGE_BUY_LIST,
+  GET_MY_PAGE_CHAT_LIST,
+  GET_MY_PAGE_CHAT_ROOM_CONTENTS,
+  GET_MY_PAGE_CHAT_ROOM_USER,
   GET_MY_PAGE_LIKE_LIST,
   GET_MY_PAGE_MY_INFO,
   GET_MY_PAGE_PRODUCT_LIST,
@@ -52,4 +56,39 @@ export const deleteProduct = (boardId) => {
 
 export const editMyInfo = () => {
   return () => {};
+};
+
+export const getMyPageChatList = (chat_list) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_MY_PAGE_CHAT_LIST,
+      payload: chat_list,
+    });
+  };
+};
+
+export const getMyPageChatRoomContents = (chat_contents) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_MY_PAGE_CHAT_ROOM_CONTENTS,
+      payload: chat_contents,
+    });
+  };
+};
+export const getMyPageChatRoomUser = (user) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_MY_PAGE_CHAT_ROOM_USER,
+      payload: user,
+    });
+  };
+};
+
+export const addChatList = (chat) => {
+  return (dispatch) => {
+    dispatch({
+      type: ADD_MY_PAGE_CHAT_LIST,
+      payload: chat,
+    });
+  };
 };

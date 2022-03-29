@@ -36,6 +36,11 @@ const MyPage = ({ match }) => {
             component={lazy(() => import(`./ChatList`))}
           />
           <Route
+            path={`${requestedUrl}/chat/room/:chatroodId`}
+            exact
+            component={lazy(() => import(`./PersonalChat`))}
+          />
+          <Route
             path={`${requestedUrl}/withdraw`}
             exact
             component={lazy(() => import(`./Withdrawal`))}

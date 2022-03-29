@@ -5,6 +5,9 @@ import {
   getMyPageMyInfo,
   getMyPageLikeList,
   getMyPageProductList,
+  getMyPageChatList,
+  getMyPageChatRoomContents,
+  getMyPageChatRoomUser,
 } from "redux/actions/MyPage";
 
 const MyPageService = {
@@ -104,6 +107,53 @@ const MyPageService = {
           dispatch(deleteProduct(boardId));
         })
         .catch((err) => console.log("게시글 삭제 실패: ", err.response));
+    };
+  },
+  makeChatRoom: (boardId) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .post(`/chat/room`, {
+          boardId: boardId,
+          buyerId: userId,
+        })
+        .then((res) => {
+          console.log(res);
+          history.push(`/mypage/chat/room/${res.data.chatId}`);
+          // dispatch(getMyPageChatList(res.data.chatRoomList));
+        })
+        .catch((err) => console.log("채팅룸 만들기 실패: ", err.response));
+    };
+  },
+  getChatList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .get(`/chat/room/${userId}`)
+        .then((res) => {
+          dispatch(getMyPageChatList(res.data.chatRoomList));
+        })
+        .catch((err) => console.log("채팅룸 불러오기 실패: ", err.response));
+    };
+  },
+  getOneChatRoomContents: (chatroomId) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${0}`)
+        .then((res) => {
+          dispatch(getMyPageChatRoomContents(res.data));
+        })
+        .catch((err) => console.log("채팅 내역 불러오기 실패: ", err.response));
     };
   },
 
