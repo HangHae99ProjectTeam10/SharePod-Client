@@ -16,12 +16,18 @@ export const Wrapper = styled.div`
 export const GuideWrapper = styled.div`
   width: 350px;
   padding: 60px 0px;
+  h2 {
+    font-size: 1.8rem;
+  }
 `;
 
 export const GuideDesc = styled.div`
-  color: ${font_gray_color_777};
-  font-weight: bold;
   margin-bottom: 40px;
+  p {
+    margin: 0;
+    color: ${font_gray_color_777};
+    font-weight: bold;
+  }
 `;
 export const ButtonBox = styled.div`
   width: 56px;
@@ -61,8 +67,58 @@ export const BottomImgCardWrapper = styled.div`
   margin-left: 10rem;
 `;
 
-export const FloatedImgCardBox = styled.div`
+//BottomImgCard
+export const ReelsPlayBoxWrapper = styled.div`
+  position: relative;
+  .boardTitle {
+    position: fixed;
+    top: 20%;
+    left: 28%;
+    color: #fff;
+    z-index: 1000;
+  }
+`;
+
+export const FloatedVideoCardBox = styled.div`
   margin-right: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 1, 1, 0.5);
+  z-index: 999;
+`;
+
+export const FloatedReelsVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 30%);
+  width: 50vw;
+  height: 60vh;
+  width: 300px;
+  height: 430px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+`;
+
+export const MoveToDetailButton = styled.button`
+  position: fixed;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 510px;
+  height: 56px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: ${main_color};
+  cursor: pointer;
 `;
 
 export const BottomImgCardBox = styled.div`
@@ -75,37 +131,30 @@ export const BottomImgCardBox = styled.div`
   transition-property: transform;
 `;
 
-export const FloatedReelsVideo = styled.video`
-  width: 300px;
-  height: 430px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
-`;
-export const ExampleProfileImgWrapper = styled.div`
+export const CarouselProfileImgWrapper = styled.div`
   position: absolute;
   left: 6%;
   top: 3%;
   display: flex;
 `;
 
-export const ExampleProfileImg = styled.img`
+export const CarouselProfileImg = styled.img`
   width: 36px;
   height: 36px;
   object-fit: cover;
   border-radius: 36px;
 `;
 
-export const ExampleProfileInfoBox = styled.div`
+export const CarouselProfileInfoBox = styled.div`
   margin-left: 10px;
 `;
-export const ExampleProfileName = styled.p`
+export const CarouselProfileName = styled.span`
   margin: 0;
   font-weight: bold;
   color: white;
 `;
 
-export const ExampleProfileLocation = styled.p`
+export const CarouselProfileLocation = styled.span`
   margin: 0;
   font-size: 0.9rem;
   color: white;
@@ -124,35 +173,6 @@ export const MoreBtn = styled.button`
   cursor: pointer;
   &:hover {
     background: ${secondary_color};
-  }
-`;
-
-export const ReelsPlayBoxWrapper = styled.div`
-  position: relative;
-  .boardTitle {
-    position: fixed;
-    top: 20%;
-    left: 28%;
-    color: #fff;
-    z-index: 1000;
-  }
-  .reelsVideoCard {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(1, 1, 1, 0.5);
-    z-index: 999;
-  }
-
-  .reelsVideo {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 30%);
-    width: 50vw;
-    height: 60vh;
   }
 `;
 
@@ -192,23 +212,6 @@ export const ReelsMoveNextButton = styled.button`
   z-index: 1000;
 `;
 
-export const MoveToDetailButton = styled.button`
-  position: fixed;
-  bottom: 25%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  width: 510px;
-  height: 56px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background-color: ${main_color};
-  cursor: pointer;
-`;
-
 export const MainPageReelsVideo = styled.video`
   width: 300px;
   height: 430px;
@@ -216,5 +219,3 @@ export const MainPageReelsVideo = styled.video`
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
 `;
-
-export const CardWrapper = styled.div``;
