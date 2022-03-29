@@ -13,12 +13,16 @@ import {
   ExampleProfileLocation,
   ExampleProfileName,
   ExampleReelsVideo,
+  FloatedImgCardBox,
+  FloatedReelsVideo,
   GuideDesc,
   GuideWrapper,
   IndexGuide,
   IndexGuideFocused,
   IndexGuideFull,
+  MainPageReelsVideo,
   MoreBtn,
+  MoveToDetailButton,
   ReelsMoveNextButton,
   ReelsMovePrevButton,
   ReelsPlayBoxWrapper,
@@ -31,24 +35,16 @@ import ProductService from "services/product";
 /**TODO: 릴스 이미지로 뺴기 */
 const BottomImgCard = (props) => {
   return (
-    <CardWrapper carouselReelsNumber={props.carouselReelsNumber}>
+    <CardWrapper>
       {props.className === "selected" && (
         <ReelsPlayBoxWrapper>
-          <BottomImgCardBox
+          <h4 className="boardTitle">{props.title}</h4>
+          <FloatedImgCardBox
             idx={props.idx}
             className="reelsVideoCard"
             onClick={() => props._onClick(-1)}
           >
-            <ExampleProfileImgWrapper>
-              <ExampleProfileImg src={props.userImg} alt="" />
-              <ExampleProfileInfoBox>
-                <ExampleProfileName>{props.nickName}</ExampleProfileName>
-                <ExampleProfileLocation>
-                  서울시 {props.location}
-                </ExampleProfileLocation>
-              </ExampleProfileInfoBox>
-            </ExampleProfileImgWrapper>
-            <ExampleReelsVideo
+            <FloatedReelsVideo
               id="autoplay"
               controls
               autoPlay
@@ -58,8 +54,8 @@ const BottomImgCard = (props) => {
               onClick={() => props._onClick(props.idx)}
             >
               <source src={props.videoUrl}></source>
-            </ExampleReelsVideo>
-          </BottomImgCardBox>
+            </FloatedReelsVideo>
+          </FloatedImgCardBox>
           <ReelsMovePrevButton
             className="prev"
             onClick={() => {
@@ -84,21 +80,28 @@ const BottomImgCard = (props) => {
           >
             {">"}
           </ReelsMoveNextButton>
+          <MoveToDetailButton
+            onClick={() => {
+              history.push(`/product/product-detail/${props.boardId}`);
+            }}
+          >
+            자세히 보기
+          </MoveToDetailButton>
         </ReelsPlayBoxWrapper>
       )}
-      <BottomImgCardBox>
+      <BottomImgCardBox carouselReelsNumber={props.carouselReelsNumber}>
         <ExampleProfileImgWrapper className={props.className}>
           <ExampleProfileImg src={props.userImg} alt="" />
           <ExampleProfileInfoBox>
             <ExampleProfileName>{props.nickName}</ExampleProfileName>
             <ExampleProfileLocation>
-              서울시 {props.location}
+              서울시 {props.boardRegion}
             </ExampleProfileLocation>
           </ExampleProfileInfoBox>
         </ExampleProfileImgWrapper>
-        <ExampleReelsVideo onClick={() => props._onClick(props.idx)}>
+        <MainPageReelsVideo onClick={() => props._onClick(props.idx)}>
           <source src={props.videoUrl}></source>
-        </ExampleReelsVideo>
+        </MainPageReelsVideo>
       </BottomImgCardBox>
     </CardWrapper>
   );
@@ -114,7 +117,7 @@ const MainBottom = () => {
 
   useEffect(() => {
     if (
-      selectedReelsNumber >= reels_list.length - 1 &&
+      selectedReelsNumber >= reels_list?.length - 1 &&
       selectedReelsNumber !== -1
     ) {
       console.log(selectedReelsNumber);
@@ -183,7 +186,7 @@ const MainBottom = () => {
         </GuideDesc>
         <IndexGuide>
           <IndexGuideFocused>{carouselReelsNumber}</IndexGuideFocused>
-          <IndexGuideFull>/{reels_list.length}</IndexGuideFull>
+          <IndexGuideFull>/{reels_list?.length}</IndexGuideFull>
         </IndexGuide>
         <Box sx={{ display: "flex" }}>
           <ButtonBox
@@ -209,11 +212,10 @@ const MainBottom = () => {
             <ArrowForwardIcon />
           </ButtonBox>
         </Box>
-
         <MoreBtn>더보기</MoreBtn>
       </GuideWrapper>
       <BottomImgCardWrapper carouselReelsNumber={carouselReelsNumber}>
-        {reels_list.map((p, idx) => {
+        {reels_list?.map((p, idx) => {
           return (
             <BottomImgCard
               {...p}
@@ -223,6 +225,8 @@ const MainBottom = () => {
               _onClick={setSelectedReelsNumber}
               length={reels_list.length}
               carouselReelsNumber={carouselReelsNumber}
+              title={p.title}
+              boardId={p.boardId}
             ></BottomImgCard>
           );
         })}

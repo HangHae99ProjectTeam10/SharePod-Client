@@ -61,12 +61,19 @@ export const BottomImgCardWrapper = styled.div`
   margin-left: 10rem;
 `;
 
-export const BottomImgCardBox = styled.div`
-  position: relative;
+export const FloatedImgCardBox = styled.div`
   margin-right: 150px;
 `;
 
-export const ExampleReelsVideo = styled.video`
+export const BottomImgCardBox = styled.div`
+  position: relative;
+  margin-right: 150px;
+  transform: translateX(-${(props) => (props.carouselReelsNumber - 1) * 450}px);
+  transition-duration: 500ms;
+  transition-property: transform;
+`;
+
+export const FloatedReelsVideo = styled.video`
   width: 300px;
   height: 430px;
   object-fit: cover;
@@ -119,6 +126,14 @@ export const MoreBtn = styled.button`
 `;
 
 export const ReelsPlayBoxWrapper = styled.div`
+  position: relative;
+  .boardTitle {
+    position: fixed;
+    top: 20%;
+    left: 28%;
+    color: #fff;
+    z-index: 1000;
+  }
   .reelsVideoCard {
     position: fixed;
     top: 0;
@@ -175,9 +190,29 @@ export const ReelsMoveNextButton = styled.button`
   z-index: 1000;
 `;
 
-export const CardWrapper = styled.div`
-  position: relative;
-  transform: translateX(-${(props) => (props.carouselReelsNumber - 1) * 450}px);
-  transition-duration: 500ms;
-  transition-property: transform;
+export const MoveToDetailButton = styled.button`
+  position: fixed;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 510px;
+  height: 56px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: ${main_color};
+  cursor: pointer;
 `;
+
+export const MainPageReelsVideo = styled.video`
+  width: 300px;
+  height: 430px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+`;
+
+export const CardWrapper = styled.div``;
