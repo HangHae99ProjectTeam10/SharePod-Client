@@ -3,8 +3,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box } from "@mui/system";
 import {
-  BottomImgCardBox,
-  BottomImgCardWrapper,
+  BottomVideoCardBox,
+  BottomVideoCardWrapper,
   ButtonBox,
   CarouselProfileImg,
   CarouselProfileImgWrapper,
@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "redux/store";
 import ProductService from "services/product";
 
-const BottomImgCard = (props) => {
+const BottomVideoCard = (props) => {
   const {
     title,
     idx,
@@ -69,10 +69,18 @@ const BottomImgCard = (props) => {
     history.push(`/product/product-detail/${boardId}`);
   };
 
+  const carouselWheelAction = (e) => {
+    if (e.nativeEvent.deltaX > 300) {
+      plusSelectedReelsNumber();
+    } else if (e.nativeEvent.deltaX < -300) {
+      minusSelectedReelsNumber();
+    }
+  };
+
   return (
     <>
       {className === "selected" && (
-        <ReelsPlayBoxWrapper>
+        <ReelsPlayBoxWrapper onWheel={carouselWheelAction}>
           <h4 className="boardTitle">{title}</h4>
           <FloatedVideoCardBox idx={idx} onClick={resetSelectedReelsNumber}>
             <FloatedReelsVideo
@@ -103,7 +111,7 @@ const BottomImgCard = (props) => {
           </MoveToDetailButton>
         </ReelsPlayBoxWrapper>
       )}
-      <BottomImgCardBox carouselReelsNumber={carouselReelsNumber}>
+      <BottomVideoCardBox carouselReelsNumber={carouselReelsNumber}>
         <CarouselProfileImgWrapper>
           <CarouselProfileImg src={userImg} alt="" />
           <CarouselProfileInfoBox>
@@ -116,7 +124,7 @@ const BottomImgCard = (props) => {
         <MainPageReelsVideo onClick={setVideoSelectedReelsNumber}>
           <source src={videoUrl}></source>
         </MainPageReelsVideo>
-      </BottomImgCardBox>
+      </BottomVideoCardBox>
     </>
   );
 };
@@ -163,6 +171,14 @@ const MainBottom = () => {
     history.push("/product/product-reels");
   };
 
+  const carouselWheelAction = (e) => {
+    if (e.nativeEvent.deltaX > 300) {
+      plusCarouselReelsNumber();
+    } else if (e.nativeEvent.deltaX < -300) {
+      minusCarouselReelsNumber();
+    }
+  };
+
   return (
     <Wrapper>
       <GuideWrapper>
@@ -187,10 +203,10 @@ const MainBottom = () => {
         </Box>
         <MoreBtn onClick={moveToReelsPage}>더보기</MoreBtn>
       </GuideWrapper>
-      <BottomImgCardWrapper>
+      <BottomVideoCardWrapper onWheel={carouselWheelAction}>
         {reels_list?.map((p, idx) => {
           return (
-            <BottomImgCard
+            <BottomVideoCard
               {...p}
               key={idx}
               idx={idx}
@@ -200,10 +216,10 @@ const MainBottom = () => {
               carouselReelsNumber={carouselReelsNumber}
               title={p.title}
               boardId={p.boardId}
-            ></BottomImgCard>
+            />
           );
         })}
-      </BottomImgCardWrapper>
+      </BottomVideoCardWrapper>
     </Wrapper>
   );
 };

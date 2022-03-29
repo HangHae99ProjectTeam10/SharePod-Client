@@ -58,7 +58,7 @@ export const IndexGuideFull = styled.span`
   color: #cccccc;
   margin: 0px 10px;
 `;
-export const BottomImgCardWrapper = styled.div`
+export const BottomVideoCardWrapper = styled.div`
   display: flex;
   overflow: hidden;
   width: 1100px;
@@ -121,7 +121,7 @@ export const MoveToDetailButton = styled.button`
   cursor: pointer;
 `;
 
-export const BottomImgCardBox = styled.div`
+export const BottomVideoCardBox = styled.div`
   position: relative;
   margin-right: 150px;
   transform: translateX(
