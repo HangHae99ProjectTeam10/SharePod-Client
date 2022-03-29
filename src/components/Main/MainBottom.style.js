@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 export const GuideWrapper = styled.div`
-  width: 500px;
+  width: 350px;
   padding: 60px 0px;
 `;
 
@@ -54,11 +54,11 @@ export const IndexGuideFull = styled.span`
 `;
 export const BottomImgCardWrapper = styled.div`
   display: flex;
-  overflow: scroll;
+  overflow: hidden;
+  width: 1100px;
   padding: 60px 0px;
   padding-right: 10rem;
   margin-left: 10rem;
-  width: 100%;
 `;
 
 export const BottomImgCardBox = styled.div`
@@ -173,4 +173,11 @@ export const ReelsMoveNextButton = styled.button`
   text-align: center;
   cursor: pointer;
   z-index: 1000;
+`;
+
+export const CardWrapper = styled.div`
+  position: relative;
+  transform: translateX(-${(props) => (props.carouselReelsNumber - 1) * 450}px);
+  transition-duration: 500ms;
+  transition-property: transform;
 `;

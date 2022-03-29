@@ -6,6 +6,7 @@ import {
   BottomImgCardBox,
   BottomImgCardWrapper,
   ButtonBox,
+  CardWrapper,
   ExampleProfileImg,
   ExampleProfileImgWrapper,
   ExampleProfileInfoBox,
@@ -30,10 +31,11 @@ import ProductService from "services/product";
 /**TODO: 릴스 이미지로 뺴기 */
 const BottomImgCard = (props) => {
   return (
-    <>
+    <CardWrapper carouselReelsNumber={props.carouselReelsNumber}>
       {props.className === "selected" && (
         <ReelsPlayBoxWrapper>
           <BottomImgCardBox
+            idx={props.idx}
             className="reelsVideoCard"
             onClick={() => props._onClick(-1)}
           >
@@ -51,6 +53,7 @@ const BottomImgCard = (props) => {
               controls
               autoPlay
               muted
+              loop
               className="reelsVideo"
               onClick={() => props._onClick(props.idx)}
             >
@@ -97,13 +100,14 @@ const BottomImgCard = (props) => {
           <source src={props.videoUrl}></source>
         </ExampleReelsVideo>
       </BottomImgCardBox>
-    </>
+    </CardWrapper>
   );
 };
 const MainBottom = () => {
   const dispatch = useDispatch();
   const { reels_list } = useSelector(({ product }) => product);
   const [selectedReelsNumber, setSelectedReelsNumber] = useState(-1);
+  const [carouselReelsNumber, setCarouselReelsNumber] = useState(1);
   useEffect(() => {
     dispatch(ProductService.getProductReels(selectedReelsNumber));
   }, []);
@@ -115,6 +119,9 @@ const MainBottom = () => {
     ) {
       console.log(selectedReelsNumber);
       dispatch(ProductService.getProductReels(selectedReelsNumber));
+    }
+    if (selectedReelsNumber !== -1) {
+      setCarouselReelsNumber(selectedReelsNumber + 1);
     }
   }, [selectedReelsNumber]);
 
@@ -175,23 +182,37 @@ const MainBottom = () => {
           영상을 통해 자세하게 확인해보세요!
         </GuideDesc>
         <IndexGuide>
-          <IndexGuideFocused>
-            {selectedReelsNumber === -1 ? 1 : selectedReelsNumber + 1}
-          </IndexGuideFocused>
+          <IndexGuideFocused>{carouselReelsNumber}</IndexGuideFocused>
           <IndexGuideFull>/{reels_list.length}</IndexGuideFull>
         </IndexGuide>
         <Box sx={{ display: "flex" }}>
-          <ButtonBox>
+          <ButtonBox
+            onClick={() => {
+              if (carouselReelsNumber > 1) {
+                setCarouselReelsNumber(carouselReelsNumber - 1);
+              }
+            }}
+          >
             <ArrowBackIcon />
           </ButtonBox>
-          <ButtonBox>
+          <ButtonBox
+            onClick={() => {
+              if (carouselReelsNumber < reels_list.length) {
+                setCarouselReelsNumber(carouselReelsNumber + 1);
+              }
+              if (carouselReelsNumber >= reels_list.length - 2) {
+                console.log(carouselReelsNumber, reels_list.length - 2);
+                dispatch(ProductService.getProductReels(carouselReelsNumber));
+              }
+            }}
+          >
             <ArrowForwardIcon />
           </ButtonBox>
         </Box>
 
         <MoreBtn>더보기</MoreBtn>
       </GuideWrapper>
-      <BottomImgCardWrapper>
+      <BottomImgCardWrapper carouselReelsNumber={carouselReelsNumber}>
         {reels_list.map((p, idx) => {
           return (
             <BottomImgCard
@@ -201,6 +222,7 @@ const MainBottom = () => {
               className={selectedReelsNumber === idx ? "selected" : null}
               _onClick={setSelectedReelsNumber}
               length={reels_list.length}
+              carouselReelsNumber={carouselReelsNumber}
             ></BottomImgCard>
           );
         })}
