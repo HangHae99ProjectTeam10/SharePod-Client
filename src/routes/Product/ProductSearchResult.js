@@ -16,7 +16,6 @@ import {
 import { MenuItem, Select } from "@mui/material";
 import { history } from "redux/store";
 import PageLoader from "components/common/PageLoader";
-import { flexbox } from "@mui/lab/node_modules/@mui/system";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
 const ProductSearchResult = () => {

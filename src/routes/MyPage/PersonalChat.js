@@ -27,10 +27,8 @@ const PersonalChat = () => {
 
   useEffect(() => {
     dispatch(MyPageService.getOneChatRoomContents(chatroodId));
-  }, [dispatch, chatroodId]);
 
-  useEffect(() => {
-    console.log("connect");
+    //socket 연결
     StompClient.connect(
       {},
       function (frame) {
@@ -46,7 +44,10 @@ const PersonalChat = () => {
         alert("error " + error);
       }
     );
-  }, []);
+    return function cleanup() {
+      StompClient.disconnect();
+    };
+  }, [dispatch, chatroodId]);
 
   const { chatRoomContents } = useSelector(({ myPage }) => myPage);
   const chatMessageDataList = chatRoomContents?.chatMessageDataList?.reverse();
@@ -57,7 +58,6 @@ const PersonalChat = () => {
   const [message, setMessage] = useState("");
 
   const sendMessage = () => {
-    console.log("send");
     var date = new Date().toISOString();
 
     StompClient.send(
@@ -73,7 +73,6 @@ const PersonalChat = () => {
     setMessage("");
   };
   const recvMessage = (recv) => {
-    console.log("recv");
     dispatch(addChatList(recv));
   };
 
@@ -132,6 +131,7 @@ const PersonalChat = () => {
           </MessageField>
           <MessageBar>
             <input
+              autoFocus
               onKeyPress={(e) => handleSubmitBtn(e)}
               placeholder="메세지를 입력하세요."
               value={message}
