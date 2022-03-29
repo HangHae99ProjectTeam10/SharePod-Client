@@ -19,13 +19,9 @@ import MyPageService from "services/myPage";
 
 const Withdrawal = () => {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector(({ myPage }) => myPage.myPageData);
+  const { myInfo } = useSelector(({ myPage }) => myPage);
   const classes = useStyles;
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({});
+  const { register, handleSubmit } = useForm({});
 
   const onSubmit = (data) => {
     dispatch(MyPageService.withdrawalMyId(data));
@@ -39,7 +35,7 @@ const Withdrawal = () => {
         <WithdrawalUserName>
           이메일
           <input
-            defaultValue={userInfo.username}
+            defaultValue={myInfo?.username}
             readOnly
             {...register("username")}
           />
@@ -52,7 +48,6 @@ const Withdrawal = () => {
           <span>탈퇴 사유</span>
           <div className="dropdownOuter">
             <Select
-              // {...register("withdrawalReason")}
               className={classes.selectSmCity}
               defaultValue="중복계정이 있어요."
             >

@@ -4,14 +4,16 @@ import {
   font_charcoal_gray_color,
   font_dark_gray_color,
   font_light_charcoal_gray_color,
+  line_light_gray_color,
   main_color,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 824px;
-  padding: 22px 44px 41px 34px;
+  padding: 30px 40px;
   background-color: #fff;
+  height: 100%;
   h3 {
     margin_bottom: 16px;
     font-size: 18px;
@@ -26,14 +28,15 @@ export const HorizontalLine = styled.div`
   background-color: ${bg_gray_color};
 `;
 
-export const ChatListWrapper = styled.div`
-  padding-top: 45px;
-`;
+export const ChatListWrapper = styled.div``;
 
 export const ChatCard = styled.div`
   display: flex;
   width: 100%;
-  margin-bottom: 32px;
+  border-top: 1px solid ${line_light_gray_color};
+  border-bottom: 1px solid ${line_light_gray_color};
+  padding: 10px 0px;
+  cursor: pointer;
 `;
 
 export const ChatPartnerProfileImg = styled.img`

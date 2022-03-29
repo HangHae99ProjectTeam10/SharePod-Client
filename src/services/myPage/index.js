@@ -1,19 +1,65 @@
 import http from "api/http";
-import { getMyPage, editMyInfo, deleteProduct } from "redux/actions/MyPage";
+import {
+  editMyInfo,
+  deleteProduct,
+  getMyPageMyInfo,
+  getMyPageLikeList,
+  getMyPageProductList,
+  getMyPageChatList,
+  getMyPageChatRoomContents,
+  getMyPageChatRoomUser,
+} from "redux/actions/MyPage";
 
 const MyPageService = {
-  getMyPageData: () => {
+  getMyInfo: () => {
     return function (dispatch, getState, history) {
-      const userInfo = getState((state) => state);
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
-      const MyPageData = getState((state) => state);
       http
-        .get(`user/${userId}`)
+        .get(`/user/${userId}`)
         .then((res) => {
-          dispatch(getMyPage(res.data.userInfo));
-          dispatch(getMyPage(res.data));
+          dispatch(getMyPageMyInfo(res.data.userInfo));
+        })
+        .catch((err) => console.log("마이페이지 불러오기:", err));
+    };
+  },
+  getMyLikeList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .get(`/user/like/${userId}`)
+        .then((res) => {
+          dispatch(getMyPageLikeList(res.data.userLikedBoard));
+        })
+        .catch((err) => console.log("마이페이지 불러오기:", err));
+    };
+  },
+  getMyProductList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .get(`/user/board/${userId}`)
+        .then((res) => {
+          dispatch(getMyPageProductList(res.data.userMyBoard));
+        })
+        .catch((err) => console.log("마이페이지 불러오기:", err));
+    };
+  },
+  getMyBuyList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .get(`/user/order/${userId}`)
+        .then((res) => {
+          console.log(res.data);
+          // dispatch(getMyPageProductList(res.data.userMyBoard));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
     };
@@ -63,24 +109,70 @@ const MyPageService = {
         .catch((err) => console.log("게시글 삭제 실패: ", err.response));
     };
   },
+  makeChatRoom: (boardId) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .post(`/chat/room`, {
+          boardId: boardId,
+          buyerId: userId,
+        })
+        .then((res) => {
+          console.log(res);
+          history.push(`/mypage/chat/room/${res.data.chatId}`);
+          // dispatch(getMyPageChatList(res.data.chatRoomList));
+        })
+        .catch((err) => console.log("채팅룸 만들기 실패: ", err.response));
+    };
+  },
+  getChatList: () => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .get(`/chat/room/${userId}`)
+        .then((res) => {
+          dispatch(getMyPageChatList(res.data.chatRoomList));
+        })
+        .catch((err) => console.log("채팅룸 불러오기 실패: ", err.response));
+    };
+  },
+  getOneChatRoomContents: (chatroomId) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${0}`)
+        .then((res) => {
+          dispatch(getMyPageChatRoomContents(res.data));
+        })
+        .catch((err) => console.log("채팅 내역 불러오기 실패: ", err.response));
+    };
+  },
 
   withdrawalMyId: (data) => {
     return function (dispatch, getState, history) {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
-      console.log(data);
 
       http
         .delete(`/user/${userId}`, {
-          data: data,
+          username: data.username,
+          password: data.password,
         })
         .then((res) => {
           localStorage.removeItem("persist:root");
           localStorage.removeItem("sharepod.token");
           localStorage.removeItem("sharepod.refresh.token");
           history.replace("/");
-          console.log(res);
           alert(res.data.msg);
           window.location.reload();
         })

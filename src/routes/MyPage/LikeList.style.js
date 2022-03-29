@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   position: relative;
   width: 824px;
   height: 1070px;
-  padding: 39px 32px 177px 30px;
+  padding: 30px;
   background-color: #fff;
   h3 {
     margin: 0 0 13px 0;
@@ -30,62 +30,10 @@ export const LikeListWrapper = styled.div`
   gap: 42px 30px;
 `;
 
-export const LikeListCard = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  h4 {
-    margin: 0 0 4px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #323232;
-  }
-`;
-
-export const LikeListCardImg = styled.img`
-  width: 235px;
-  height: 235px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  object-fit: cover;
-`;
-
-export const LikeListMapData = styled.div`
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 350;
-  color: #777;
-  svg {
-    vertical-align: bottom;
-    width: 14px;
-    margin-bottom: -3px;
-  }
-`;
-
-export const LikeListCardDailyRentalFee = styled.span`
-  font-size: 16px;
-  font-weight: 700;
-  color: #323232;
-`;
-
-export const LikeListCardModifiedAt = styled.span`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  font-size: 14px;
-  font-weight: 350;
-  color: #777;
-`;
-
 export const PaginationButtons = styled.div`
-  position: absolute;
-  left: 50%;
-  bottom: 400px;
-  transform: translateX(-50%);
-  list-style-type: none;
+  margin-top: 100px;
   display: flex;
   justify-content: center;
-  margin: 58px auto 0;
 `;
 
 export const PageMoveButton = styled.div`
