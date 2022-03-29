@@ -7,6 +7,7 @@ import {
   SET_FAVORITE_ACTION,
   SET_FAVORITE_ACTION_IN_DETAIL,
   GET_REELS_LIST,
+  GET_REELS_LIST_MORE,
 } from "constants/ActionTypes";
 
 export const getProductList = (product_list) => {
@@ -59,11 +60,20 @@ export const setFavoriteActionInDetail = (boardId) => {
     });
   };
 };
-export const getReelsList = (videoData) => {
-  return (dispatch) => {
-    dispatch({
-      type: GET_REELS_LIST,
-      payload: videoData,
-    });
-  };
+export const getReelsList = (videoData, selectedReelsNumber) => {
+  if (selectedReelsNumber === -1) {
+    return (dispatch) => {
+      dispatch({
+        type: GET_REELS_LIST,
+        payload: videoData,
+      });
+    };
+  } else {
+    return (dispatch) => {
+      dispatch({
+        type: GET_REELS_LIST_MORE,
+        payload: videoData,
+      });
+    };
+  }
 };

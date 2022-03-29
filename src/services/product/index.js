@@ -146,10 +146,10 @@ const ProductService = {
         });
     };
   },
-  getProductReels: () => {
+  getProductReels: (selectedReelsNumber) => {
     return function (dispatch) {
       http.get(`/board/video/`).then((res) => {
-        dispatch(getReelsList(res.data.videoData));
+        dispatch(getReelsList(res.data.videoData, selectedReelsNumber));
       });
     };
   },

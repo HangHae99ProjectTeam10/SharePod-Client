@@ -6,6 +6,7 @@ import {
   SET_FAVORITE_ACTION,
   SET_FAVORITE_ACTION_IN_DETAIL,
   GET_REELS_LIST,
+  GET_REELS_LIST_MORE,
 } from "constants/ActionTypes";
 
 const INIT_STATE = {
@@ -64,6 +65,12 @@ const Product = (state = INIT_STATE, action) => {
       return {
         product_list: state.product_list,
         reels_list: action.payload,
+      };
+    }
+    case GET_REELS_LIST_MORE: {
+      return {
+        product_list: state.product_list,
+        reels_list: [...state.reels_list, ...action.payload],
       };
     }
     default:

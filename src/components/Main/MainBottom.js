@@ -18,7 +18,6 @@ import {
   IndexGuideFocused,
   IndexGuideFull,
   MoreBtn,
-  ReelsMoveButton,
   ReelsMoveNextButton,
   ReelsMovePrevButton,
   ReelsPlayBoxWrapper,
@@ -73,7 +72,7 @@ const BottomImgCard = (props) => {
           <ReelsMoveNextButton
             className="next"
             onClick={() => {
-              if (props.idx < props.length) {
+              if (props.idx < props.length - 1) {
                 props._onClick(
                   (selectedReelsNumber) => selectedReelsNumber + 1
                 );
@@ -106,11 +105,17 @@ const MainBottom = () => {
   const { reels_list } = useSelector(({ product }) => product);
   const [selectedReelsNumber, setSelectedReelsNumber] = useState(-1);
   useEffect(() => {
-    dispatch(ProductService.getProductReels());
+    dispatch(ProductService.getProductReels(selectedReelsNumber));
   }, []);
 
   useEffect(() => {
-    console.log(selectedReelsNumber);
+    if (
+      selectedReelsNumber >= reels_list.length - 1 &&
+      selectedReelsNumber !== -1
+    ) {
+      console.log(selectedReelsNumber);
+      dispatch(ProductService.getProductReels(selectedReelsNumber));
+    }
   }, [selectedReelsNumber]);
 
   const exampleData = [
@@ -170,8 +175,10 @@ const MainBottom = () => {
           영상을 통해 자세하게 확인해보세요!
         </GuideDesc>
         <IndexGuide>
-          <IndexGuideFocused>01</IndexGuideFocused>
-          <IndexGuideFull>/05</IndexGuideFull>
+          <IndexGuideFocused>
+            {selectedReelsNumber === -1 ? 1 : selectedReelsNumber + 1}
+          </IndexGuideFocused>
+          <IndexGuideFull>/{reels_list.length}</IndexGuideFull>
         </IndexGuide>
         <Box sx={{ display: "flex" }}>
           <ButtonBox>
