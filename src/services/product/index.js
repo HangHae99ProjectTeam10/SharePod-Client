@@ -3,6 +3,7 @@ import {
   addOneProduct,
   getOneProductDetail,
   getProductList,
+  getReelsList,
   setFavoriteAction,
   setFavoriteActionInDetail,
 } from "redux/actions/Product";
@@ -145,6 +146,12 @@ const ProductService = {
         });
     };
   },
+  getProductReels: () => {
+    return function (dispatch) {
+      http.get(`/board/video/`).then((res) => {
+        dispatch(getReelsList(res.data.videoData));
+      });
+    };
+  },
 };
-
 export default ProductService;

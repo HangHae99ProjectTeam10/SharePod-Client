@@ -1,5 +1,6 @@
 import {
   font_gray_color_777,
+  line_light_gray_color,
   main_color,
   secondary_color,
 } from "constants/ColorSet";
@@ -65,7 +66,7 @@ export const BottomImgCardBox = styled.div`
   margin-right: 150px;
 `;
 
-export const ExampleReelsImg = styled.img`
+export const ExampleReelsVideo = styled.video`
   width: 300px;
   height: 430px;
   object-fit: cover;
@@ -115,4 +116,61 @@ export const MoreBtn = styled.button`
   &:hover {
     background: ${secondary_color};
   }
+`;
+
+export const ReelsPlayBoxWrapper = styled.div`
+  .reelsVideoCard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 1, 1, 0.5);
+    z-index: 999;
+  }
+
+  .reelsVideo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 30%);
+    width: 50vw;
+    height: 60vh;
+  }
+`;
+
+export const ReelsMovePrevButton = styled.button`
+  position: fixed;
+  top: 50vh;
+  left: 18%;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 1px solid ${line_light_gray_color};
+  color: ${main_color};
+  box-sizing: border-box;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1000;
+`;
+
+export const ReelsMoveNextButton = styled.button`
+  position: fixed;
+  top: 50vh;
+  right: 18%;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 1px solid ${line_light_gray_color};
+  color: ${main_color};
+  box-sizing: border-box;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1000;
 `;

@@ -6,6 +6,7 @@ import {
   GET_SEARCH_LIST,
   SET_FAVORITE_ACTION,
   SET_FAVORITE_ACTION_IN_DETAIL,
+  GET_REELS_LIST,
 } from "constants/ActionTypes";
 
 export const getProductList = (product_list) => {
@@ -55,6 +56,14 @@ export const setFavoriteActionInDetail = (boardId) => {
     dispatch({
       type: SET_FAVORITE_ACTION_IN_DETAIL,
       payload: boardId,
+    });
+  };
+};
+export const getReelsList = (videoData) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_REELS_LIST,
+      payload: videoData,
     });
   };
 };

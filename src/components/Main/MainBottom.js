@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box } from "@mui/system";
@@ -11,34 +11,108 @@ import {
   ExampleProfileInfoBox,
   ExampleProfileLocation,
   ExampleProfileName,
-  ExampleReelsImg,
+  ExampleReelsVideo,
   GuideDesc,
   GuideWrapper,
   IndexGuide,
   IndexGuideFocused,
   IndexGuideFull,
   MoreBtn,
+  ReelsMoveButton,
+  ReelsMoveNextButton,
+  ReelsMovePrevButton,
+  ReelsPlayBoxWrapper,
   Wrapper,
 } from "./MainBottom.style";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "redux/store";
+import ProductService from "services/product";
 
 /**TODO: 릴스 이미지로 뺴기 */
 const BottomImgCard = (props) => {
   return (
-    <BottomImgCardBox>
-      <ExampleProfileImgWrapper>
-        <ExampleProfileImg src={props.profile} alt="" />
-        <ExampleProfileInfoBox>
-          <ExampleProfileName>{props.name}</ExampleProfileName>
-          <ExampleProfileLocation>
-            서울시 {props.location}
-          </ExampleProfileLocation>
-        </ExampleProfileInfoBox>
-      </ExampleProfileImgWrapper>
-      <ExampleReelsImg src={props.reels} alt="example1" />
-    </BottomImgCardBox>
+    <>
+      {props.className === "selected" && (
+        <ReelsPlayBoxWrapper>
+          <BottomImgCardBox
+            className="reelsVideoCard"
+            onClick={() => props._onClick(-1)}
+          >
+            <ExampleProfileImgWrapper>
+              <ExampleProfileImg src={props.userImg} alt="" />
+              <ExampleProfileInfoBox>
+                <ExampleProfileName>{props.nickName}</ExampleProfileName>
+                <ExampleProfileLocation>
+                  서울시 {props.location}
+                </ExampleProfileLocation>
+              </ExampleProfileInfoBox>
+            </ExampleProfileImgWrapper>
+            <ExampleReelsVideo
+              id="autoplay"
+              controls
+              autoPlay
+              muted
+              className="reelsVideo"
+              onClick={() => props._onClick(props.idx)}
+            >
+              <source src={props.videoUrl}></source>
+            </ExampleReelsVideo>
+          </BottomImgCardBox>
+          <ReelsMovePrevButton
+            className="prev"
+            onClick={() => {
+              if (props.idx > 0) {
+                props._onClick(
+                  (selectedReelsNumber) => selectedReelsNumber - 1
+                );
+              }
+            }}
+          >
+            {"<"}
+          </ReelsMovePrevButton>
+          <ReelsMoveNextButton
+            className="next"
+            onClick={() => {
+              if (props.idx < props.length) {
+                props._onClick(
+                  (selectedReelsNumber) => selectedReelsNumber + 1
+                );
+              }
+            }}
+          >
+            {">"}
+          </ReelsMoveNextButton>
+        </ReelsPlayBoxWrapper>
+      )}
+      <BottomImgCardBox>
+        <ExampleProfileImgWrapper className={props.className}>
+          <ExampleProfileImg src={props.userImg} alt="" />
+          <ExampleProfileInfoBox>
+            <ExampleProfileName>{props.nickName}</ExampleProfileName>
+            <ExampleProfileLocation>
+              서울시 {props.location}
+            </ExampleProfileLocation>
+          </ExampleProfileInfoBox>
+        </ExampleProfileImgWrapper>
+        <ExampleReelsVideo onClick={() => props._onClick(props.idx)}>
+          <source src={props.videoUrl}></source>
+        </ExampleReelsVideo>
+      </BottomImgCardBox>
+    </>
   );
 };
 const MainBottom = () => {
+  const dispatch = useDispatch();
+  const { reels_list } = useSelector(({ product }) => product);
+  const [selectedReelsNumber, setSelectedReelsNumber] = useState(-1);
+  useEffect(() => {
+    dispatch(ProductService.getProductReels());
+  }, []);
+
+  useEffect(() => {
+    console.log(selectedReelsNumber);
+  }, [selectedReelsNumber]);
+
   const exampleData = [
     {
       profile:
@@ -111,8 +185,17 @@ const MainBottom = () => {
         <MoreBtn>더보기</MoreBtn>
       </GuideWrapper>
       <BottomImgCardWrapper>
-        {exampleData.map((p) => {
-          return <BottomImgCard {...p} key={p.profile} />;
+        {reels_list.map((p, idx) => {
+          return (
+            <BottomImgCard
+              {...p}
+              key={idx}
+              idx={idx}
+              className={selectedReelsNumber === idx ? "selected" : null}
+              _onClick={setSelectedReelsNumber}
+              length={reels_list.length}
+            ></BottomImgCard>
+          );
         })}
       </BottomImgCardWrapper>
     </Wrapper>
