@@ -9,6 +9,8 @@ export const GET_SEARCH_LIST_MORE = "get_search_list_more";
 export const SET_FAVORITE_ACTION = "set_favorite_action";
 export const SET_FAVORITE_ACTION_IN_SEARCH = "set_favorite_action_in_search";
 export const SET_FAVORITE_ACTION_IN_DETAIL = "set_favorite_action_in_detail";
+export const GET_REELS_LIST = "get_reels_list";
+export const GET_REELS_LIST_MORE = "get_reels_list_more";
 
 export const GET_MY_PAGE_MY_INFO = "get_my_page_my_info";
 export const GET_MY_PAGE_LIKE_LIST = "get_my_page_like_list";
