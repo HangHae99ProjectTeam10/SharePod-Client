@@ -81,8 +81,9 @@ export const setFavoriteActionInDetail = (boardId) => {
     });
   };
 };
-export const getReelsList = (videoData, selectedReelsNumber) => {
-  if (selectedReelsNumber === 1) {
+export const getReelsList = (videoData, count) => {
+  if (count === 0) {
+    console.log("hi");
     return (dispatch) => {
       dispatch({
         type: GET_REELS_LIST,
@@ -90,6 +91,7 @@ export const getReelsList = (videoData, selectedReelsNumber) => {
       });
     };
   } else {
+    console.log("hihi");
     return (dispatch) => {
       dispatch({
         type: GET_REELS_LIST_MORE,
