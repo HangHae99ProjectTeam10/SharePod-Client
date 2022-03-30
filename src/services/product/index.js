@@ -3,6 +3,7 @@ import {
   addOneProduct,
   getOneProductDetail,
   getProductList,
+  getReelsList,
   getSearchList,
   setFavoriteAction,
   setFavoriteActionInDetail,
@@ -162,6 +163,17 @@ const ProductService = {
         });
     };
   },
+  getProductReels: (count, setIsLoading) => {
+    if (setIsLoading) {
+      console.log("hi");
+      setIsLoading(true);
+    }
+    console.log(count);
+    return function (dispatch) {
+      http.get(`/board/video/`).then((res) => {
+        dispatch(getReelsList(res.data.videoData, count));
+      });
+    };
+  },
 };
-
 export default ProductService;
