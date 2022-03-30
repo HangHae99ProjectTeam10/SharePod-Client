@@ -17,6 +17,8 @@ export const GET_MY_PAGE_BUY_LIST = "get_my_page_buy_list";
 export const GET_MY_PAGE_CHAT_LIST = "get_my_page_chat_list";
 export const GET_MY_PAGE_CHAT_ROOM_USER = "get_my_page_chat_room_user";
 export const GET_MY_PAGE_CHAT_ROOM_CONTENTS = "get_my_page_chat_room_contents";
+export const GET_MY_PAGE_CHAT_ROOM_CONTENTS_MORE =
+  "get_my_page_chat_room_contents_more";
 export const ADD_MY_PAGE_CHAT_LIST = "add_my_page_chat_list";
 
 export const ADD_RESERVATION = "add_reservation";

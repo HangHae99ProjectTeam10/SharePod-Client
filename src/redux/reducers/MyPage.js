@@ -4,6 +4,7 @@ import {
   GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_CHAT_LIST,
   GET_MY_PAGE_CHAT_ROOM_CONTENTS,
+  GET_MY_PAGE_CHAT_ROOM_CONTENTS_MORE,
   GET_MY_PAGE_CHAT_ROOM_USER,
   GET_MY_PAGE_LIKE_LIST,
   GET_MY_PAGE_MY_INFO,
@@ -54,6 +55,19 @@ const MyPage = (state = INIT_STATE, action) => {
         chatRoomContents: {
           ...action.payload,
           chatMessageDataList: chatList,
+        },
+      };
+    }
+    case GET_MY_PAGE_CHAT_ROOM_CONTENTS_MORE: {
+      const chatList = action.payload.chatMessageDataList.reverse();
+
+      return {
+        chatRoomContents: {
+          ...action.payload,
+          chatMessageDataList: [
+            ...state.chatRoomContents.chatMessageDataList,
+            chatList,
+          ],
         },
       };
     }

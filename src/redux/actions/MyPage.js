@@ -4,6 +4,7 @@ import {
   GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_CHAT_LIST,
   GET_MY_PAGE_CHAT_ROOM_CONTENTS,
+  GET_MY_PAGE_CHAT_ROOM_CONTENTS_MORE,
   GET_MY_PAGE_CHAT_ROOM_USER,
   GET_MY_PAGE_LIKE_LIST,
   GET_MY_PAGE_MY_INFO,
@@ -71,6 +72,14 @@ export const getMyPageChatRoomContents = (chat_contents) => {
   return (dispatch) => {
     dispatch({
       type: GET_MY_PAGE_CHAT_ROOM_CONTENTS,
+      payload: chat_contents,
+    });
+  };
+};
+export const getMyPageChatRoomContentsMore = (chat_contents) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_MY_PAGE_CHAT_ROOM_CONTENTS_MORE,
       payload: chat_contents,
     });
   };

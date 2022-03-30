@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,18 +13,33 @@ import {
   MessageField,
   MessageFieldInner,
   MyMessageCard,
+  MyMessageCardWrapper,
+  MyMessageTime,
+  PartnerMessageTime,
+  PartnerMessegeCardWrapper,
   PartnersMessageCard,
   PersonalChatWrap,
 } from "./PersonalChat.style";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { addChatList } from "redux/actions/MyPage";
+import { format, parseISO } from "date-fns";
 
 const PersonalChat = () => {
   const dispatch = useDispatch();
   const { chatroodId } = useParams();
   const SockJs = new SockJS("http://13.125.219.196/ws-stomp");
   const StompClient = Stomp.over(SockJs);
+
+  const { chatRoomContents } = useSelector(({ myPage }) => myPage);
+  const chatMessageDataList = chatRoomContents?.chatMessageDataList;
+  const resultCount = chatRoomContents?.resultCount;
+
+  const { authUser } = useSelector(({ auth }) => auth);
+  const userId = authUser.userId;
+  const userNickname = authUser.nickname;
+  const [message, setMessage] = useState("");
+  const target = useRef(null);
 
   useEffect(() => {
     dispatch(MyPageService.getOneChatRoomContents(chatroodId));
@@ -50,13 +65,35 @@ const PersonalChat = () => {
     };
   }, [dispatch, chatroodId]);
 
-  const { chatRoomContents } = useSelector(({ myPage }) => myPage);
-  const chatMessageDataList = chatRoomContents?.chatMessageDataList;
+  // /* 인터섹션 callback */
+  // const onIntersect = async ([entry], observer) => {
+  //   if (entry.isIntersecting) {
+  //     observer.unobserve(entry.target);
+  //     await console.log(resultCount);
+  //     observer.observe(entry.target);
+  //   }
+  // };
 
-  const { authUser } = useSelector(({ auth }) => auth);
-  const userId = authUser.userId;
-  const userNickname = authUser.nickname;
-  const [message, setMessage] = useState("");
+  const loadMore = useCallback(() => {
+    if (resultCount) {
+      console.log("it is edxist");
+      // dispatch(
+      //   MyPageService.getOneChatRoomContentsMore(chatroodId, resultCount)
+      // );
+    }
+  }, [resultCount, dispatch, chatroodId]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          console.log("///////", resultCount);
+          loadMore();
+        }
+      },
+      { threshold: 1 }
+    );
+    observer.observe(target?.current);
+  }, [loadMore]);
 
   const sendMessage = () => {
     var date = new Date().toISOString();
@@ -114,20 +151,30 @@ const PersonalChat = () => {
 
           <MessageField>
             <MessageFieldInner>
+              <div
+                style={{ background: "pink", height: "100px" }}
+                ref={target}
+              ></div>
               {chatMessageDataList?.map((p, idx, lst) => {
                 if (p.userNickname === userNickname) {
                   return (
-                    <div key={idx}>
+                    <MyMessageCardWrapper key={idx}>
+                      <MyMessageTime>03:00</MyMessageTime>
                       <MyMessageCard>
                         <p>{p.message}</p>
                       </MyMessageCard>
-                    </div>
+                    </MyMessageCardWrapper>
                   );
                 }
                 return (
-                  <PartnersMessageCard key={idx}>
-                    <p>{p.message}</p>
-                  </PartnersMessageCard>
+                  <PartnerMessegeCardWrapper key={idx}>
+                    <PartnersMessageCard>
+                      <p>{p.message}</p>
+                    </PartnersMessageCard>
+                    <PartnerMessageTime>
+                      {format(parseISO(p?.modifiedAt), "hh:mm")}
+                    </PartnerMessageTime>
+                  </PartnerMessegeCardWrapper>
                 );
               })}
             </MessageFieldInner>
