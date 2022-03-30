@@ -14,7 +14,6 @@ import {
   HorizontalLine,
   LoaderWrapper,
   MoveToDetailButton,
-  ProductReelsCard,
   ProductReelsWrapper,
   ReelsMoveNextButton,
   ReelsMovePrevButton,
@@ -127,8 +126,9 @@ const ProductReels = () => {
   const dispatch = useDispatch();
   const { reels_list } = useSelector(({ product }) => product);
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    dispatch(ProductService.getProductReels(count));
+    dispatch(ProductService.getProductReels(count, setIsLoading));
   }, []);
 
   // Infinity Scroll
@@ -136,6 +136,16 @@ const ProductReels = () => {
   const [target, setTarget] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [count, setCount] = useState(0);
+  useEffect(() => {
+    setIsLoading(false);
+  }, [reels_list]);
+
+  useEffect(() => {
+    if (selectedReelsNumber >= reels_list?.length && !isLoading) {
+      console.log("hi");
+      dispatch(ProductService.getProductReels(count, setIsLoading));
+    }
+  }, [selectedReelsNumber]);
 
   useEffect(() => {
     if (count !== 0) {

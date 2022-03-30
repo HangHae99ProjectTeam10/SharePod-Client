@@ -165,6 +165,7 @@ const ProductService = {
   },
   getProductReels: (count, setIsLoading) => {
     if (setIsLoading) {
+      console.log("hi");
       setIsLoading(true);
     }
     console.log(count);

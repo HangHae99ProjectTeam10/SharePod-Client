@@ -9,7 +9,8 @@ import {
 } from "constants/ColorSet";
 
 export const Wrapper = styled.section`
-  padding: 40px 165px;
+position:relative;
+  padding: 40px 165px 80px;
   h3{
     margin 0 0 25px;
   }
@@ -37,6 +38,7 @@ export const ProductReelsCard = styled.div`
 
 export const LoaderWrapper = styled.div`
   position: relative;
+  top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +48,7 @@ export const LoaderWrapper = styled.div`
 //VideoCard
 
 export const ReelsPlayBoxWrapper = styled.div`
-  position: relative;
+  position: absolute;
   .boardTitle {
     position: fixed;
     top: 10%;
@@ -100,7 +102,6 @@ export const MoveToDetailButton = styled.button`
 
 export const VideoCardBox = styled.div`
   position: relative;
-  margin-right: 150px;
 `;
 
 export const CarouselProfileImgWrapper = styled.div`
