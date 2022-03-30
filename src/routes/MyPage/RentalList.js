@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   HorizontalLine,
   NothingPostedInner,
@@ -21,24 +21,28 @@ import {
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { history } from "redux/store";
+import MyPageService from "services/myPage";
 
 const RentalList = () => {
+  const dispatch = useDispatch();
   const [myRentalRole, setMyRentalRole] = useState("1");
   const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
   const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
-  console.log(rentBuyList);
-  console.log(rentSellList);
-  const [rentalList, setRentalList] = useState(rentBuyList);
+  const [rentalList, setRentalList] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
   const [pageAmount, setPageAmount] = useState(
-    parseInt(Math.ceil(rentBuyList.length / 6))
+    rentBuyList && parseInt(Math.ceil(rentBuyList.length / 6))
   );
 
   const handleRoleRadioButton = (e) => {
     setMyRentalRole(e.target.value);
     setPageNumber(1);
   };
+
+  useEffect(() => {
+    dispatch(MyPageService.getMyBuyList());
+  }, []);
 
   useEffect(() => {
     if (myRentalRole === "1") {
@@ -51,7 +55,7 @@ const RentalList = () => {
   useEffect(() => {
     setDisplayList([]);
     const addList = [];
-    setPageAmount(Math.ceil(rentalList.length / 6));
+    rentBuyList && parseInt(Math.ceil(rentBuyList.length / 6));
     for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
       console.log(pageNumber);
       console.log(rentalList);
@@ -98,7 +102,7 @@ const RentalList = () => {
         </label>
       </TopButtons>
       <RentalCardBox>
-        {rentalList.length ? (
+        {rentalList?.length ? (
           displayList.map((p, idx) => {
             return (
               <div key={idx}>
