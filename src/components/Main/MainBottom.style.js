@@ -72,8 +72,8 @@ export const ReelsPlayBoxWrapper = styled.div`
   position: relative;
   .boardTitle {
     position: fixed;
-    top: 20%;
-    left: 28%;
+    top: 10%;
+    left: 37%;
     color: #fff;
     z-index: 1000;
   }
@@ -92,21 +92,21 @@ export const FloatedVideoCardBox = styled.div`
 
 export const FloatedReelsVideo = styled.video`
   position: absolute;
-  top: 0;
+  bottom: 50%;
   left: 50%;
-  transform: translate(-50%, 30%);
-  width: 50vw;
-  height: 60vh;
-  width: 300px;
-  height: 430px;
+  transform: translate(-50%, 50%);
+  width: 555px;
+  height: 780px;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+  source {
+  }
 `;
 
 export const MoveToDetailButton = styled.button`
   position: fixed;
-  bottom: 25%;
+  bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;

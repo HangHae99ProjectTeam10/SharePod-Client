@@ -70,9 +70,9 @@ const BottomVideoCard = (props) => {
   };
 
   const carouselWheelAction = (e) => {
-    if (e.nativeEvent.deltaX > 300) {
+    if (e.nativeEvent.deltaX < -300) {
       plusSelectedReelsNumber();
-    } else if (e.nativeEvent.deltaX < -300) {
+    } else if (e.nativeEvent.deltaX > 300) {
       minusSelectedReelsNumber();
     }
   };
