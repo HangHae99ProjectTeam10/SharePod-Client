@@ -7,12 +7,15 @@ import {
   SET_FAVORITE_ACTION,
   SET_FAVORITE_ACTION_IN_SEARCH,
   SET_FAVORITE_ACTION_IN_DETAIL,
+  GET_REELS_LIST,
+  GET_REELS_LIST_MORE,
 } from "constants/ActionTypes";
 
 const INIT_STATE = {
   product_list: [],
   product_detail: {},
   search_list: [],
+  reels_list: [],
 };
 
 const Product = (state = INIT_STATE, action) => {
@@ -20,6 +23,7 @@ const Product = (state = INIT_STATE, action) => {
     case GET_PRODUCT_LIST: {
       return {
         product_list: action.payload,
+        reels_list: state.reels_list,
       };
     }
     case ADD_PRODUCT: {
@@ -82,7 +86,18 @@ const Product = (state = INIT_STATE, action) => {
         product_detail: _product_detail,
       };
     }
-
+    case GET_REELS_LIST: {
+      return {
+        product_list: state.product_list,
+        reels_list: action.payload,
+      };
+    }
+    case GET_REELS_LIST_MORE: {
+      return {
+        product_list: state.product_list,
+        reels_list: [...state.reels_list, ...action.payload],
+      };
+    }
     default:
       return state;
   }
