@@ -142,14 +142,14 @@ const MyPageService = {
         .catch((err) => console.log("채팅룸 불러오기 실패: ", err.response));
     };
   },
-  getOneChatRoomContents: (chatroomId) => {
+  getOneChatRoomContents: (chatroomId, number = 0) => {
     return function (dispatch, getState, history) {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
 
       http
-        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${0}`)
+        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${number}`)
         .then((res) => {
           dispatch(getMyPageChatRoomContents(res.data));
         })

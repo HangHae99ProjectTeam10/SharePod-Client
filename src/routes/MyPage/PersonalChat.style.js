@@ -93,6 +93,13 @@ export const Blank = styled.div`
 export const MessageField = styled.div`
   padding: 15px 24px;
   overflow-y: auto;
+  position: relative;
+  height: 300px;
+`;
+export const MessageFieldInner = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 `;
 
 export const MyMessageCard = styled.div`

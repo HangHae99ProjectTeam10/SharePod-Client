@@ -11,6 +11,7 @@ import {
   ChatSection,
   MessageBar,
   MessageField,
+  MessageFieldInner,
   MyMessageCard,
   PartnersMessageCard,
   PersonalChatWrap,
@@ -50,7 +51,7 @@ const PersonalChat = () => {
   }, [dispatch, chatroodId]);
 
   const { chatRoomContents } = useSelector(({ myPage }) => myPage);
-  const chatMessageDataList = chatRoomContents?.chatMessageDataList?.reverse();
+  const chatMessageDataList = chatRoomContents?.chatMessageDataList;
 
   const { authUser } = useSelector(({ auth }) => auth);
   const userId = authUser.userId;
@@ -112,22 +113,24 @@ const PersonalChat = () => {
           </BoardInfo>
 
           <MessageField>
-            {chatMessageDataList?.map((p, idx, lst) => {
-              if (p.userNickname === userNickname) {
+            <MessageFieldInner>
+              {chatMessageDataList?.map((p, idx, lst) => {
+                if (p.userNickname === userNickname) {
+                  return (
+                    <div key={idx}>
+                      <MyMessageCard>
+                        <p>{p.message}</p>
+                      </MyMessageCard>
+                    </div>
+                  );
+                }
                 return (
-                  <div key={idx}>
-                    <MyMessageCard>
-                      <p>{p.message}</p>
-                    </MyMessageCard>
-                  </div>
+                  <PartnersMessageCard key={idx}>
+                    <p>{p.message}</p>
+                  </PartnersMessageCard>
                 );
-              }
-              return (
-                <PartnersMessageCard key={idx}>
-                  <p>{p.message}</p>
-                </PartnersMessageCard>
-              );
-            })}
+              })}
+            </MessageFieldInner>
           </MessageField>
           <MessageBar>
             <input

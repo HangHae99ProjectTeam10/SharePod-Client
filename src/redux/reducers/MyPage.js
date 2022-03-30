@@ -48,8 +48,13 @@ const MyPage = (state = INIT_STATE, action) => {
       };
     }
     case GET_MY_PAGE_CHAT_ROOM_CONTENTS: {
+      const chatList = action.payload.chatMessageDataList.reverse();
+
       return {
-        chatRoomContents: action.payload,
+        chatRoomContents: {
+          ...action.payload,
+          chatMessageDataList: chatList,
+        },
       };
     }
     case GET_MY_PAGE_CHAT_ROOM_USER: {
