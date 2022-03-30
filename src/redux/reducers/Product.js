@@ -3,7 +3,9 @@ import {
   GET_ONE_PRODUCT_DETAIL,
   GET_PRODUCT_LIST,
   GET_SEARCH_LIST,
+  GET_SEARCH_LIST_MORE,
   SET_FAVORITE_ACTION,
+  SET_FAVORITE_ACTION_IN_SEARCH,
   SET_FAVORITE_ACTION_IN_DETAIL,
   GET_REELS_LIST,
   GET_REELS_LIST_MORE,
@@ -36,8 +38,21 @@ const Product = (state = INIT_STATE, action) => {
       };
     }
     case GET_SEARCH_LIST: {
+      console.log(action.payload);
       return {
         search_list: action.payload,
+      };
+    }
+    case GET_SEARCH_LIST_MORE: {
+      console.log(state.search_list);
+      console.log(action.payload);
+      if (state.search_list || action.payload) {
+        return {
+          search_list: [...state.search_list, ...action.payload],
+        };
+      }
+      return {
+        search_list: [],
       };
     }
     case SET_FAVORITE_ACTION: {
@@ -45,6 +60,16 @@ const Product = (state = INIT_STATE, action) => {
         (p) => p.id === action.payload
       );
       const _product_list = state.product_list;
+      const isliked = _product_list[index]?.isLiked;
+      _product_list[index].isLiked = !isliked;
+      return {
+        ...state,
+        product_list: _product_list,
+      };
+    }
+    case SET_FAVORITE_ACTION_IN_SEARCH: {
+      const index = state.search_list.findIndex((p) => p.id === action.payload);
+      const _product_list = state.search_list;
       const isliked = _product_list[index]?.isLiked;
       _product_list[index].isLiked = !isliked;
       return {

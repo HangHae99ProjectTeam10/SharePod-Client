@@ -2,9 +2,9 @@ import * as React from "react";
 import styled from "styled-components";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import { font_light_gray_color } from "constants/ColorSet";
+
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
 import MyPageService from "services/myPage";
@@ -27,7 +27,6 @@ const BasicPopover = React.forwardRef((props, ref) => {
 
   const onHandleDelete = () => {
     if (window.confirm("삭제 하시겠습니까?")) {
-      console.log("삭제");
       dispatch(MyPageService.deleteProduct(props.boardId));
     } else {
       handleClose();

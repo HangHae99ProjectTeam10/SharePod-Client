@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "redux/store";
+import MyPageService from "services/myPage";
 import {
   ChatCard,
   ChatCardSide,
@@ -14,95 +16,43 @@ import {
 } from "./ChatList.style";
 
 const ChatList = () => {
-  const myChatList = [
-    // {
-    //   userImg:
-    //     "https://cdn.pixabay.com/photo/2017/04/01/21/06/portrait-2194457_960_720.jpg",
-    //   nickname: "나눔나눔",
-    //   mapData: "동대문구",
-    //   recentMessage:
-    //     "감사합니다, 깨끗하게 쓰고 반납하도록 하겠습니다. 그런데 혹시 사용법 확인할 수 있는 사이트가 있을까요?",
-    //   createdAt: "2022.03.14",
-    //   imageUrl1:
-    //     "https://cdn.pixabay.com/photo/2019/12/10/05/56/cyber-glasses-4685055_960_720.jpg",
-    // },
-    // {
-    //   userImg:
-    //     "https://cdn.pixabay.com/photo/2017/04/01/21/06/portrait-2194457_960_720.jpg",
-    //   nickname: "나눔나눔",
-    //   mapData: "동대문구",
-    //   recentMessage:
-    //     "감사합니다, 깨끗하게 쓰고 반납하도록 하겠습니다. 그런데 혹시 사용법 확인할 수 있는 사이트가 있을까요?",
-    //   createdAt: "2022.03.14",
-    //   imageUrl1:
-    //     "https://cdn.pixabay.com/photo/2019/12/10/05/56/cyber-glasses-4685055_960_720.jpg",
-    // },
-    // {
-    //   userImg:
-    //     "https://cdn.pixabay.com/photo/2017/04/01/21/06/portrait-2194457_960_720.jpg",
-    //   nickname: "나눔나눔",
-    //   mapData: "동대문구",
-    //   recentMessage:
-    //     "감사합니다, 깨끗하게 쓰고 반납하도록 하겠습니다. 그런데 혹시 사용법 확인할 수 있는 사이트가 있을까요?",
-    //   createdAt: "2022.03.14",
-    //   imageUrl1:
-    //     "https://cdn.pixabay.com/photo/2019/12/10/05/56/cyber-glasses-4685055_960_720.jpg",
-    // },
-    // {
-    //   userImg:
-    //     "https://cdn.pixabay.com/photo/2017/04/01/21/06/portrait-2194457_960_720.jpg",
-    //   nickname: "나눔나눔",
-    //   mapData: "동대문구",
-    //   recentMessage:
-    //     "감사합니다, 깨끗하게 쓰고 반납하도록 하겠습니다. 그런데 혹시 사용법 확인할 수 있는 사이트가 있을까요?",
-    //   createdAt: "2022.03.14",
-    //   imageUrl1:
-    //     "https://cdn.pixabay.com/photo/2019/12/10/05/56/cyber-glasses-4685055_960_720.jpg",
-    // },
-    // {
-    //   userImg:
-    //     "https://cdn.pixabay.com/photo/2017/04/01/21/06/portrait-2194457_960_720.jpg",
-    //   nickname: "나눔나눔",
-    //   mapData: "동대문구",
-    //   recentMessage:
-    //     "감사합니다, 깨끗하게 쓰고 반납하도록 하겠습니다. 그런데 혹시 사용법 확인할 수 있는 사이트가 있을까요?",
-    //   createdAt: "2022.03.14",
-    //   imageUrl1:
-    //     "https://cdn.pixabay.com/photo/2019/12/10/05/56/cyber-glasses-4685055_960_720.jpg",
-    // },
-    // {
-    //   userImg:
-    //     "https://cdn.pixabay.com/photo/2017/04/01/21/06/portrait-2194457_960_720.jpg",
-    //   nickname: "나눔나눔",
-    //   mapData: "동대문구",
-    //   recentMessage:
-    //     "감사합니다, 깨끗하게 쓰고 반납하도록 하겠습니다. 그런데 혹시 사용법 확인할 수 있는 사이트가 있을까요?",
-    //   createdAt: "2022.03.14",
-    //   imageUrl1:
-    //     "https://cdn.pixabay.com/photo/2019/12/10/05/56/cyber-glasses-4685055_960_720.jpg",
-    // },
-  ];
+  const dispatch = useDispatch();
+  const { chatList } = useSelector(({ myPage }) => myPage);
+
+  useEffect(() => {
+    dispatch(MyPageService.getChatList());
+  }, [dispatch]);
+
+  const moveToChatRoom = (chatroomId) => {
+    history.push(`/mypage/chat/room/${chatroomId}`);
+  };
+
   return (
     <Wrapper>
       <h3>1 : 1 채팅 내역</h3>
       <HorizontalLine />
-      {myChatList.length ? (
+      {chatList?.length > 0 ? (
         <>
           <ChatListWrapper>
-            {myChatList.map((p, idx) => {
+            {chatList?.map((p, idx) => {
               return (
-                <ChatCard key={idx}>
-                  <ChatPartnerProfileImg src={p.userImg} />
+                <ChatCard
+                  key={idx}
+                  onClick={() => {
+                    moveToChatRoom(p?.chatRoomId);
+                  }}
+                >
+                  <ChatPartnerProfileImg src={p?.otherImg} />
                   <ChatCardTextWrapper>
                     <ChatPartnerInfo>
-                      <span className="nickname">{p.nickname}</span>
-                      <span className="mapData">서울 {p.mapData}</span>
+                      <span className="nickname">{p?.otherNickName}</span>
+                      <span className="mapData">서울 {p?.otherRegion}</span>
                     </ChatPartnerInfo>
-                    <p>{p.recentMessage}</p>
+                    <p>{p?.lastChat}</p>
                   </ChatCardTextWrapper>
                   <ChatCardSide>
-                    <span>{p.createdAt}</span>
-                    <img src={p.imageUrl1} />
+                    <span>{p?.modifiedAt}</span>
+                    <img src={p?.boardImg} alt="" />
                   </ChatCardSide>
                 </ChatCard>
               );

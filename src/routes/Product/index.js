@@ -14,11 +14,6 @@ const Product = ({ match }) => {
           component={lazy(() => import(`./ProductDetail`))}
         />
         <Route
-          path={`${requestedUrl}/reservation`}
-          exact
-          component={lazy(() => import(`./Reservation`))}
-        />
-        <Route
           path={`${requestedUrl}/upload-product`}
           exact
           component={lazy(() => import(`./UploadProduct`))}

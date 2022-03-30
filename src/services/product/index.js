@@ -4,8 +4,10 @@ import {
   getOneProductDetail,
   getProductList,
   getReelsList,
+  getSearchList,
   setFavoriteAction,
   setFavoriteActionInDetail,
+  setFavoriteActionInSearch,
 } from "redux/actions/Product";
 
 const ProductService = {
@@ -111,12 +113,12 @@ const ProductService = {
           `/board/sort?startNum=${startNum}&category=${category}&boardRegion=${boardRegion}&filterType=${filterType}&userId=${userId}&searchTitle=${searchTitle}`
         )
         .then((res) => {
-          console.log(res);
-          dispatch(getProductList(res.data.listData));
-          // dispatch(getOneProductDetail(res.data.data));
+          console.log(res.data.listData);
+          dispatch(getSearchList(res.data.listData, startNum));
         });
     };
   },
+
   setFavorite: (boardId) => {
     return function (dispatch, getState) {
       const userId = getState().auth.authUser?.userId
@@ -128,6 +130,21 @@ const ProductService = {
         })
         .then((res) => {
           dispatch(setFavoriteAction(boardId));
+        });
+    };
+  },
+
+  setFavoriteInSearch: (boardId) => {
+    return function (dispatch, getState) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+      http
+        .post(`/like/${boardId}`, {
+          userId: userId,
+        })
+        .then((res) => {
+          dispatch(setFavoriteActionInSearch(boardId));
         });
     };
   },

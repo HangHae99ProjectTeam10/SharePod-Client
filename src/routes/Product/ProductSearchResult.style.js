@@ -70,7 +70,8 @@ export const ProductCard = styled.div`
 
     . boardInfo_title {
       margin: 5px;
-      font-size: 16px;
+      font-size: 18px;
+      font-weight: 500;
       padding: 10px 0px;
     }
     .mapData {
@@ -98,6 +99,15 @@ export const ProductCard = styled.div`
     }
   }
 `;
+
+export const LoaderWrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 export const useStyles = makeStyles((theme) => ({
   favoriteBtn: {
     position: "absolute",
