@@ -1,4 +1,5 @@
 import {
+  font_charcoal_gray_color,
   font_gray_color_777,
   line_light_gray_color,
   main_color,
@@ -179,17 +180,18 @@ export const MoreBtn = styled.button`
 export const ReelsMovePrevButton = styled.button`
   position: fixed;
   top: 50vh;
-  left: 18%;
+  left: 31%;
   display: inline-block;
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 48px;
   border: 1px solid ${line_light_gray_color};
-  color: ${main_color};
+  color: ${font_charcoal_gray_color};
   box-sizing: border-box;
-  border-radius: 14px;
-  font-size: 14px;
+  border-radius: 24px;
+  font-size: 21px;
   line-height: 22px;
   text-align: center;
+  opacity: 0.5;
   cursor: pointer;
   z-index: 1000;
 `;
@@ -197,17 +199,18 @@ export const ReelsMovePrevButton = styled.button`
 export const ReelsMoveNextButton = styled.button`
   position: fixed;
   top: 50vh;
-  right: 18%;
+  right: 31%;
   display: inline-block;
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 48px;
   border: 1px solid ${line_light_gray_color};
-  color: ${main_color};
+  color: ${font_charcoal_gray_color};
   box-sizing: border-box;
-  border-radius: 14px;
-  font-size: 14px;
+  border-radius: 24px;
+  font-size: 21px;
   line-height: 22px;
   text-align: center;
+  opacity: 0.5;
   cursor: pointer;
   z-index: 1000;
 `;
