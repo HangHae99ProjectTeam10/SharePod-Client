@@ -93,23 +93,36 @@ export const Blank = styled.div`
 export const MessageField = styled.div`
   padding: 15px 24px;
   overflow-y: auto;
+  position: relative;
+  height: 500px;
+  box-sizing: border-box;
+`;
+export const MessageFieldInner = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  height: 500px;
+`;
+
+export const MyMessageCardWrapper = styled.div`
+  justify-content: end;
+  display: flex;
+  align-items: center;
 `;
 
 export const MyMessageCard = styled.div`
   display: flex;
   width: 386px;
-  margin-left: auto;
-  align-items: flex-end;
+
   .time {
-    margin: 0 5px 13px 0;
     font-size: 11px;
     color: #999;
   }
   p {
     width: 335px;
-    box-sizing: border-box;
-    margin-top: 8px;
-    margin-left: auto;
     border-radius: 10px 0 10px 10px;
     padding: 11px 13px;
     font-size: 14px;
@@ -118,6 +131,15 @@ export const MyMessageCard = styled.div`
   }
 `;
 
+export const MyMessageTime = styled.div`
+  padding-top: 10px;
+  padding-right: 10px;
+  font-size: 0.8rem;
+`;
+export const PartnerMessegeCardWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
 export const PartnersMessageCard = styled.div`
   display: flex;
   img {
@@ -152,6 +174,11 @@ export const PartnersMessageCard = styled.div`
     font-size: 11px;
     color: #999;
   }
+`;
+export const PartnerMessageTime = styled.div`
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 0.8rem;
 `;
 
 export const MessageBar = styled.div`

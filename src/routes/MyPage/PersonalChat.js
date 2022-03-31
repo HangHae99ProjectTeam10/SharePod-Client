@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,13 +11,20 @@ import {
   ChatSection,
   MessageBar,
   MessageField,
+  MessageFieldInner,
   MyMessageCard,
+  MyMessageCardWrapper,
+  MyMessageTime,
+  PartnerMessageTime,
+  PartnerMessegeCardWrapper,
   PartnersMessageCard,
   PersonalChatWrap,
 } from "./PersonalChat.style";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { addChatList } from "redux/actions/MyPage";
+import { format, parseISO } from "date-fns";
+import PageLoader from "components/common/PageLoader";
 
 const PersonalChat = () => {
   const dispatch = useDispatch();
@@ -25,12 +32,18 @@ const PersonalChat = () => {
   const SockJs = new SockJS("http://13.125.219.196/ws-stomp");
   const StompClient = Stomp.over(SockJs);
 
-  useEffect(() => {
-    dispatch(MyPageService.getOneChatRoomContents(chatroodId));
-  }, [dispatch, chatroodId]);
+  const { chatRoomContents } = useSelector(({ myPage }) => myPage);
+  const chatMessageDataList = chatRoomContents?.chatMessageDataList;
+
+  const { authUser } = useSelector(({ auth }) => auth);
+  const userId = authUser.userId;
+  const userNickname = authUser.nickname;
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    console.log("connect");
+    dispatch(MyPageService.getOneChatRoomContents(chatroodId));
+
+    //socket 연결
     StompClient.connect(
       {},
       function (frame) {
@@ -46,18 +59,12 @@ const PersonalChat = () => {
         alert("error " + error);
       }
     );
-  }, []);
-
-  const { chatRoomContents } = useSelector(({ myPage }) => myPage);
-  const chatMessageDataList = chatRoomContents?.chatMessageDataList?.reverse();
-
-  const { authUser } = useSelector(({ auth }) => auth);
-  const userId = authUser.userId;
-  const userNickname = authUser.nickname;
-  const [message, setMessage] = useState("");
+    return function cleanup() {
+      StompClient.disconnect();
+    };
+  }, [dispatch, chatroodId]);
 
   const sendMessage = () => {
-    console.log("send");
     var date = new Date().toISOString();
 
     StompClient.send(
@@ -73,7 +80,6 @@ const PersonalChat = () => {
     setMessage("");
   };
   const recvMessage = (recv) => {
-    console.log("recv");
     dispatch(addChatList(recv));
   };
 
@@ -113,25 +119,35 @@ const PersonalChat = () => {
           </BoardInfo>
 
           <MessageField>
-            {chatMessageDataList?.map((p, idx, lst) => {
-              if (p.userNickname === userNickname) {
+            <MessageFieldInner>
+              {chatMessageDataList?.map((p, idx, lst) => {
+                if (p.userNickname === userNickname) {
+                  return (
+                    <MyMessageCardWrapper key={idx}>
+                      <MyMessageTime>03:00</MyMessageTime>
+                      <MyMessageCard>
+                        <p>{p.message}</p>
+                      </MyMessageCard>
+                    </MyMessageCardWrapper>
+                  );
+                }
                 return (
-                  <div key={idx}>
-                    <MyMessageCard>
+                  <PartnerMessegeCardWrapper key={idx}>
+                    <PartnersMessageCard>
                       <p>{p.message}</p>
-                    </MyMessageCard>
-                  </div>
+                    </PartnersMessageCard>
+                    <PartnerMessageTime>
+                      {/* TODO: date처리 */}
+                      {/* {format(parseISO(p?.modifiedAt), "hh:mm")} */}
+                    </PartnerMessageTime>
+                  </PartnerMessegeCardWrapper>
                 );
-              }
-              return (
-                <PartnersMessageCard key={idx}>
-                  <p>{p.message}</p>
-                </PartnersMessageCard>
-              );
-            })}
+              })}
+            </MessageFieldInner>
           </MessageField>
           <MessageBar>
             <input
+              autoFocus
               onKeyPress={(e) => handleSubmitBtn(e)}
               placeholder="메세지를 입력하세요."
               value={message}

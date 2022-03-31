@@ -19,7 +19,10 @@ export const GET_MY_PAGE_BUY_LIST = "get_my_page_buy_list";
 export const GET_MY_PAGE_CHAT_LIST = "get_my_page_chat_list";
 export const GET_MY_PAGE_CHAT_ROOM_USER = "get_my_page_chat_room_user";
 export const GET_MY_PAGE_CHAT_ROOM_CONTENTS = "get_my_page_chat_room_contents";
+export const GET_MY_PAGE_CHAT_ROOM_CONTENTS_MORE =
+  "get_my_page_chat_room_contents_more";
 export const ADD_MY_PAGE_CHAT_LIST = "add_my_page_chat_list";
+export const ADD_MY_PAGE_CHAT_START_NUM = "add_my_page_start_num";
 
 export const ADD_RESERVATION = "add_reservation";
 export const GET_RESERVATION_REQUEST_LIST = "get_reservation_request_list";

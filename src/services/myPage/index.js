@@ -8,6 +8,7 @@ import {
   getMyPageChatList,
   getMyPageChatRoomContents,
   getMyPageChatRoomUser,
+  getMyPageChatRoomContentsMore,
 } from "redux/actions/MyPage";
 
 const MyPageService = {
@@ -122,10 +123,17 @@ const MyPageService = {
         })
         .then((res) => {
           console.log(res);
-          history.push(`/mypage/chat/room/${res.data.chatId}`);
-          // dispatch(getMyPageChatList(res.data.chatRoomList));
+          if (res.data.chatRoomId) {
+            history.push(`/mypage/chat/room/${res.data.chatRoomId}`);
+          } else {
+            history.push(`/mypage/chat/room/${res.data.chatId}`);
+            dispatch(getMyPageChatList(res.data.chatRoomList));
+          }
         })
-        .catch((err) => console.log("채팅룸 만들기 실패: ", err.response));
+        .catch((err) => {
+          window.alert(err.response.data.msg);
+          // history.push(`/mypage/chat/room/${res.data.chatId}`);
+        });
     };
   },
   getChatList: () => {
@@ -142,16 +150,30 @@ const MyPageService = {
         .catch((err) => console.log("채팅룸 불러오기 실패: ", err.response));
     };
   },
-  getOneChatRoomContents: (chatroomId) => {
+  getOneChatRoomContents: (chatroomId, number = 0) => {
     return function (dispatch, getState, history) {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
 
       http
-        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${0}`)
+        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${number}`)
         .then((res) => {
           dispatch(getMyPageChatRoomContents(res.data));
+        })
+        .catch((err) => console.log("채팅 내역 불러오기 실패: ", err.response));
+    };
+  },
+  getOneChatRoomContentsMore: (chatroomId, number) => {
+    return function (dispatch, getState, history) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      http
+        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${number}`)
+        .then((res) => {
+          dispatch(getMyPageChatRoomContentsMore(res.data));
         })
         .catch((err) => console.log("채팅 내역 불러오기 실패: ", err.response));
     };
