@@ -31,16 +31,20 @@ const ReservationService = {
           dispatch(addReservation(res.data.boardData));
           history.replace(`/product/product-detail/${boardId}`);
         })
-        .catch((err) => window.alert(err.response.data.msg));
+        .catch((err) => console.log("거래요청 실패: ", err.response.data));
     };
   },
-  postReservationConfirm: (data, boardId) => {
+  postReservationConfirm: (data, boardId, actionType) => {
     return function (dispatch, getState, history) {
-      console.log(data, boardId);
+      console.log(data, boardId, actionType);
       http
         .post(`/reservation/response/${boardId}`, data)
         .then((res) => {
-          console.log(res);
+          if (actionType === "confirm") {
+            alert("거래요청을 수락했습니다.");
+          } else {
+            alert("거래요청을 거절했습니다.");
+          }
           history.push("/reservation/confirm");
         })
         .catch((err) => console.log("거래확인 실패: ", err.response));

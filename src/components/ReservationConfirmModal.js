@@ -36,12 +36,18 @@ export default function ReservationConfirmModal(props) {
   const actionType = props.actionType === "confirm";
   const data = {
     sellerId: userId,
-    buyerNickname: props.buyerNickName,
+    buyerNickName: props.buyerNickName,
     check: actionType,
   };
   console.log(data);
   const handleAction = () => {
-    dispatch(ReservationService.postReservationConfirm(data, props.boardId));
+    dispatch(
+      ReservationService.postReservationConfirm(
+        data,
+        props.boardId,
+        props.actionType
+      )
+    );
   };
 
   return (
