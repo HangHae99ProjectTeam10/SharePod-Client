@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductService from "services/product";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { history } from "redux/store";
+import MyPageService from "services/myPage";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -109,7 +110,7 @@ const ProductDetail = () => {
       history.push("/auth/signin");
     } else {
       /**TODO:빌리는 작업 */
-      // dispatch(ProductService.setFavoriteIndetail(boardId));
+      dispatch(MyPageService.makeChatRoom(id));
     }
   };
   return (
@@ -186,26 +187,25 @@ const ProductDetail = () => {
                 <span>10시간 전</span>
               </div>
             </section>
-            {!btnDisabled && (
-              <div
-                className="info_top_favoritebtn"
-                onClick={() => {
-                  onHandleFavoriteBtn(id);
-                }}
-              >
-                {product_detail?.liked ? (
-                  <FavoriteIcon
-                    fontSize="small"
-                    className={classes.favoriteBtn}
-                  />
-                ) : (
-                  <FavoriteBorderIcon
-                    fontSize="small"
-                    className={classes.favoriteBtn}
-                  />
-                )}
-              </div>
-            )}
+
+            <div
+              className="info_top_favoritebtn"
+              onClick={() => {
+                onHandleFavoriteBtn(id);
+              }}
+            >
+              {product_detail?.liked ? (
+                <FavoriteIcon
+                  fontSize="small"
+                  className={classes.favoriteBtn}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="small"
+                  className={classes.favoriteBtn}
+                />
+              )}
+            </div>
           </InfoBoxTop>
 
           <InfoBoxMiddle>

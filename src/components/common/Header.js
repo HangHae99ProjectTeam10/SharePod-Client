@@ -59,7 +59,7 @@ const Header = () => {
             src={authUser.userImg}
             alt="this is profile img"
             onClick={() => {
-              history.push("/mypage");
+              history.push("/mypage/myInfo");
             }}
           />
         </FlexBox>

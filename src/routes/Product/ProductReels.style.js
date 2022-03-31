@@ -1,76 +1,54 @@
+import styled from "styled-components";
 import {
+  bg_gray_color,
+  bg_light_gray_color,
   font_charcoal_gray_color,
-  font_gray_color_777,
   line_light_gray_color,
   main_color,
   secondary_color,
 } from "constants/ColorSet";
-import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  background: white;
-  padding: 0px 10rem;
+export const Wrapper = styled.section`
+position:relative;
+  padding: 40px 165px 80px;
+  h3{
+    margin 0 0 25px;
+  }
+`;
+
+export const HorizontalLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${bg_gray_color};
+`;
+
+export const ProductReelsWrapper = styled.div`
   display: flex;
-  width: 100vw;
-  overflow: hidden;
-`;
-export const GuideWrapper = styled.div`
-  width: 350px;
-  padding: 60px 0px;
-  h2 {
-    font-size: 1.8rem;
-  }
+  flex-wrap: wrap;
+  gap: 30px;
+  padding-top: 40px;
 `;
 
-export const GuideDesc = styled.div`
-  margin-bottom: 40px;
-  p {
-    margin: 0;
-    color: ${font_gray_color_777};
-    font-weight: bold;
-  }
+export const ProductReelsCard = styled.div`
+  width: 255px;
+  height: 370px;
+  border-radius: 10px;
+  background-color: ${bg_light_gray_color};
 `;
-export const ButtonBox = styled.div`
-  width: 56px;
-  height: 56px;
-  border-radius: 56px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  background: white;
+
+export const LoaderWrapper = styled.div`
+  position: relative;
+  top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${main_color};
-  margin-right: 20px;
-  cursor: pointer;
-`;
-export const IndexGuide = styled.div`
-  margin-bottom: 20px;
+  width: 100%;
 `;
 
-export const IndexGuideFocused = styled.span`
-  font-size: 3rem;
-  font-weight: 900;
-  color: ${main_color};
-`;
+//VideoCard
 
-export const IndexGuideFull = styled.span`
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #cccccc;
-  margin: 0px 10px;
-`;
-export const BottomVideoCardWrapper = styled.div`
-  display: flex;
-  overflow: hidden;
-  width: 1100px;
-  padding: 60px 0px;
-  padding-right: 10rem;
-  margin-left: 10rem;
-`;
-
-//BottomImgCard
 export const ReelsPlayBoxWrapper = styled.div`
-  position: relative;
+  position: absolute;
   .boardTitle {
     position: fixed;
     top: 10%;
@@ -122,14 +100,8 @@ export const MoveToDetailButton = styled.button`
   cursor: pointer;
 `;
 
-export const BottomVideoCardBox = styled.div`
+export const VideoCardBox = styled.div`
   position: relative;
-  margin-right: 150px;
-  transform: translateX(
-    -${(props) => (props.carouselReelsNumber - 1) * 450 - 250}px
-  );
-  transition-duration: 500ms;
-  transition-property: transform;
 `;
 
 export const CarouselProfileImgWrapper = styled.div`
@@ -215,7 +187,7 @@ export const ReelsMoveNextButton = styled.button`
   z-index: 1000;
 `;
 
-export const MainPageReelsVideo = styled.video`
+export const ReelsVideo = styled.video`
   width: 300px;
   height: 430px;
   object-fit: cover;

@@ -6,6 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { mapDataList } from "constants/mapDataList";
 import ProductService from "services/product";
 import {
+  LoaderWrapper,
   ProductCard,
   ProductSearchResultBoard,
   ProductSearchResultWrap,
@@ -14,6 +15,8 @@ import {
 } from "./ProductSearchResult.style";
 import { MenuItem, Select } from "@mui/material";
 import { history } from "redux/store";
+import PageLoader from "components/common/PageLoader";
+import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
 const ProductSearchResult = () => {
   const classes = useStyles();
@@ -27,7 +30,7 @@ const ProductSearchResult = () => {
       : ""
   );
 
-  const { product_list } = useSelector(({ product }) => product);
+  const { search_list } = useSelector(({ product }) => product);
   const { authUser } = useSelector(({ auth }) => auth);
 
   const [selectRegion, setSelectRegion] = useState("");
@@ -39,8 +42,9 @@ const ProductSearchResult = () => {
   /**TODO: 검색 필터 적용이 */
   useEffect(() => {
     // startNum, category, boardRegion, filterType, searchTitle
+    setCount(0);
     dispatch(
-      ProductService.getSearchList("", "", selectRegion, "", searchTitle)
+      ProductService.getSearchList(0, "", selectRegion, "", searchTitle)
     );
   }, [dispatch, selectRegion, searchTitle]);
 
@@ -49,9 +53,54 @@ const ProductSearchResult = () => {
   };
 
   const onHandleFavoriteBtn = (boardId) => {
-    console.log(boardId);
-    dispatch(ProductService.setFavorite(boardId));
+    dispatch(ProductService.setFavoriteInSearch(boardId));
   };
+
+  // Infinity Scroll
+  const [target, setTarget] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (count !== 0) {
+      dispatch(
+        ProductService.getSearchList(count, "", selectRegion, "", searchTitle)
+      );
+    }
+  }, [count]);
+
+  const getMoreItem = async () => {
+    setIsLoaded(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setCount(count + 16);
+    setIsLoaded(false);
+  };
+
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting && !isLoaded) {
+      await getMoreItem();
+      observer.observe(entry.target);
+    }
+  };
+
+  useEffect(() => {
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.4,
+      });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  const nowTimeData = new Date();
+  const nowYear = getYear(nowTimeData);
+  const nowMonth = getMonth(nowTimeData);
+  const nowDate = getDate(nowTimeData);
+  const nowHour = getHours(nowTimeData);
+  const nowMinute = getMinutes(nowTimeData);
+
   return (
     <ProductSearchResultWrap>
       <RegionSelectWrapper>
@@ -88,8 +137,14 @@ const ProductSearchResult = () => {
         </div>
       </div>
       <ProductSearchResultBoard>
-        {product_list &&
-          product_list.map((p, idx) => {
+        {search_list &&
+          search_list.map((p, idx) => {
+            const dataDate = new Date(p.modifiedAt);
+            const year = getYear(dataDate);
+            const month = getMonth(dataDate);
+            const date = getDate(dataDate);
+            const hour = getHours(dataDate);
+            const minute = getMinutes(dataDate);
             return (
               <ProductCard key={p.id}>
                 <img
@@ -117,13 +172,28 @@ const ProductSearchResult = () => {
                     서울 {p.boardRegion}
                   </div>
                   <span className="dailyRentalFee">
-                    <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일
+                    {/* <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일 */}
                   </span>
-                  <span className="time">1분전</span>
+                  <span className="time">
+                    {nowYear !== year
+                      ? `${nowYear - year}년 전`
+                      : nowMonth !== month
+                      ? `${nowMonth - month}개월 전`
+                      : nowDate !== date
+                      ? `${nowDate - date}일 전`
+                      : nowHour !== hour
+                      ? `${nowHour - hour}시간 전`
+                      : nowMinute !== minute
+                      ? `${nowMinute - minute}분 전`
+                      : null}
+                  </span>
                 </div>
               </ProductCard>
             );
           })}
+        <LoaderWrapper ref={setTarget} className="Target-Element">
+          {isLoaded && <PageLoader />}
+        </LoaderWrapper>
       </ProductSearchResultBoard>
     </ProductSearchResultWrap>
   );

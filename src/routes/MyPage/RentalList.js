@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   HorizontalLine,
   NothingPostedInner,
@@ -21,17 +21,19 @@ import {
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { history } from "redux/store";
+import MyPageService from "services/myPage";
 
 const RentalList = () => {
+  const dispatch = useDispatch();
   const [myRentalRole, setMyRentalRole] = useState("1");
-  const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
-  const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
-  const [rentalList, setRentalList] = useState(rentBuyList);
+  // const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
+  // const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
+  // const [rentalList, setRentalList] = useState(rentBuyList);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
-  const [pageAmount, setPageAmount] = useState(
-    parseInt(Math.ceil(rentBuyList.length / 6))
-  );
+  // const [pageAmount, setPageAmount] = useState(
+  //   parseInt(Math.ceil(rentBuyList.length / 6))
+  // );
 
   const handleRoleRadioButton = (e) => {
     setMyRentalRole(e.target.value);
@@ -39,29 +41,33 @@ const RentalList = () => {
   };
 
   useEffect(() => {
-    if (myRentalRole === "1") {
-      setRentalList(rentBuyList);
-    } else {
-      setRentalList(rentSellList);
-    }
-  }, [myRentalRole]);
+    dispatch(MyPageService.getMyBuyList());
+  }, []);
 
-  useEffect(() => {
-    setDisplayList([]);
-    const addList = [];
-    setPageAmount(Math.ceil(rentalList.length / 6));
-    for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
-      console.log(pageNumber);
-      console.log(rentalList);
-      if (rentalList[i]) {
-        addList.push(rentalList[i]);
-        console.log(addList);
-        continue;
-      }
-      break;
-    }
-    setDisplayList(addList);
-  }, [pageNumber, rentalList]);
+  // useEffect(() => {
+  //   if (myRentalRole === "1") {
+  //     setRentalList(rentBuyList);
+  //   } else {
+  //     setRentalList(rentSellList);
+  //   }
+  // }, [myRentalRole]);
+
+  // useEffect(() => {
+  //   setDisplayList([]);
+  //   const addList = [];
+  //   setPageAmount(Math.ceil(rentalList.length / 6));
+  //   for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
+  //     console.log(pageNumber);
+  //     console.log(rentalList);
+  //     if (rentalList[i]) {
+  //       addList.push(rentalList[i]);
+  //       console.log(addList);
+  //       continue;
+  //     }
+  //     break;
+  //   }
+  //   setDisplayList(addList);
+  // }, [pageNumber, rentalList]);
 
   return (
     <Wrapper>
@@ -89,7 +95,7 @@ const RentalList = () => {
           />
         </label>
       </TopButtons>
-      <RentalCardBox>
+      {/* <RentalCardBox>
         {rentalList.length ? (
           displayList.map((p, idx) => {
             return (
@@ -192,7 +198,7 @@ const RentalList = () => {
             </NothingPostedInner>
           </NothingPostedWrapper>
         )}
-      </RentalCardBox>
+      </RentalCardBox> */}
     </Wrapper>
   );
 };
