@@ -1,5 +1,6 @@
 import {
   ADD_MY_PAGE_CHAT_LIST,
+  ADD_MY_PAGE_CHAT_START_NUM,
   DELETE_PRODUCT,
   GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_CHAT_LIST,
@@ -98,6 +99,15 @@ export const addChatList = (chat) => {
     dispatch({
       type: ADD_MY_PAGE_CHAT_LIST,
       payload: chat,
+    });
+  };
+};
+
+export const addChatStartNum = (count) => {
+  return (dispatch) => {
+    dispatch({
+      type: ADD_MY_PAGE_CHAT_START_NUM,
+      payload: count,
     });
   };
 };

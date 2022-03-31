@@ -94,7 +94,7 @@ export const MessageField = styled.div`
   padding: 15px 24px;
   overflow-y: auto;
   position: relative;
-  height: 300px;
+  height: 500px;
   box-sizing: border-box;
 `;
 export const MessageFieldInner = styled.div`
@@ -104,7 +104,7 @@ export const MessageFieldInner = styled.div`
   width: 100%;
   padding: 24px;
   box-sizing: border-box;
-  height: 200px;
+  height: 500px;
 `;
 
 export const MyMessageCardWrapper = styled.div`

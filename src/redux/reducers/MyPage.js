@@ -1,5 +1,6 @@
 import {
   ADD_MY_PAGE_CHAT_LIST,
+  ADD_MY_PAGE_CHAT_START_NUM,
   DELETE_PRODUCT,
   GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_CHAT_LIST,
@@ -19,6 +20,7 @@ const INIT_STATE = {
   buyList: [],
   chatList: [],
   chatRoomContents: {},
+  chatStartnum: 0,
 };
 
 const MyPage = (state = INIT_STATE, action) => {
@@ -65,8 +67,8 @@ const MyPage = (state = INIT_STATE, action) => {
         chatRoomContents: {
           ...action.payload,
           chatMessageDataList: [
+            ...chatList,
             ...state.chatRoomContents.chatMessageDataList,
-            chatList,
           ],
         },
       };
@@ -94,6 +96,11 @@ const MyPage = (state = INIT_STATE, action) => {
 
       return {
         productList: myBoardList,
+      };
+    }
+    case ADD_MY_PAGE_CHAT_START_NUM: {
+      return {
+        chatStartnum: action.payload,
       };
     }
     default:

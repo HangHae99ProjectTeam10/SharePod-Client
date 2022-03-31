@@ -8,6 +8,7 @@ import {
   getMyPageChatList,
   getMyPageChatRoomContents,
   getMyPageChatRoomUser,
+  getMyPageChatRoomContentsMore,
 } from "redux/actions/MyPage";
 
 const MyPageService = {
@@ -172,7 +173,7 @@ const MyPageService = {
       http
         .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${number}`)
         .then((res) => {
-          dispatch(getMyPageChatRoomContents(res.data));
+          dispatch(getMyPageChatRoomContentsMore(res.data));
         })
         .catch((err) => console.log("채팅 내역 불러오기 실패: ", err.response));
     };

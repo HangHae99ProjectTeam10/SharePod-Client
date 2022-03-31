@@ -24,6 +24,7 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { addChatList } from "redux/actions/MyPage";
 import { format, parseISO } from "date-fns";
+import PageLoader from "components/common/PageLoader";
 
 const PersonalChat = () => {
   const dispatch = useDispatch();
@@ -33,13 +34,11 @@ const PersonalChat = () => {
 
   const { chatRoomContents } = useSelector(({ myPage }) => myPage);
   const chatMessageDataList = chatRoomContents?.chatMessageDataList;
-  const resultCount = chatRoomContents?.resultCount;
 
   const { authUser } = useSelector(({ auth }) => auth);
   const userId = authUser.userId;
   const userNickname = authUser.nickname;
   const [message, setMessage] = useState("");
-  const target = useRef(null);
 
   useEffect(() => {
     dispatch(MyPageService.getOneChatRoomContents(chatroodId));
@@ -64,36 +63,6 @@ const PersonalChat = () => {
       StompClient.disconnect();
     };
   }, [dispatch, chatroodId]);
-
-  // /* 인터섹션 callback */
-  // const onIntersect = async ([entry], observer) => {
-  //   if (entry.isIntersecting) {
-  //     observer.unobserve(entry.target);
-  //     await console.log(resultCount);
-  //     observer.observe(entry.target);
-  //   }
-  // };
-
-  const loadMore = useCallback(() => {
-    if (resultCount) {
-      console.log("it is edxist");
-      // dispatch(
-      //   MyPageService.getOneChatRoomContentsMore(chatroodId, resultCount)
-      // );
-    }
-  }, [resultCount, dispatch, chatroodId]);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          console.log("///////", resultCount);
-          loadMore();
-        }
-      },
-      { threshold: 1 }
-    );
-    observer.observe(target?.current);
-  }, [loadMore]);
 
   const sendMessage = () => {
     var date = new Date().toISOString();
@@ -151,10 +120,6 @@ const PersonalChat = () => {
 
           <MessageField>
             <MessageFieldInner>
-              <div
-                style={{ background: "pink", height: "100px" }}
-                ref={target}
-              ></div>
               {chatMessageDataList?.map((p, idx, lst) => {
                 if (p.userNickname === userNickname) {
                   return (
@@ -172,7 +137,8 @@ const PersonalChat = () => {
                       <p>{p.message}</p>
                     </PartnersMessageCard>
                     <PartnerMessageTime>
-                      {format(parseISO(p?.modifiedAt), "hh:mm")}
+                      {/* TODO: date처리 */}
+                      {/* {format(parseISO(p?.modifiedAt), "hh:mm")} */}
                     </PartnerMessageTime>
                   </PartnerMessegeCardWrapper>
                 );
