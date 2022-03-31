@@ -58,6 +58,7 @@ const ReservationService = {
       http
         .get(`/auth/img/${authId}`)
         .then((res) => {
+          console.log(res.data);
           dispatch(getProductQualityCertification(res.data));
         })
         .catch((err) => console.log("품질인증 목록 조회 실패: ", err.response));

@@ -31,9 +31,7 @@ const RentalList = () => {
   const [rentalList, setRentalList] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
-  const [pageAmount, setPageAmount] = useState(
-    rentalList && parseInt(Math.ceil(rentalList.length / 6))
-  );
+  const [pageAmount, setPageAmount] = useState();
 
   const handleRoleRadioButton = (e) => {
     setMyRentalRole(e.target.value);
@@ -71,12 +69,13 @@ const RentalList = () => {
     }
     console.log(addList);
     setDisplayList(addList);
+    setPageAmount(rentalList && parseInt(Math.ceil(rentalList.length / 6)));
   }, [pageNumber, rentalList]);
 
   const moveToCertification = (p) => {
     console.log(p);
     history.push(
-      `/reservation/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}`
+      `/reservation/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}&${p.startRental}&${p.endRental}&${p.nickName}&"IMG`
     );
   };
 

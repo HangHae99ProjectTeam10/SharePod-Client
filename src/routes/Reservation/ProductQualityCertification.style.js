@@ -4,13 +4,15 @@ import {
   font_black_color,
   font_dark_gray_color,
   font_light_charcoal_gray_color,
+  line_light_gray_color,
   main_color,
+  main_variant_color,
   main_variant_color_2,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
-  width: 1000px;
+  width: 1200px;
   height: 1070px;
   margin: 0 auto;
   padding: 20px 164px;
@@ -34,32 +36,16 @@ export const ProductInfoWrapper = styled.div`
   display: flex;
 `;
 
-export const ProductImage = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-right: 16px;
-  border-radius: 8px;
-`;
-
-export const ProductInfo = styled.div`
+export const ProductInfo = styled.table`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  border-top: 2px solid ${main_variant_color};
   .boardTitle {
     margin: 0px 0px 5px;
     font-size: 18px;
     font-wiehgt: 500;
     color: ${font_black_color};
-  }
-  .boardRegion {
-    margin-bottom: 4px;
-    font-size: 14px;
-    font-weight: 350;
-    color: #777;
-    svg {
-      vertical-align: bottom;
-      width: 14px;
-      margin-bottom: -3px;
-    }
   }
   .dailyRentalFee {
     strong {
@@ -70,13 +56,83 @@ export const ProductInfo = styled.div`
   }
 `;
 
-export const ProductQualityCertificationWrapper = styled.div``;
+export const ProductInfoHeader = styled.div`
+  border-bottom: 1px solid ${line_light_gray_color};
+  span {
+    display: inline-block;
+    padding: 12px 0;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 400;
+    color: ${main_color};
+    text-align: center;
+  }
+  .productInfoSeller,
+  .productInfoBuyer {
+    width: 165px;
+  }
+  .productInfoTitle,
+  .productInfoBoardRegion,
+  .productInfoRentalPeriod,
+  .productInfoTotalFee {
+    width: 150px;
+  }
+  .productInfoStartRental,
+  .productInfoEndRental {
+    width: 135px;
+  }
+`;
+
+export const ProductInfoBody = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid ${line_light_gray_color};
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 25px 0;
+    font-size: 15px;
+    color: ${font_dark_gray_color};
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+  .productInfoSeller,
+  .productInfoBuyer {
+    width: 165px;
+  }
+  .productInfoTitle,
+  .productInfoBoardRegion,
+  .productInfoRentalPeriod,
+  .productInfoTotalFee {
+    width: 150px;
+  }
+  .productInfoStartRental,
+  .productInfoEndRental {
+    width: 135px;
+  }
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+  }
+`;
+export const ProductImage = styled.img``;
+
+export const ProductQualityCertificationWrapper = styled.div`
+  border-top: 1px solid ${line_light_gray_color};
+`;
 
 export const ProductQualityCertificationHeader = styled.div`
-  margin-bottom: 10px;
+  margin-top: 10px;
   span {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 400;
     color: ${font_light_charcoal_gray_color};
   }
 `;
@@ -85,7 +141,6 @@ export const ProductQualityCertificationListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  border-top: 2px solid ${main_color};
   padding: 20px 10px;
 `;
 

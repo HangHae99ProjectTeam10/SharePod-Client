@@ -40,7 +40,7 @@ export const postCertificationImg = (data, buyerId, sellerId, idx) => {
       payload: {
         data: {
           authImgId: data.authImgId,
-          authImgCheck: true,
+          authImgCheck: false,
           authImgUrl: data.authImgUrl,
         },
         buyerId,
