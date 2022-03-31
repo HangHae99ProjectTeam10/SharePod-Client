@@ -17,6 +17,7 @@ const INIT_STATE = {
   productList: [],
   buyList: [],
   sellList: [],
+  requestList: [],
   chatList: [],
   chatRoomContents: {},
 };
@@ -42,6 +43,7 @@ const MyPage = (state = INIT_STATE, action) => {
       return {
         buyList: action.payload.rentBuyerList,
         sellList: action.payload.rentSellerList,
+        requestList: action.payload.userReservationList,
       };
     }
     case GET_MY_PAGE_CHAT_LIST: {
