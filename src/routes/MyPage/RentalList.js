@@ -26,13 +26,13 @@ import MyPageService from "services/myPage";
 const RentalList = () => {
   const dispatch = useDispatch();
   const [myRentalRole, setMyRentalRole] = useState("1");
-  const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
-  const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
-  const [rentalList, setRentalList] = useState([]);
+  const { buyList } = useSelector(({ myPage }) => myPage);
+  const { sellList } = useSelector(({ myPage }) => myPage);
+  const [rentalList, setRentalList] = useState(buyList);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
   const [pageAmount, setPageAmount] = useState(
-    rentBuyList && parseInt(Math.ceil(rentBuyList.length / 6))
+    buyList && parseInt(Math.ceil(buyList.length / 6))
   );
 
   const handleRoleRadioButton = (e) => {
@@ -46,26 +46,24 @@ const RentalList = () => {
 
   useEffect(() => {
     if (myRentalRole === "1") {
-      setRentalList(rentBuyList);
+      setRentalList(buyList);
     } else {
-      setRentalList(rentSellList);
+      setRentalList(sellList);
     }
   }, [myRentalRole]);
 
   useEffect(() => {
     setDisplayList([]);
     const addList = [];
-    rentBuyList && parseInt(Math.ceil(rentBuyList.length / 6));
+    rentalList && parseInt(Math.ceil(rentalList.length / 6));
     for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
-      console.log(pageNumber);
-      console.log(rentalList);
       if (rentalList[i]) {
         addList.push(rentalList[i]);
-        console.log(addList);
         continue;
       }
       break;
     }
+    console.log(addList);
     setDisplayList(addList);
   }, [pageNumber, rentalList]);
 

@@ -8,6 +8,7 @@ import {
   getMyPageChatList,
   getMyPageChatRoomContents,
   getMyPageChatRoomUser,
+  getMyPageBuyList,
 } from "redux/actions/MyPage";
 
 const MyPageService = {
@@ -59,7 +60,7 @@ const MyPageService = {
         .get(`/user/order/${userId}`)
         .then((res) => {
           console.log(res.data);
-          // dispatch(getMyPageProductList(res.data.userMyBoard));
+          dispatch(getMyPageBuyList(res.data));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
     };

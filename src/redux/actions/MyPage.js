@@ -36,11 +36,11 @@ export const getMyPageProductList = (product_list) => {
   };
 };
 
-export const getMyPageBuyList = (buy_list) => {
+export const getMyPageBuyList = (data) => {
   return (dispatch) => {
     dispatch({
       type: GET_MY_PAGE_BUY_LIST,
-      payload: buy_list,
+      payload: data,
     });
   };
 };
