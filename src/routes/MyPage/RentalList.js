@@ -28,11 +28,11 @@ const RentalList = () => {
   const [myRentalRole, setMyRentalRole] = useState("1");
   const { buyList } = useSelector(({ myPage }) => myPage);
   const { sellList } = useSelector(({ myPage }) => myPage);
-  const [rentalList, setRentalList] = useState(buyList);
+  const [rentalList, setRentalList] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
   const [pageAmount, setPageAmount] = useState(
-    buyList && parseInt(Math.ceil(buyList.length / 6))
+    rentalList && parseInt(Math.ceil(rentalList.length / 6))
   );
 
   const handleRoleRadioButton = (e) => {
@@ -45,6 +45,10 @@ const RentalList = () => {
   }, []);
 
   useEffect(() => {
+    setRentalList(buyList);
+  }, [buyList]);
+
+  useEffect(() => {
     if (myRentalRole === "1") {
       setRentalList(buyList);
     } else {
@@ -55,21 +59,24 @@ const RentalList = () => {
   useEffect(() => {
     setDisplayList([]);
     const addList = [];
-    rentalList && parseInt(Math.ceil(rentalList.length / 6));
-    for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
-      if (rentalList[i]) {
-        addList.push(rentalList[i]);
-        continue;
+    if (rentalList) {
+      parseInt(Math.ceil(rentalList.length / 6));
+      for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
+        if (rentalList[i]) {
+          addList.push(rentalList[i]);
+          continue;
+        }
+        break;
       }
-      break;
     }
     console.log(addList);
     setDisplayList(addList);
   }, [pageNumber, rentalList]);
 
   const moveToCertification = (p) => {
+    console.log(p);
     history.push(
-      `/product/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}`
+      `/reservation/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}`
     );
   };
 
