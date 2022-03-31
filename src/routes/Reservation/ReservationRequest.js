@@ -35,12 +35,17 @@ const ReservationRequest = () => {
   const sellerNickname = decodeURI(boardInfo[2]);
   const sellerProfile = boardInfo[3];
   const boardId = boardInfo[4];
+  const singleDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const changeStartDay = () => {
     const startYear = rentalStartDate.getFullYear();
-    const startMonth = rentalStartDate.getMonth();
-    const startDate = rentalStartDate.getDate();
-    setStartDay(`${startYear}-0${startMonth + 1}-${startDate}`);
+    const startMonth = singleDigits.includes(rentalStartDate.getMonth() + 1)
+      ? `0${rentalStartDate.getMonth() + 1}`
+      : rentalStartDate.getMonth() + 1;
+    const startDate = singleDigits.includes(rentalStartDate.getDate())
+      ? `0${rentalStartDate.getDate()}`
+      : rentalStartDate.getDate();
+    setStartDay(`${startYear}-${startMonth}-${startDate}`);
   };
 
   useEffect(() => {
@@ -51,9 +56,13 @@ const ReservationRequest = () => {
 
   const changeEndDay = () => {
     const endYear = rentalEndDate.getFullYear();
-    const endMonth = rentalEndDate.getMonth();
-    const endDate = rentalEndDate.getDate();
-    setEndDay(`${endYear}-0${endMonth + 1}-${endDate}`);
+    const endMonth = singleDigits.includes(rentalEndDate.getMonth() + 1)
+      ? `0${rentalEndDate.getMonth() + 1}`
+      : rentalEndDate.getMonth() + 1;
+    const endDate = singleDigits.includes(rentalEndDate.getDate())
+      ? `0${rentalEndDate.getDate()}`
+      : rentalEndDate.getDate();
+    setEndDay(`${endYear}-${endMonth}-${endDate}`);
   };
 
   useEffect(() => {
