@@ -1,3 +1,4 @@
+import { format, parseISO } from "date-fns";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "redux/store";
@@ -51,7 +52,7 @@ const ChatList = () => {
                     <p>{p?.lastChat}</p>
                   </ChatCardTextWrapper>
                   <ChatCardSide>
-                    <span>{p?.modifiedAt}</span>
+                    <span>{format(parseISO(p?.modifiedAt), "yyyy-MM-dd")}</span>
                     <img src={p?.boardImg} alt="" />
                   </ChatCardSide>
                 </ChatCard>

@@ -41,7 +41,13 @@ export default function ReservationConfirmModal(props) {
   };
   console.log(data);
   const handleAction = () => {
-    dispatch(ReservationService.postReservationConfirm(data, props.boardId));
+    dispatch(
+      ReservationService.postReservationConfirm(
+        data,
+        props.boardId,
+        props.actionType
+      )
+    );
   };
 
   return (
