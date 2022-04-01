@@ -10,6 +10,7 @@ import {
   CarouselProfileLocation,
   CarouselProfileName,
   FloatedReelsVideo,
+  FloatedReelsVideoTitleBackground,
   FloatedVideoCardBox,
   HorizontalLine,
   LoaderWrapper,
@@ -76,6 +77,7 @@ const VideoCard = (props) => {
         <ReelsPlayBoxWrapper onWheel={carouselWheelAction}>
           <h4 className="boardTitle">{title}</h4>
           <FloatedVideoCardBox idx={idx} onClick={resetSelectedReelsNumber}>
+            <FloatedReelsVideoTitleBackground />
             <FloatedReelsVideo
               id="autoplay"
               controls

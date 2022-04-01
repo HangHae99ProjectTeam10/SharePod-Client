@@ -9,9 +9,10 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   background: white;
-  padding: 0px 10rem;
+  box-sizing: border-box;
+  padding: 0 0 0 10rem;
   display: flex;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
 `;
 export const GuideWrapper = styled.div`
@@ -66,60 +67,6 @@ export const BottomVideoCardWrapper = styled.div`
   padding: 60px 0px;
   padding-right: 10rem;
   margin-left: 10rem;
-`;
-
-//BottomImgCard
-export const ReelsPlayBoxWrapper = styled.div`
-  position: relative;
-  .boardTitle {
-    position: fixed;
-    top: 10%;
-    left: 37%;
-    color: #fff;
-    z-index: 1000;
-  }
-`;
-
-export const FloatedVideoCardBox = styled.div`
-  margin-right: 150px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(1, 1, 1, 0.5);
-  z-index: 999;
-`;
-
-export const FloatedReelsVideo = styled.video`
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  width: 555px;
-  height: 780px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
-  source {
-  }
-`;
-
-export const MoveToDetailButton = styled.button`
-  position: fixed;
-  bottom: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  width: 510px;
-  height: 56px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background-color: ${main_color};
-  cursor: pointer;
 `;
 
 export const BottomVideoCardBox = styled.div`
@@ -177,10 +124,90 @@ export const MoreBtn = styled.button`
   }
 `;
 
+export const MainPageReelsVideo = styled.video`
+  width: 300px;
+  height: 430px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+`;
+
+//Video Card
+export const ReelsPlayBoxWrapper = styled.div`
+  position: absolute;
+  .boardTitle {
+    position: fixed;
+    width: 350px;
+    top: calc(50% - 380px);
+    left: calc(50% - 80px);
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: left;
+    z-index: 1000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+`;
+
+export const FloatedVideoCardBox = styled.div`
+  margin-right: 150px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 1, 1, 0.5);
+  z-index: 999;
+`;
+
+export const FloatedReelsVideoTitleBackground = styled.div`
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(50% - 355px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to bottom, gray, transparent);
+  width: 556px;
+  height: 71px;
+  z-index: 1000;
+`;
+
+export const FloatedReelsVideo = styled.video`
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 555px;
+  height: 780px;
+  object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+`;
+
+export const MoveToDetailButton = styled.button`
+  position: fixed;
+  bottom: 15%;
+  top: calc(50% + 280px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 510px;
+  height: 56px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: ${main_color};
+  cursor: pointer;
+`;
+
 export const ReelsMovePrevButton = styled.button`
   position: fixed;
-  top: 50vh;
-  left: 31%;
+  top: 50%;
+  left: calc(50% - 350px);
+  transform: translate(-50%, -50%);
   display: inline-block;
   width: 48px;
   height: 48px;
@@ -198,8 +225,9 @@ export const ReelsMovePrevButton = styled.button`
 
 export const ReelsMoveNextButton = styled.button`
   position: fixed;
-  top: 50vh;
-  right: 31%;
+  top: 50%;
+  left: calc(50% + 350px);
+  transform: translate(-50%, -50%);
   display: inline-block;
   width: 48px;
   height: 48px;
@@ -213,12 +241,4 @@ export const ReelsMoveNextButton = styled.button`
   opacity: 0.5;
   cursor: pointer;
   z-index: 1000;
-`;
-
-export const MainPageReelsVideo = styled.video`
-  width: 300px;
-  height: 430px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
 `;

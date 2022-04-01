@@ -12,6 +12,7 @@ import {
   CarouselProfileLocation,
   CarouselProfileName,
   FloatedReelsVideo,
+  FloatedReelsVideoTitleBackground,
   FloatedVideoCardBox,
   GuideDesc,
   GuideWrapper,
@@ -70,9 +71,9 @@ const BottomVideoCard = (props) => {
   };
 
   const carouselWheelAction = (e) => {
-    if (e.nativeEvent.deltaX < -300) {
+    if (e.nativeEvent.deltaX <= -200) {
       plusSelectedReelsNumber();
-    } else if (e.nativeEvent.deltaX > 300) {
+    } else if (e.nativeEvent.deltaX >= 200) {
       minusSelectedReelsNumber();
     }
   };
@@ -83,6 +84,7 @@ const BottomVideoCard = (props) => {
         <ReelsPlayBoxWrapper onWheel={carouselWheelAction}>
           <h4 className="boardTitle">{title}</h4>
           <FloatedVideoCardBox idx={idx} onClick={resetSelectedReelsNumber}>
+            <FloatedReelsVideoTitleBackground />
             <FloatedReelsVideo
               id="autoplay"
               controls
@@ -172,9 +174,9 @@ const MainBottom = () => {
   };
 
   const carouselWheelAction = (e) => {
-    if (e.nativeEvent.deltaX > 300) {
+    if (e.nativeEvent.deltaX >= 200) {
       plusCarouselReelsNumber();
-    } else if (e.nativeEvent.deltaX < -300) {
+    } else if (e.nativeEvent.deltaX <= -200) {
       minusCarouselReelsNumber();
     }
   };
