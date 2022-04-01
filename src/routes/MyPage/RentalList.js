@@ -26,14 +26,13 @@ import MyPageService from "services/myPage";
 const RentalList = () => {
   const dispatch = useDispatch();
   const [myRentalRole, setMyRentalRole] = useState("1");
-  // const { rentBuyList } = useSelector(({ myPage }) => myPage.myPageData);
-  // const { rentSellList } = useSelector(({ myPage }) => myPage.myPageData);
-  // const [rentalList, setRentalList] = useState(rentBuyList);
+  const { buyList } = useSelector(({ myPage }) => myPage);
+  const { sellList } = useSelector(({ myPage }) => myPage);
+  const { requestList } = useSelector(({ myPage }) => myPage);
+  const [rentalList, setRentalList] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [displayList, setDisplayList] = useState([]);
-  // const [pageAmount, setPageAmount] = useState(
-  //   parseInt(Math.ceil(rentBuyList.length / 6))
-  // );
+  const [pageAmount, setPageAmount] = useState();
 
   const handleRoleRadioButton = (e) => {
     setMyRentalRole(e.target.value);
@@ -44,30 +43,47 @@ const RentalList = () => {
     dispatch(MyPageService.getMyBuyList());
   }, []);
 
-  // useEffect(() => {
-  //   if (myRentalRole === "1") {
-  //     setRentalList(rentBuyList);
-  //   } else {
-  //     setRentalList(rentSellList);
-  //   }
-  // }, [myRentalRole]);
+  useEffect(() => {
+    setRentalList(buyList);
+  }, [buyList]);
 
-  // useEffect(() => {
-  //   setDisplayList([]);
-  //   const addList = [];
-  //   setPageAmount(Math.ceil(rentalList.length / 6));
-  //   for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
-  //     console.log(pageNumber);
-  //     console.log(rentalList);
-  //     if (rentalList[i]) {
-  //       addList.push(rentalList[i]);
-  //       console.log(addList);
-  //       continue;
-  //     }
-  //     break;
-  //   }
-  //   setDisplayList(addList);
-  // }, [pageNumber, rentalList]);
+  useEffect(() => {
+    if (myRentalRole === "1") {
+      setRentalList(buyList);
+    } else if (myRentalRole === "2") {
+      setRentalList(sellList);
+    } else {
+      console.log(requestList);
+      setRentalList(requestList);
+    }
+  }, [myRentalRole]);
+
+  useEffect(() => {
+    setDisplayList([]);
+    const addList = [];
+    if (rentalList) {
+      parseInt(Math.ceil(rentalList.length / 6));
+      for (let i = (pageNumber - 1) * 6; i < pageNumber * 6; i++) {
+        if (rentalList[i]) {
+          addList.push(rentalList[i]);
+          continue;
+        }
+        break;
+      }
+    }
+    setDisplayList(addList);
+    setPageAmount(rentalList && parseInt(Math.ceil(rentalList.length / 6)));
+  }, [pageNumber, rentalList]);
+
+  const moveToCertification = (p) => {
+    history.push(
+      `/reservation/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}&${p.startRental}&${p.endRental}&${p.nickName}&${p.othersImg}`
+    );
+  };
+
+  const moveToDetail = (id) => {
+    history.push(`/product/product-detail/${id}`);
+  };
 
   return (
     <Wrapper>
@@ -94,30 +110,56 @@ const RentalList = () => {
             onChange={handleRoleRadioButton}
           />
         </label>
+        <label className={myRentalRole === "3" ? "checked" : null}>
+          내가 보낸 요청
+          <input
+            type="radio"
+            name="myRole"
+            value="3"
+            hidden
+            onChange={handleRoleRadioButton}
+          />
+        </label>
       </TopButtons>
-      {/* <RentalCardBox>
-        {rentalList.length ? (
+      <RentalCardBox>
+        {rentalList?.length ? (
           displayList.map((p, idx) => {
             return (
-              <>
-                <RentalCard key={idx}>
+              <div key={idx}>
+                <RentalCard>
                   <RentalCardImg src={p.firstImgUrl} />
                   <RentalCardInfoWrapper>
                     <h3>{p.boardTitle}</h3>
                     <RentalCardMapData>
-                      <LocationOnOutlinedIcon /> 서울 {p.boardRegion}
+                      <LocationOnOutlinedIcon /> 서울
+                      {p.boardRegion}
                     </RentalCardMapData>
                     <RentalCardDate>
-                      <CalendarTodayOutlinedIcon /> {p.startRental}~
-                      {p.endRental}
+                      <CalendarTodayOutlinedIcon />
+                      {p.startRental.split("-").join(".")}~
+                      {p.endRental.split("-").join(".")}
                     </RentalCardDate>
                     <RentalCardDailyRentalFee>
                       <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 /
                       1일
                     </RentalCardDailyRentalFee>
-                    <RentalCardQualityConfirmButton>
-                      품질 확인하기
-                    </RentalCardQualityConfirmButton>
+                    {myRentalRole === "3" ? (
+                      <RentalCardQualityConfirmButton
+                        onClick={() => {
+                          moveToDetail(p.boardId);
+                        }}
+                      >
+                        물품 다시보기
+                      </RentalCardQualityConfirmButton>
+                    ) : (
+                      <RentalCardQualityConfirmButton
+                        onClick={() => {
+                          moveToCertification(p);
+                        }}
+                      >
+                        품질 확인하기
+                      </RentalCardQualityConfirmButton>
+                    )}
                   </RentalCardInfoWrapper>
                 </RentalCard>
                 <PaginationButtons>
@@ -159,7 +201,7 @@ const RentalList = () => {
                     {">"}
                   </PageMoveButton>
                 </PaginationButtons>
-              </>
+              </div>
             );
           })
         ) : myRentalRole === "1" ? (
@@ -175,7 +217,7 @@ const RentalList = () => {
               </button>
             </NothingPostedInner>
           </NothingPostedWrapper>
-        ) : (
+        ) : myRentalRole === "2" ? (
           <NothingPostedWrapper>
             <NothingPostedInner>
               <p>공유한 상품이 없습니다.</p>
@@ -197,8 +239,21 @@ const RentalList = () => {
               </button>
             </NothingPostedInner>
           </NothingPostedWrapper>
+        ) : (
+          <NothingPostedWrapper>
+            <NothingPostedInner>
+              <p>보낸 거래요청이 없습니다.</p>
+              <button
+                onClick={() => {
+                  history.push("/product/product-search");
+                }}
+              >
+                물품 둘러보기
+              </button>
+            </NothingPostedInner>
+          </NothingPostedWrapper>
         )}
-      </RentalCardBox> */}
+      </RentalCardBox>
     </Wrapper>
   );
 };
