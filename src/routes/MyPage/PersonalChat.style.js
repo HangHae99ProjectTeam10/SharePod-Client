@@ -141,6 +141,18 @@ export const MyMessageTime = styled.div`
 export const PartnerMessegeCardWrapper = styled.div`
   display: flex;
   align-items: center;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-top: -60px;
+    margin-right: 7px;
+    border-radius: 15px;
+    background-color: #c4c4c4;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const PartnersMessageCard = styled.div`
   display: flex;
@@ -210,5 +222,27 @@ export const MessageBar = styled.div`
     font-weight: 600;
     color: white;
     cursor: pointer;
+  }
+`;
+
+export const DateNotice = styled.div`
+  position: relative;
+  margin: 23px 0px;
+  div {
+    width: 100%;
+    height: 1px;
+    background-color: #dedede;
+  }
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    padding: 5px 12px;
+    background-color: #fdfdfd;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
   }
 `;
