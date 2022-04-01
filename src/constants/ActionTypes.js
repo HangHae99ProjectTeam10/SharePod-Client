@@ -29,3 +29,5 @@ export const GET_RESERVATION_REQUEST_LIST = "get_reservation_request_list";
 export const GET_CERTIFICATION_LIST = "get_certification_list";
 export const POST_CERTIFICATION_IMAGE = "post_certification_image";
 export const POST_CERTIFICATION_CONFIRM = "post_certification_confirm";
+
+export const GET_NOTICE_COUNT = "get_notice_count";
