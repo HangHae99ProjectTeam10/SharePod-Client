@@ -50,13 +50,10 @@ const ProductQualityCertification = () => {
   );
   const partnerNickName = search[7];
   const partnerProfileImg = search[8];
-  console.log(startRental, endRental);
 
   const myId = authUser.userId;
   const myNickName = authUser.nickname;
   const myProfileImg = authUser.userImg;
-
-  console.log(myId);
 
   const [imgSrcList, setImgSrcList] = useState([]);
   const [imgFileList, setImgFileList] = useState([]);
@@ -71,7 +68,6 @@ const ProductQualityCertification = () => {
       newImgSrcList.push(certification_list[i].authImgUrl);
     }
     setImgSrcList(newImgSrcList);
-    console.log(certification_list);
   }, [certification_list]);
 
   const handleFileInput = (e, idx) => {
@@ -127,14 +123,18 @@ const ProductQualityCertification = () => {
   };
 
   const handleConfirmButton = (e, idx) => {
-    dispatch(
-      ReservationService.postProductCertificationConfirm(
-        e.target.value,
-        certification_list[idx].authImgId,
-        certification_list[idx].authImgUrl,
-        idx
-      )
-    );
+    if (!certification_list[idx].authImgUrl) {
+      alert("등록된 이미지가 없습니다.");
+    } else {
+      dispatch(
+        ReservationService.postProductCertificationConfirm(
+          e.target.value,
+          certification_list[idx].authImgId,
+          certification_list[idx].authImgUrl,
+          idx
+        )
+      );
+    }
   };
 
   return (

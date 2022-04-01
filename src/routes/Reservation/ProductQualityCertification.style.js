@@ -251,8 +251,8 @@ export const CertificationConfirmButton = styled.button`
 `;
 
 export const ProductQualityCertificationRequestDate = styled.span`
-  margin-left: 10px;
-  font-size: 14px;
+  margin: 0 0 20px 30px;
+  font-size: 20px;
   font-weight: 700;
   color: ${font_light_charcoal_gray_color};
 `;
