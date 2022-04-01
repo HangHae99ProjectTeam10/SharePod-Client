@@ -25,6 +25,8 @@ import Stomp from "stompjs";
 import { addChatList } from "redux/actions/MyPage";
 import { format, parseISO } from "date-fns";
 import PageLoader from "components/common/PageLoader";
+import { getHours } from "date-fns/esm";
+import { singleDigits } from "constants/singleDigits";
 
 const PersonalChat = () => {
   const dispatch = useDispatch();
@@ -121,10 +123,35 @@ const PersonalChat = () => {
           <MessageField>
             <MessageFieldInner>
               {chatMessageDataList?.map((p, idx, lst) => {
+                const sendTime = new Date(p.modifiedAt);
+                const timeCheck = p.modifiedAt.split(":").splice(0, 2);
+
+                const sendHour = singleDigits.includes(sendTime.getHours())
+                  ? `0${sendTime.getHours()}`
+                  : `${sendTime.getHours()}`;
+                const sendMinute = singleDigits.includes(sendTime.getMinutes())
+                  ? `0${sendTime.getMinutes()}`
+                  : `${sendTime.getMinutes()}`;
+                const amPm = parseInt(sendHour) >= 12 ? "오후" : "오전";
+                const dozenalHour =
+                  parseInt(sendHour) >= 13
+                    ? `${parseInt(sendHour) - 12}`
+                    : sendHour;
+                const messageTimeData = `${amPm} ${dozenalHour}:${sendMinute}`;
+                // console.log(
+                //   sendTime,
+                //   amPm,
+                //   dozenalHour,
+                //   sendHour,
+                //   sendMinute,
+                //   idx
+                // );
                 if (p.userNickname === userNickname) {
+                  console.log(p.modifiedAt.split(":").splice(0, 2));
+                  console.log(lst[idx - 1].modifiedAt.split(":").splice(0, 2));
                   return (
                     <MyMessageCardWrapper key={idx}>
-                      <MyMessageTime>03:00</MyMessageTime>
+                      <MyMessageTime>{messageTimeData}</MyMessageTime>
                       <MyMessageCard>
                         <p>{p.message}</p>
                       </MyMessageCard>
@@ -136,10 +163,7 @@ const PersonalChat = () => {
                     <PartnersMessageCard>
                       <p>{p.message}</p>
                     </PartnersMessageCard>
-                    <PartnerMessageTime>
-                      {/* TODO: date처리 */}
-                      {/* {format(parseISO(p?.modifiedAt), "hh:mm")} */}
-                    </PartnerMessageTime>
+                    <PartnerMessageTime></PartnerMessageTime>
                   </PartnerMessegeCardWrapper>
                 );
               })}

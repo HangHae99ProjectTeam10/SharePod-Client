@@ -115,14 +115,16 @@ export const MyMessageCardWrapper = styled.div`
 
 export const MyMessageCard = styled.div`
   display: flex;
-  width: 386px;
+  justify-content: flex-end;
 
   .time {
+    justify-content: flex-end;
     font-size: 11px;
     color: #999;
   }
   p {
-    width: 335px;
+    min-width: 30px;
+    max-width: 335px;
     border-radius: 10px 0 10px 10px;
     padding: 11px 13px;
     font-size: 14px;
@@ -143,7 +145,7 @@ export const PartnerMessegeCardWrapper = styled.div`
 export const PartnersMessageCard = styled.div`
   display: flex;
   img {
-    width: 30px;
+    width: 50px;
     height: 30px;
     margin-right: 7px;
     border-radius: 15px;
@@ -160,7 +162,8 @@ export const PartnersMessageCard = styled.div`
     align-items: flex-end;
   }
   p {
-    width: 335px;
+    min-width: 50px;
+    max-width: 335px;
     box-sizing: border-box;
     margin-top: 8px;
     border-radius: 0 10px 10px 10px;
