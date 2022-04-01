@@ -10,7 +10,6 @@ import {
   CertificationImageUploadSuccessButton,
   CertificationRefuseButton,
   HorizontalLine,
-  ProductImage,
   ProductInfo,
   ProductInfoBody,
   ProductInfoHeader,
@@ -20,7 +19,6 @@ import {
   ProductQualityCertificationListWrapper,
   ProductQualityCertificationRequestDate,
   ProductQualityCertificationWrapper,
-  ProudctInfoBody,
   Wrapper,
 } from "./ProductQualityCertification.style";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";

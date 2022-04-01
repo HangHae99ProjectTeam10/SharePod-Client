@@ -96,6 +96,9 @@ export const ProductInfoBody = styled.div`
     padding: 25px 0;
     font-size: 15px;
     color: ${font_dark_gray_color};
+    img {
+      margin-right: 8px;
+    }
     p {
       text-overflow: ellipsis;
       overflow: hidden;

@@ -77,7 +77,7 @@ const RentalList = () => {
 
   const moveToCertification = (p) => {
     history.push(
-      `/reservation/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}&${p.startRental}&${p.endRental}&${p.nickName}&"IMG`
+      `/reservation/product-quality-certification/?${p.authId}&${p.firstImgUrl}&${p.boardTitle}&${p.boardRegion}&${p.dailyRentalFee}&${p.startRental}&${p.endRental}&${p.nickName}&${p.othersImg}`
     );
   };
 
