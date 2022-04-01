@@ -115,14 +115,16 @@ export const MyMessageCardWrapper = styled.div`
 
 export const MyMessageCard = styled.div`
   display: flex;
-  width: 386px;
+  justify-content: flex-end;
 
   .time {
+    justify-content: flex-end;
     font-size: 11px;
     color: #999;
   }
   p {
-    width: 335px;
+    min-width: 30px;
+    max-width: 335px;
     border-radius: 10px 0 10px 10px;
     padding: 11px 13px;
     font-size: 14px;
@@ -139,11 +141,23 @@ export const MyMessageTime = styled.div`
 export const PartnerMessegeCardWrapper = styled.div`
   display: flex;
   align-items: center;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-top: -60px;
+    margin-right: 7px;
+    border-radius: 15px;
+    background-color: #c4c4c4;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const PartnersMessageCard = styled.div`
   display: flex;
   img {
-    width: 30px;
+    width: 50px;
     height: 30px;
     margin-right: 7px;
     border-radius: 15px;
@@ -160,7 +174,8 @@ export const PartnersMessageCard = styled.div`
     align-items: flex-end;
   }
   p {
-    width: 335px;
+    min-width: 50px;
+    max-width: 335px;
     box-sizing: border-box;
     margin-top: 8px;
     border-radius: 0 10px 10px 10px;
@@ -207,5 +222,27 @@ export const MessageBar = styled.div`
     font-weight: 600;
     color: white;
     cursor: pointer;
+  }
+`;
+
+export const DateNotice = styled.div`
+  position: relative;
+  margin: 23px 0px;
+  div {
+    width: 100%;
+    height: 1px;
+    background-color: #dedede;
+  }
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    padding: 5px 12px;
+    background-color: #fdfdfd;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
   }
 `;

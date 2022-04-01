@@ -68,11 +68,15 @@ export const ProductCard = styled.div`
     display: flex;
     flex-direction: column;
 
-    . boardInfo_title {
+    .boardInfo_title {
+      width: 260px;
       margin: 5px;
       font-size: 18px;
       font-weight: 500;
-      padding: 10px 0px;
+      padding-top: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .mapData {
       margin-bottom: 4px;
@@ -82,6 +86,7 @@ export const ProductCard = styled.div`
       align-items: center;
     }
     .dailyRentalFee {
+      margin: 5px;
       font-size: 11px;
 
       strong {
@@ -92,7 +97,7 @@ export const ProductCard = styled.div`
     }
     .time {
       position: absolute;
-      bottom: 0;
+      bottom: 5px;
       right: 0;
       font-size: 12px;
       color: #777;

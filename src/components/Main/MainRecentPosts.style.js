@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  margin: 80px 0px;
+  width: 1400px;
+  margin: 80px auto;
   padding: 0px 10rem;
 `;
 export const Title = styled.div`
@@ -87,6 +88,10 @@ export const ProductInfoWrapper = styled.div`
 export const ProductInfoTitle = styled.div`
   font-size: 1.1rem;
   color: #323232;
+  width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 export const ProductInfoLocation = styled.div`
   display: flex;

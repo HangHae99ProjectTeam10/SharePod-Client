@@ -33,6 +33,7 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { history } from "redux/store";
 
 const EditProduct = () => {
   /**TODO: 여기 하드코딩 되어있는 부분 나중에 고치기 */
@@ -162,6 +163,10 @@ const EditProduct = () => {
       dispatch(ProductService.getOneProductDetail(id));
     }
   }, [dispatch, id, location]);
+
+  const goBack = () => {
+    history.goBack();
+  };
 
   return (
     <Wrapper>
@@ -400,7 +405,9 @@ const EditProduct = () => {
           </FormBoxWrapper>
 
           <BtnBox>
-            <BackBtn>돌아가기</BackBtn>
+            <BackBtn type="button" onClick={goBack}>
+              돌아가기
+            </BackBtn>
             <SubmitBtn>등록하기</SubmitBtn>
           </BtnBox>
         </form>

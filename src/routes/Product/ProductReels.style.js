@@ -12,7 +12,7 @@ export const Wrapper = styled.section`
 position:relative;
   padding: 40px 165px 80px;
   h3{
-    margin 0 0 25px;
+    margin 0 0 25px;  
   }
 `;
 
@@ -27,6 +27,8 @@ export const ProductReelsWrapper = styled.div`
   flex-wrap: wrap;
   gap: 30px;
   padding-top: 40px;
+  width: 1110px;
+  margin: 0 auto;
 `;
 
 export const ProductReelsCard = styled.div`
@@ -51,10 +53,16 @@ export const ReelsPlayBoxWrapper = styled.div`
   position: absolute;
   .boardTitle {
     position: fixed;
-    top: 10%;
-    left: 37%;
+    width: 350px;
+    top: calc(50% - 380px);
+    left: calc(50% - 80px);
+    transform: translate(-50%, -50%);
     color: #fff;
+    text-align: left;
     z-index: 1000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
@@ -69,7 +77,20 @@ export const FloatedVideoCardBox = styled.div`
   z-index: 999;
 `;
 
+export const FloatedReelsVideoTitleBackground = styled.div`
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(50% - 355px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to bottom, gray, transparent);
+  width: 556px;
+  height: 71px;
+  z-index: 1000;
+`;
+
 export const FloatedReelsVideo = styled.video`
+  box-sizing: border-box;
   position: absolute;
   bottom: 50%;
   left: 50%;
@@ -77,17 +98,15 @@ export const FloatedReelsVideo = styled.video`
   width: 555px;
   height: 780px;
   object-fit: cover;
-  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
-  source {
-  }
 `;
 
 export const MoveToDetailButton = styled.button`
   position: fixed;
   bottom: 15%;
+  top: calc(50% + 280px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 1000;
   width: 510px;
   height: 56px;
@@ -151,8 +170,9 @@ export const MoreBtn = styled.button`
 
 export const ReelsMovePrevButton = styled.button`
   position: fixed;
-  top: 50vh;
-  left: 31%;
+  top: 50%;
+  left: calc(50% - 350px);
+  transform: translate(-50%, -50%);
   display: inline-block;
   width: 48px;
   height: 48px;
@@ -170,8 +190,9 @@ export const ReelsMovePrevButton = styled.button`
 
 export const ReelsMoveNextButton = styled.button`
   position: fixed;
-  top: 50vh;
-  right: 31%;
+  top: 50%;
+  left: calc(50% + 350px);
+  transform: translate(-50%, -50%);
   display: inline-block;
   width: 48px;
   height: 48px;

@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import MyPageService from "services/myPage";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
+  Blank,
   BoardInfo,
   BoxHeader,
   ChatField,
   ChatSection,
+  DateNotice,
   MessageBar,
   MessageField,
   MessageFieldInner,
@@ -25,6 +27,8 @@ import Stomp from "stompjs";
 import { addChatList } from "redux/actions/MyPage";
 import { format, parseISO } from "date-fns";
 import PageLoader from "components/common/PageLoader";
+import { getHours } from "date-fns/esm";
+import { singleDigits } from "constants/singleDigits";
 
 const PersonalChat = () => {
   const dispatch = useDispatch();
@@ -111,36 +115,104 @@ const PersonalChat = () => {
                 <span className="boardTitle">{boardInfo.title}</span>
                 <span className="rentalfee">
                   <strong>{boardInfo.dailyrentalfee.toLocaleString()}</strong>
-                  원/ 일
+                  원/ 1일
                 </span>
               </Box>
             </Box>
-            <button>대여하기</button>
+            {/* <button>대여하기</button> */}
           </BoardInfo>
 
           <MessageField>
             <MessageFieldInner>
               {chatMessageDataList?.map((p, idx, lst) => {
+                const messageData = p?.modifiedAt;
+                const prevMessageData =
+                  idx === 0 ? "" : lst[idx - 1]?.modifiedAt;
+                const thisMessageDate = messageData.split("T")[0];
+                const prevMessageDate = prevMessageData.split("T")[0];
+
+                const morningAfternoon =
+                  parseInt(messageData.split("T")[1].split(":")[0]) >= 12
+                    ? "오후"
+                    : "오전";
+                const dozenalHours =
+                  parseInt(messageData.split("T")[1].split(":")[0]) >= 13
+                    ? parseInt(messageData.split("T")[1].split(":")[0]) - 12
+                    : parseInt(messageData.split("T")[1].split(":")[0]);
+                const sendedHours = singleDigits.includes(dozenalHours)
+                  ? `0${dozenalHours}`
+                  : dozenalHours;
+                const sendedMinutes = singleDigits.includes(
+                  messageData.split("T")[1].split(":")[1]
+                )
+                  ? `0${messageData.split("T")[1].split(":")[1]}`
+                  : messageData.split("T")[1].split(":")[1];
+
+                const messageTimeData = `${morningAfternoon} ${sendedHours}:${sendedMinutes}`;
+                console.log(p);
                 if (p.userNickname === userNickname) {
                   return (
-                    <MyMessageCardWrapper key={idx}>
-                      <MyMessageTime>03:00</MyMessageTime>
-                      <MyMessageCard>
-                        <p>{p.message}</p>
-                      </MyMessageCard>
-                    </MyMessageCardWrapper>
+                    <>
+                      {thisMessageDate !== prevMessageDate ? (
+                        <DateNotice>
+                          <div></div>
+                          <span>{thisMessageDate}</span>
+                        </DateNotice>
+                      ) : null}
+                      <MyMessageCardWrapper key={idx}>
+                        <MyMessageTime>
+                          {p?.userNickname !== lst[idx + 1]?.userNickname
+                            ? messageTimeData
+                            : messageData?.split(":").slice(0, 2)[0] ===
+                                prevMessageData?.split(":").slice(0, 2)[0] &&
+                              messageData?.split(":").slice(0, 2)[1] ===
+                                prevMessageData?.split(":").slice(0, 2)[1]
+                            ? messageTimeData
+                            : null}
+                        </MyMessageTime>
+                        <MyMessageCard>
+                          <p>{p.message}</p>
+                        </MyMessageCard>
+                      </MyMessageCardWrapper>
+                    </>
                   );
                 }
                 return (
-                  <PartnerMessegeCardWrapper key={idx}>
-                    <PartnersMessageCard>
-                      <p>{p.message}</p>
-                    </PartnersMessageCard>
-                    <PartnerMessageTime>
-                      {/* TODO: date처리 */}
-                      {/* {format(parseISO(p?.modifiedAt), "hh:mm")} */}
-                    </PartnerMessageTime>
-                  </PartnerMessegeCardWrapper>
+                  <>
+                    {thisMessageDate !== prevMessageDate ? (
+                      <DateNotice>
+                        <div></div>
+                        <span>{thisMessageDate}</span>
+                      </DateNotice>
+                    ) : null}
+                    <PartnerMessegeCardWrapper key={idx}>
+                      {p?.userNickname !== lst[idx - 1]?.userNickname ? (
+                        <img src={chatRoomContents?.otherImg} />
+                      ) : (
+                        <Blank />
+                      )}
+                      <div>
+                        {p?.userNickname !== lst[idx - 1]?.userNickname && (
+                          <span>{p?.userNickname}</span>
+                        )}
+                        <PartnersMessageCard>
+                          <p>{p.message}</p>
+                        </PartnersMessageCard>
+                      </div>
+
+                      <PartnerMessageTime>
+                        {" "}
+                        {p?.userNickname !== lst[idx + 1]?.userNickname
+                          ? messageTimeData
+                          : messageData?.split(":").slice(0, 2)[0] ===
+                              prevMessageData?.split(":").slice(0, 2)[0] &&
+                            messageData?.split(":").slice(0, 2)[1] ===
+                              prevMessageData?.split(":").slice(0, 2)[1]
+                          ? messageTimeData
+                          : null}
+                      </PartnerMessageTime>
+                    </PartnerMessegeCardWrapper>
+                  </>
                 );
               })}
             </MessageFieldInner>

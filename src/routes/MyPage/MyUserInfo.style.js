@@ -46,6 +46,7 @@ export const ProfileUploader = styled.label`
   width: 136px;
   height: 136px;
   margin: 48px auto 0;
+  cursor: pointer;
   div {
     display: inline-block;
     width: 100%;
@@ -71,6 +72,7 @@ export const PhotoIconWrapper = styled.label`
   padding: 5px;
   color: ${Icon_light_gray_color};
   background-color: #fff;
+  cursor: pointer;
 `;
 
 export const NickNameWrapper = styled.div`

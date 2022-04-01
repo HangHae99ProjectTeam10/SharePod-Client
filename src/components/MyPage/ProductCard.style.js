@@ -5,10 +5,14 @@ export const LikeListCard = styled.div`
   display: flex;
   flex-direction: column;
   h4 {
+    width: 237px;
     margin: 0 0 4px;
     font-size: 18px;
     font-weight: 500;
     color: #323232;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 

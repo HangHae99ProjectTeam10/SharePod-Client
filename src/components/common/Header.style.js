@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 
 export const Logo = styled.img`
   object-fit: contain;
+  cursor: pointer;
 `;
 export const SearchInputWrapper = styled.div`
   position: relative;

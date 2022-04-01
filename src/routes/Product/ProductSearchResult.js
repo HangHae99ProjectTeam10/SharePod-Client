@@ -172,7 +172,7 @@ const ProductSearchResult = () => {
                     서울 {p.boardRegion}
                   </div>
                   <span className="dailyRentalFee">
-                    {/* <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일 */}
+                    <strong>{p.dailyRentalFee.toLocaleString()}</strong>원 / 일
                   </span>
                   <span className="time">
                     {nowYear !== year

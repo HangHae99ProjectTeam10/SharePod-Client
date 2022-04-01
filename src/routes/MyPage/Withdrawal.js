@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { withdrawalReasonList } from "constants/withdrawalReasonList";
 import {} from "./MyUserInfo.style";
@@ -16,6 +16,7 @@ import { MenuItem, Select } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import MyPageService from "services/myPage";
+import { history } from "redux/store";
 
 const Withdrawal = () => {
   const dispatch = useDispatch();
@@ -23,8 +24,16 @@ const Withdrawal = () => {
   const classes = useStyles;
   const { register, handleSubmit } = useForm({});
 
+  useEffect(() => {
+    dispatch(MyPageService.getMyInfo());
+  }, []);
+
   const onSubmit = (data) => {
     dispatch(MyPageService.withdrawalMyId(data));
+  };
+
+  const goBack = () => {
+    history.goBack();
   };
   return (
     <Wrapper>
@@ -62,7 +71,9 @@ const Withdrawal = () => {
           </div>
         </WithdrawalReason>
         <Buttons>
-          <button className="return">돌아가기</button>
+          <button className="return" onClick={goBack}>
+            돌아가기
+          </button>
           <button className="withdrawal" type="submit">
             탈퇴하기
           </button>

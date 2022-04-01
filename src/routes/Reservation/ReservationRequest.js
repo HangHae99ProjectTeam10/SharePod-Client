@@ -20,6 +20,7 @@ import {
   Wrapper,
 } from "./ReservationRequest.style";
 import { history } from "redux/store";
+import { singleDigits } from "constants/singleDigits";
 
 const ReservationRequest = () => {
   const [rentalStartDate, setRentalStartDate] = useState();
@@ -35,7 +36,6 @@ const ReservationRequest = () => {
   const sellerNickname = decodeURI(boardInfo[2]);
   const sellerProfile = boardInfo[3];
   const boardId = boardInfo[4];
-  const singleDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const changeStartDay = () => {
     const startYear = rentalStartDate.getFullYear();
