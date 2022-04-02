@@ -1,14 +1,12 @@
 import http from "api/http";
-import { editMyProfile } from "redux/actions/Auth";
+import { editMyProfile, setAuthRegisterDate } from "redux/actions/Auth";
 import {
-  editMyInfo,
   deleteProduct,
   getMyPageMyInfo,
   getMyPageLikeList,
   getMyPageProductList,
   getMyPageChatList,
   getMyPageChatRoomContents,
-  getMyPageChatRoomUser,
   getMyPageBuyList,
   getMyPageChatRoomContentsMore,
 } from "redux/actions/MyPage";
@@ -48,6 +46,7 @@ const MyPageService = {
       http
         .get(`/user/board/${userId}`)
         .then((res) => {
+          dispatch(setAuthRegisterDate(res.data.withDay));
           dispatch(getMyPageProductList(res.data.userMyBoard));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
@@ -61,7 +60,6 @@ const MyPageService = {
       http
         .get(`/user/order/${userId}`)
         .then((res) => {
-          console.log(res.data);
           dispatch(getMyPageBuyList(res.data));
         })
         .catch((err) => console.log("마이페이지 불러오기:", err));
@@ -88,7 +86,6 @@ const MyPageService = {
       http
         .patch(`/user/${userId}`, userFormData)
         .then((res) => {
-          console.log(res.data.userModifiedImg);
           dispatch(editMyProfile(res.data.userModifiedImg));
           window.alert("회원 정보를 수정했습니다.");
         })

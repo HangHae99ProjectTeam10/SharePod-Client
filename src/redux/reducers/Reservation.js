@@ -20,11 +20,13 @@ const Reservation = (state = INIT_STATE, action) => {
     }
     case GET_RESERVATION_REQUEST_LIST: {
       return {
+        ...state,
         request_list: action.payload,
       };
     }
     case GET_CERTIFICATION_LIST: {
       return {
+        ...state,
         certification_list: action.payload.data,
         seller_id: action.payload.sellerId,
         buyer_id: action.payload.buyerId,
@@ -37,6 +39,7 @@ const Reservation = (state = INIT_STATE, action) => {
         action.payload.data
       );
       return {
+        ...state,
         certification_list: [...state.certification_list],
         seller_id: action.payload.sellerId,
         buyer_id: action.payload.buyerId,
@@ -49,6 +52,7 @@ const Reservation = (state = INIT_STATE, action) => {
         action.payload.data
       );
       return {
+        ...state,
         certification_list: [...state.certification_list],
         seller_id: action.payload.sellerId,
         buyer_id: action.payload.buyerId,

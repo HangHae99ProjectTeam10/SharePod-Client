@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
   ButtonsWrapper,
   ContentWrapper,
   HorizontalLine,
   Logo,
-  MoreVertButton,
   MyInfoWrapper,
   MyNickName,
   MyProductCardWrapper,
@@ -38,6 +36,7 @@ const MyProduct = () => {
   const [pageViews, setPageViews] = useState("product");
   const { authUser } = useSelector(({ auth }) => auth);
   const { productList } = useSelector(({ myPage }) => myPage);
+  const { registerDay } = useSelector(({ auth }) => auth);
 
   useEffect(() => {
     dispatch(MyPageService.getMyProductList());
@@ -68,7 +67,7 @@ const MyProduct = () => {
           <MyNickName>{authUser?.nickName}</MyNickName>
           <TextInfoDataWrapper>
             <span>
-              쉐어팟과 함께한지 <strong>00일 째</strong>
+              쉐어팟과 함께한지 <strong>{registerDay}일 째</strong>
             </span>
             <span>
               공유중인 상품 <strong>{productList?.length} 개</strong>

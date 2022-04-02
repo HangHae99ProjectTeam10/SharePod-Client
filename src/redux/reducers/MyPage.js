@@ -30,22 +30,26 @@ const MyPage = (state = INIT_STATE, action) => {
   switch (action.type) {
     case GET_MY_PAGE_MY_INFO: {
       return {
+        ...state,
         myInfo: action.payload,
       };
     }
 
     case GET_MY_PAGE_LIKE_LIST: {
       return {
+        ...state,
         likeList: action.payload,
       };
     }
     case GET_MY_PAGE_PRODUCT_LIST: {
       return {
+        ...state,
         productList: action.payload,
       };
     }
     case GET_MY_PAGE_BUY_LIST: {
       return {
+        ...state,
         buyList: action.payload.rentBuyerList,
         sellList: action.payload.rentSellerList,
         requestList: action.payload.userReservationList,
@@ -53,6 +57,7 @@ const MyPage = (state = INIT_STATE, action) => {
     }
     case GET_MY_PAGE_CHAT_LIST: {
       return {
+        ...state,
         chatList: action.payload,
       };
     }
@@ -60,6 +65,7 @@ const MyPage = (state = INIT_STATE, action) => {
       const chatList = action.payload.chatMessageDataList.reverse();
 
       return {
+        ...state,
         chatRoomContents: {
           ...action.payload,
           chatMessageDataList: chatList,
@@ -70,6 +76,7 @@ const MyPage = (state = INIT_STATE, action) => {
       const chatList = action.payload.chatMessageDataList.reverse();
 
       return {
+        ...state,
         chatRoomContents: {
           ...action.payload,
           chatMessageDataList: [
@@ -81,11 +88,13 @@ const MyPage = (state = INIT_STATE, action) => {
     }
     case GET_MY_PAGE_CHAT_ROOM_USER: {
       return {
+        ...state,
         chatRoomUser: action.payload,
       };
     }
     case ADD_MY_PAGE_CHAT_LIST: {
       return {
+        ...state,
         chatRoomContents: {
           ...state.chatRoomContents,
           chatMessageDataList: [
@@ -101,11 +110,13 @@ const MyPage = (state = INIT_STATE, action) => {
       );
 
       return {
+        ...state,
         productList: myBoardList,
       };
     }
     case ADD_MY_PAGE_CHAT_START_NUM: {
       return {
+        ...state,
         chatStartnum: action.payload,
       };
     }
