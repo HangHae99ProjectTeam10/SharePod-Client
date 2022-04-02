@@ -129,6 +129,16 @@ const UploadProduct = () => {
     }
   };
 
+  const [titleLength, setTitleLength] = useState(0);
+  const onChangeTitle = (e) => {
+    setTitleLength(e.target.value.length);
+  };
+
+  const [contentLength, setContentLength] = useState(0);
+  const onChangeContent = (e) => {
+    setContentLength(e.target.value.length);
+  };
+
   return (
     <Wrapper>
       <h2>상품등록하기</h2>
@@ -241,8 +251,9 @@ const UploadProduct = () => {
                   required: true,
                 })}
                 placeholder="제목을 입력해주세요"
+                onChange={(e) => onChangeTitle(e)}
               />
-              <span className="title">0/40</span>
+              <span className="title">{titleLength}/40</span>
             </FormBox>
             {errors.title && (
               <FormErrorMsg>제목을 2글자이상 입력해주세요</FormErrorMsg>
@@ -346,8 +357,9 @@ const UploadProduct = () => {
                 maxLength={2000}
                 {...register("contents", { required: true })}
                 placeholder="ex) 한번 사용했어요 / 한번도 사용한 적 없어요 / 새거예요 / 여러 번 썼어요 ···"
+                onChange={(e) => onChangeContent(e)}
               />
-              <span className="contents">0/2000</span>
+              <span className="contents">{contentLength}/2000</span>
             </FormBox>
             {errors.contents && (
               <FormErrorMsg>설명을 10글자이상 입력해주세요</FormErrorMsg>
