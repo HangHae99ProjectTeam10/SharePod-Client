@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { history } from "redux/store";
 import {
   CategoryCard,
   CategoryCardListBox,
@@ -46,12 +47,18 @@ const MainQuickCategories = () => {
       img: "https://images.unsplash.com/photo-1500646953400-045056a916d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
     },
   ];
+  const moveToSearchResult = (categoryTitle) => {
+    history.push(`/product/product-search/?&${categoryTitle}`);
+  };
   return (
     <Wrapper>
       <CategoryCardListBox>
         {quickCategories.map((p, index) => {
           return (
-            <CategoryCard key={index}>
+            <CategoryCard
+              key={index}
+              onClick={() => moveToSearchResult(p.title)}
+            >
               <CategoryImg src={p.img} alt="" />
               <CategoryTitle>{p.title}</CategoryTitle>
             </CategoryCard>

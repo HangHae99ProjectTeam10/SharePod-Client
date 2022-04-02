@@ -29,6 +29,11 @@ const ProductSearchResult = () => {
       ? decodeURI(window.location.search.split("?")[1])
       : ""
   );
+  const [categoryTitle, setCategoryTitle] = useState(
+    window.location.search.split("&")[1]
+      ? window.location.search.split("&")[1]
+      : ""
+  );
 
   const { search_list } = useSelector(({ product }) => product);
   const { authUser } = useSelector(({ auth }) => auth);
@@ -44,7 +49,13 @@ const ProductSearchResult = () => {
     // startNum, category, boardRegion, filterType, searchTitle
     setCount(0);
     dispatch(
-      ProductService.getSearchList(0, "", selectRegion, "", searchTitle)
+      ProductService.getSearchList(
+        0,
+        categoryTitle,
+        selectRegion,
+        "",
+        searchTitle
+      )
     );
   }, [dispatch, selectRegion, searchTitle]);
 
@@ -64,7 +75,13 @@ const ProductSearchResult = () => {
   useEffect(() => {
     if (count !== 0) {
       dispatch(
-        ProductService.getSearchList(count, "", selectRegion, "", searchTitle)
+        ProductService.getSearchList(
+          count,
+          categoryTitle,
+          selectRegion,
+          "",
+          searchTitle
+        )
       );
     }
   }, [count]);

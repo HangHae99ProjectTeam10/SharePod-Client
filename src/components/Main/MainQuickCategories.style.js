@@ -19,6 +19,7 @@ export const CategoryCardListBox = styled.div`
 `;
 export const CategoryCard = styled.div`
   margin-right: 20px;
+  cursor: pointer;
 `;
 export const CategoryTitle = styled.div`
   width: 100%;
