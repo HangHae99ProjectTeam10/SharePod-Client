@@ -15,11 +15,11 @@ import {
 const MainQuickCategories = () => {
   const quickCategories = [
     {
-      title: "디지털기기",
+      title: "디지털 기기",
       img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80",
     },
     {
-      title: "생활가전",
+      title: "생활 가전",
       img: "https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
     },
     {
@@ -35,7 +35,7 @@ const MainQuickCategories = () => {
       img: "https://images.unsplash.com/photo-1580234797602-22c37b2a6230?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2367&q=80",
     },
     {
-      title: "셀프케어",
+      title: "셀프 케어",
       img: "https://image.hmall.com/static/4/7/22/35/2135227403_0.jpg?RS=600x600&AR=0",
     },
     {
