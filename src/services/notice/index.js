@@ -1,5 +1,9 @@
 import http from "api/http";
-import { getNoticeCount } from "redux/actions/Notice";
+import {
+  getNoticeCount,
+  getNoticeList,
+  updateNoticeList,
+} from "redux/actions/Notice";
 
 const NoticeService = {
   getNoticeCount: () => {
@@ -8,7 +12,27 @@ const NoticeService = {
       http
         .get(`/notice/count/${userId}`)
         .then((res) => dispatch(getNoticeCount(res.data)))
-        .catch((err) => console.log("알람 갯수 조회 실패 :", err.response));
+        .catch((err) => console.log("알림 갯수 조회 실패 :", err.response));
+    };
+  },
+  getNoticeList: () => {
+    return function (dispatch, getState) {
+      const userId = getState().auth.authUser?.userId;
+      http
+        .get(`/notice/${userId}`)
+        .then((res) => {
+          dispatch(getNoticeList(res.data.noticeList));
+        })
+        .catch((err) => console.log("알림 목록 조회 실패:", err.response));
+    };
+  },
+
+  deleteNotice: (noticeId) => {
+    return function (dispatch) {
+      http
+        .delete(`/notice/${noticeId}`)
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log("알림 삭제 실패:", err.response));
     };
   },
 };
