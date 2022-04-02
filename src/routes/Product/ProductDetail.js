@@ -37,6 +37,7 @@ import {
   ServicePreparingInner,
   ServicePreparingWrapper,
 } from "routes/MyPage/MyProduct.style";
+import { getSubMinutes } from "components/common/getDate";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -189,7 +190,7 @@ const ProductDetail = () => {
                 <FavoriteIcon fontSize="small" />
                 <span>{product_detail?.likeCount}</span>
                 <WatchLaterIcon fontSize="small" />
-                <span>10시간 전</span>
+                <span>{getSubMinutes(product_detail?.modifiedAt)}전</span>
               </div>
             </section>
 
