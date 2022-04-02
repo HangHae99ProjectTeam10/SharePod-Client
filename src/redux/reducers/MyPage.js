@@ -2,6 +2,7 @@ import {
   ADD_MY_PAGE_CHAT_LIST,
   ADD_MY_PAGE_CHAT_START_NUM,
   DELETE_PRODUCT,
+  EDIT_MY_PROFILE,
   GET_MY_PAGE_BUY_LIST,
   GET_MY_PAGE_CHAT_LIST,
   GET_MY_PAGE_CHAT_ROOM_CONTENTS,
@@ -32,6 +33,7 @@ const MyPage = (state = INIT_STATE, action) => {
         myInfo: action.payload,
       };
     }
+
     case GET_MY_PAGE_LIKE_LIST: {
       return {
         likeList: action.payload,

@@ -1,4 +1,5 @@
 import http from "api/http";
+import { editMyProfile } from "redux/actions/Auth";
 import {
   editMyInfo,
   deleteProduct,
@@ -87,6 +88,8 @@ const MyPageService = {
       http
         .patch(`/user/${userId}`, userFormData)
         .then((res) => {
+          console.log(res.data.userModifiedImg);
+          dispatch(editMyProfile(res.data.userModifiedImg));
           window.alert("회원 정보를 수정했습니다.");
         })
         .catch((err) => console.log("회원정보 수정:", err));

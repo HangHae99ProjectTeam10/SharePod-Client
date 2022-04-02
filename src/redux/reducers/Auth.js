@@ -1,4 +1,4 @@
-import { UPDATE_AUTH_USER } from "../../constants/ActionTypes";
+import { EDIT_MY_PROFILE, UPDATE_AUTH_USER } from "../../constants/ActionTypes";
 
 const INIT_STATE = {
   authUser: null,
@@ -12,6 +12,11 @@ const Auth = (state = INIT_STATE, action) => {
         ...state,
         authUser: action.payload,
         loadUser: true,
+      };
+    }
+    case EDIT_MY_PROFILE: {
+      return {
+        authUser: { ...state.authUser, userImg: action.payload },
       };
     }
 
