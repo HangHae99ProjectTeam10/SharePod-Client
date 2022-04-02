@@ -29,6 +29,8 @@ import { useStyles } from "../../style/Icons.style";
 
 import ProductService from "services/product";
 import { history } from "redux/store";
+import moment from "moment";
+import { getSubMinutes } from "components/common/getDate";
 
 const MainRecentPosts = () => {
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ const MainRecentPosts = () => {
   const onLikeAction = (boardId) => {
     dispatch(ProductService.setFavorite(boardId));
   };
+
   return (
     <Wrapper>
       <FlexBox>
@@ -103,7 +106,9 @@ const MainRecentPosts = () => {
                           </ProductInfoPriceMoney>
                           <ProductInfoPriceDay> 원 / 일</ProductInfoPriceDay>
                         </Box>
-                        <ProdcutInfoCreatedTitle>1분전</ProdcutInfoCreatedTitle>
+                        <ProdcutInfoCreatedTitle>
+                          {getSubMinutes(p.modifiedAt)}전
+                        </ProdcutInfoCreatedTitle>
                       </ProductInfoPriceWrapper>
 
                       <Box sx={{ display: "flex" }} mt={2}>
