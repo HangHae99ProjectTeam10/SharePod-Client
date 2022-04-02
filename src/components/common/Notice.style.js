@@ -49,6 +49,7 @@ export const NoticeModalWrapper = styled.div`
   align-items: flex-end;
   width: 375px;
   height: 490px;
+  z-index: 10;
   .triangle {
     margin-top: 5px;
     margin-right: 20px;
