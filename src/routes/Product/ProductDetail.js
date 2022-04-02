@@ -32,6 +32,11 @@ import ProductService from "services/product";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { history } from "redux/store";
 import MyPageService from "services/myPage";
+import {
+  Logo,
+  ServicePreparingInner,
+  ServicePreparingWrapper,
+} from "routes/MyPage/MyProduct.style";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -305,7 +310,15 @@ const ProductDetail = () => {
           </ProductDetailDesWrapper>
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          Item Two
+          <ServicePreparingWrapper>
+            <ServicePreparingInner>
+              <Logo src="/logo.png"></Logo>
+              <h4>서비스 준비중입니다. 곧 만나요!</h4>
+              <p>
+                현재 페이지를 준비하고 있으니 조금만 기다려주세요. 감사합니다.
+              </p>
+            </ServicePreparingInner>
+          </ServicePreparingWrapper>
         </TabPanel>
       </Box>
     </Wrapper>
