@@ -1,5 +1,8 @@
 import { makeStyles } from "@mui/styles";
-import { font_deep_gray_color } from "constants/ColorSet";
+import {
+  font_deep_gray_color,
+  line_light_gray_color,
+} from "constants/ColorSet";
 import styled from "styled-components";
 
 export const ProductSearchResultWrap = styled.section`
@@ -18,23 +21,19 @@ export const ProductSearchResultWrap = styled.section`
       font-size: 13px;
       color: #8c8c8c;
     }
-    .boardFilterButtons {
-      display: flex;
-      justify-content: end;
-      padding-right: 10px;
-      width: 300px;
-      label,
-      span {
-        font-size: 13px;
-        color: #8c8c8c;
-      }
-      .checked {
-        color: #000;
-      }
-      label {
-        cursor: pointer;
-      }
-    }
+  }
+`;
+
+export const BoardFilterButtons = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: end;
+  padding-right: 10px;
+  width: 300px;
+  label {
+    font-size: 13px;
+    color: #8c8c8c;
+    cursor: pointer;
   }
 `;
 export const RegionSelectWrapper = styled.div`
@@ -122,3 +121,22 @@ export const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
 }));
+
+// ProductSearchFilter
+
+export const ProductSearchFilterWrapper = styled.div`
+  top: 20px;
+  left: 75%;
+  position: absolute;
+  display: ${(props) => (props.searchFilterToggle ? "flex" : "none")};
+  flex-direction: column;
+  z-index: 999;
+  span {
+    padding: 10px 15px;
+    border: 1px solid ${line_light_gray_color};
+    font-size: 14px;
+    color: ${font_deep_gray_color};
+    background-color: #fff;
+    cursor: pointer;
+  }
+`;

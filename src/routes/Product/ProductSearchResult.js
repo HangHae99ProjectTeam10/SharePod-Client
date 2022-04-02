@@ -6,8 +6,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { mapDataList } from "constants/mapDataList";
 import ProductService from "services/product";
 import {
+  BoardFilterButtons,
   LoaderWrapper,
   ProductCard,
+  ProductSearchFilterWrapper,
   ProductSearchResultBoard,
   ProductSearchResultWrap,
   RegionSelectWrapper,
@@ -18,17 +20,51 @@ import { history } from "redux/store";
 import PageLoader from "components/common/PageLoader";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
+const ProudctSearchFilter = (props) => {
+  const { searchFilterToggle, setSearchFilter } = props;
+  const handleSetSearchFilter = (filterValue) => {
+    setSearchFilter(filterValue);
+  };
+  return (
+    <ProductSearchFilterWrapper searchFilterToggle={searchFilterToggle}>
+      <span
+        defaultValue="recent"
+        onClick={() => handleSetSearchFilter("recent")}
+      >
+        최신순
+      </span>
+      <span
+        defaultValue="quality"
+        onClick={() => handleSetSearchFilter("quality")}
+      >
+        품질순
+      </span>
+      <span defaultValue="cost" onClick={() => handleSetSearchFilter("cost")}>
+        금액순
+      </span>
+    </ProductSearchFilterWrapper>
+  );
+};
+
 const ProductSearchResult = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [searchFilterToggle, setSearchFilterToggle] = useState(false);
   const [searchFilter, setSearchFilter] = useState("recent");
-  const [searchMapData, setSearchMapData] = useState("");
   const [searchTitle, setSearchTitle] = useState(
     window.location.search.split("?")[1]
       ? decodeURI(window.location.search.split("?")[1])
       : ""
   );
+  const [categoryTitle, setCategoryTitle] = useState(
+    window.location.search.split("&")[1]
+      ? window.location.search.split("&")[1]
+      : ""
+  );
+  useEffect(() => {
+    console.log(searchFilter);
+  }, [searchFilter]);
 
   const { search_list } = useSelector(({ product }) => product);
   const { authUser } = useSelector(({ auth }) => auth);
@@ -44,9 +80,15 @@ const ProductSearchResult = () => {
     // startNum, category, boardRegion, filterType, searchTitle
     setCount(0);
     dispatch(
-      ProductService.getSearchList(0, "", selectRegion, "", searchTitle)
+      ProductService.getSearchList(
+        0,
+        categoryTitle,
+        selectRegion,
+        searchFilter,
+        searchTitle
+      )
     );
-  }, [dispatch, selectRegion, searchTitle]);
+  }, [dispatch, selectRegion, searchTitle, searchFilter]);
 
   const moveToDetail = (id) => {
     history.push(`/product/product-detail/${id}`);
@@ -64,7 +106,13 @@ const ProductSearchResult = () => {
   useEffect(() => {
     if (count !== 0) {
       dispatch(
-        ProductService.getSearchList(count, "", selectRegion, "", searchTitle)
+        ProductService.getSearchList(
+          count,
+          categoryTitle,
+          selectRegion,
+          searchFilter,
+          searchTitle
+        )
       );
     }
   }, [count]);
@@ -101,6 +149,20 @@ const ProductSearchResult = () => {
   const nowHour = getHours(nowTimeData);
   const nowMinute = getMinutes(nowTimeData);
 
+  const filterList = {
+    recent: "최신순",
+    quality: "품질순",
+    cost: "금액순",
+  };
+
+  const handleSearchFilterToggle = () => {
+    if (searchFilterToggle) {
+      setSearchFilterToggle(false);
+    } else {
+      setSearchFilterToggle(true);
+    }
+  };
+
   return (
     <ProductSearchResultWrap>
       <RegionSelectWrapper>
@@ -130,11 +192,18 @@ const ProductSearchResult = () => {
         <span className="boardAmount">
           {/* 총 {search_list && search_list.length}개 */}
         </span>
-        <div className="boardFilterButtons">
-          <label className={searchFilter === "recent" ? "checked" : null}>
-            최신순
+        <BoardFilterButtons>
+          <label
+            className="searchFilter"
+            onClick={() => handleSearchFilterToggle()}
+          >
+            {filterList[searchFilter]} ▿
           </label>
-        </div>
+          <ProudctSearchFilter
+            searchFilterToggle={searchFilterToggle}
+            setSearchFilter={setSearchFilter}
+          ></ProudctSearchFilter>
+        </BoardFilterButtons>
       </div>
       <ProductSearchResultBoard>
         {search_list &&
