@@ -3,6 +3,7 @@ export const main_variant_color = "#8F6AFB";
 export const main_variant_color_2 = "#5F29FA";
 export const secondary_color = "#FFC34A";
 export const red_color = "#EB0B34";
+export const like_color = "#F34335";
 export const purple_heart_color = "#4A2FC3";
 export const suva_gray_color = "#8C8C8C";
 export const bg_gray_color = "#F2F3F8";

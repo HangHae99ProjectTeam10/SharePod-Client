@@ -13,6 +13,7 @@ import {
 import { history } from "redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import JWTAuth from "services/auth";
+import Notice from "./Notice";
 
 const Header = () => {
   const classes = useStyles();
@@ -52,6 +53,7 @@ const Header = () => {
       </SearchInputWrapper>
       {authUser ? (
         <FlexBox>
+          <Notice />
           <Button color="#4a2fc3" onClick={onLogout}>
             로그아웃
           </Button>

@@ -4,7 +4,7 @@ import {
   GET_CERTIFICATION_LIST,
   POST_CERTIFICATION_IMAGE,
   POST_CERTIFICATION_CONFIRM,
-} from "../../constants/ActionTypes";
+} from "constants/ActionTypes";
 
 const INIT_STATE = {
   request_list: [],
