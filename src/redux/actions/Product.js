@@ -39,19 +39,20 @@ export const getOneProductDetail = (product) => {
   };
 };
 
-export const getSearchList = (product_list, start_num) => {
+export const getSearchList = (data, start_num) => {
   if (start_num !== 0) {
     return (dispatch) => {
       dispatch({
         type: GET_SEARCH_LIST_MORE,
-        payload: product_list,
+        payload: data,
       });
     };
   } else {
+    console.log("HIHIHIHI");
     return (dispatch) => {
       dispatch({
         type: GET_SEARCH_LIST,
-        payload: product_list,
+        payload: data,
       });
     };
   }

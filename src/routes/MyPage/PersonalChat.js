@@ -126,6 +126,8 @@ const PersonalChat = () => {
             <MessageFieldInner>
               {chatMessageDataList?.map((p, idx, lst) => {
                 const messageData = p?.modifiedAt;
+                console.log(messageData);
+                console.log(p?.modifiedAt);
                 const prevMessageData =
                   idx === 0 ? "" : lst[idx - 1]?.modifiedAt;
                 const thisMessageDate = messageData.split("T")[0];

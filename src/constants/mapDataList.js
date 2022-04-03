@@ -1,4 +1,5 @@
 export const mapDataList = [
+  "전체보기",
   "종로구",
   "중구",
   "용산구",

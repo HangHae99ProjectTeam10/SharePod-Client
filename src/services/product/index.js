@@ -108,13 +108,16 @@ const ProductService = {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
+      const boardLastDateTime = getState().product.boardLastDateTime;
+      console.log(boardLastDateTime);
       http
         .get(
           `/board/sort?startNum=${startNum}&category=${category}&boardRegion=${boardRegion}&filterType=${filterType}&userId=${userId}&searchTitle=${searchTitle}`
         )
         .then((res) => {
-          console.log(res.data.listData);
-          dispatch(getSearchList(res.data.listData, startNum));
+          console.log(res.data);
+          console.log(startNum);
+          dispatch(getSearchList(res.data, startNum));
         });
     };
   },
@@ -165,10 +168,8 @@ const ProductService = {
   },
   getProductReels: (count, setIsLoading) => {
     if (setIsLoading) {
-      console.log("hi");
       setIsLoading(true);
     }
-    console.log(count);
     return function (dispatch) {
       http.get(`/board/video/`).then((res) => {
         dispatch(getReelsList(res.data.videoData, count));

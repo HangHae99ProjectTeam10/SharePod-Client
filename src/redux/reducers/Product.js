@@ -16,39 +16,43 @@ const INIT_STATE = {
   product_detail: {},
   search_list: [],
   reels_list: [],
+  boardLastDateTime: "",
 };
 
 const Product = (state = INIT_STATE, action) => {
   switch (action.type) {
     case GET_PRODUCT_LIST: {
       return {
+        ...state,
         product_list: action.payload,
-        reels_list: state.reels_list,
       };
     }
     case ADD_PRODUCT: {
       return {
+        ...state,
         product_list: [action.payload, ...state.product_list],
       };
     }
 
     case GET_ONE_PRODUCT_DETAIL: {
       return {
+        ...state,
         product_detail: action.payload,
       };
     }
     case GET_SEARCH_LIST: {
-      console.log(action.payload);
       return {
-        search_list: action.payload,
+        ...state,
+        search_list: action.payload.listData,
+        boardLastDateTime: action.payload.boardLastDateTime,
       };
     }
     case GET_SEARCH_LIST_MORE: {
-      console.log(state.search_list);
-      console.log(action.payload);
       if (state.search_list || action.payload) {
         return {
-          search_list: [...state.search_list, ...action.payload],
+          ...state,
+          search_list: [...state.search_list, ...action.payload.listData],
+          boardLastDateTime: action.payload.boardLastDateTime,
         };
       }
       return {
@@ -88,12 +92,14 @@ const Product = (state = INIT_STATE, action) => {
     }
     case GET_REELS_LIST: {
       return {
+        ...state,
         product_list: state.product_list,
         reels_list: action.payload,
       };
     }
     case GET_REELS_LIST_MORE: {
       return {
+        ...state,
         product_list: state.product_list,
         reels_list: [...state.reels_list, ...action.payload],
       };

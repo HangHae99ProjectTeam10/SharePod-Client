@@ -7,5 +7,4 @@ export const categoryList = [
   "셀프 케어",
   "공구/산업용품",
   "카메라",
-  "전자제품",
 ];
