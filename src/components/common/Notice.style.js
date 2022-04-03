@@ -1,9 +1,12 @@
 import {
+  font_black_color,
   font_charcoal_gray_color,
   font_dark_gray_color,
   font_deep_gray_color,
   like_color,
   line_light_gray_color,
+  main_color,
+  main_variant_color_2,
 } from "constants/ColorSet";
 import styled from "styled-components";
 
@@ -75,14 +78,33 @@ export const NoticeModalBox = styled.div`
 `;
 export const NoticeModalBoxHeader = styled.div`
   width: 100%;
-  padding-top: 30px;
   background-color: #fff;
   color: #fff;
   border-bottom: 1px solid ${line_light_gray_color};
+  button:hover {
+    color: ${font_black_color};
+  }
+  button {
+    padding: 24px;
+    border: none;
+    font-size: 16px;
+    color: ${font_deep_gray_color};
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .checked,
+  .checked:hover {
+    color: ${main_variant_color_2};
+  }
 `;
 
+export const NoticeModalBoxHeaderEveryNoticeButton = styled.button``;
+export const NoticeModalBoxHeaderRentalRequestButton = styled.button``;
+export const NoticeModalBoxHeaderPersonalChatButton = styled.button``;
+
 export const NoticeCardWrapper = styled.div`
-  display: ${(props) => (props.noticeCardHidden ? "none" : "flex")};
+  // display: ${(props) => (props.noticeCardHidden ? "none" : "flex")};
+  display: flex;
   width: 330px;
   height: 105px;
   margin: 8px 24px;
@@ -110,6 +132,18 @@ export const NoticeCardInfoBox = styled.div`
     font-size: 14px;
     color: ${font_dark_gray_color};
     margin: 0;
+  }
+  .actionButton {
+    padding: 5px 0;
+    font-size: 12px;
+    width: 102px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    border-radius: 5px;
+    color: #fff;
+    border: none;
+    background-color: ${main_color};
+    cursor: pointer;
   }
   .deleteButton {
     position: absolute;
