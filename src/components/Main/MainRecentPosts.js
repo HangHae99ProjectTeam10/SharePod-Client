@@ -29,6 +29,8 @@ import { useStyles } from "../../style/Icons.style";
 
 import ProductService from "services/product";
 import { history } from "redux/store";
+import moment from "moment";
+import { getSubMinutes } from "components/common/getDate";
 
 const MainRecentPosts = () => {
   const dispatch = useDispatch();
@@ -50,6 +52,11 @@ const MainRecentPosts = () => {
   const moveToSearchList = () => {
     history.push(`/product/product-search`);
   };
+
+  const onLikeAction = (boardId) => {
+    dispatch(ProductService.setFavorite(boardId));
+  };
+
   return (
     <Wrapper>
       <FlexBox>
@@ -65,21 +72,25 @@ const MainRecentPosts = () => {
         {product_list &&
           product_list.map((p, index) => {
             return (
-              <Box
-                key={index}
-                onClick={() => {
-                  moveToDetail(p.id);
-                }}
-              >
+              <Box key={index}>
                 <PostCardWrapper>
                   <PostCardImgWrapper>
                     {authUser && (
-                      <div className={classes.favoriteIcon}>
+                      <div
+                        className={classes.favoriteIcon}
+                        onClick={() => onLikeAction(p.id)}
+                      >
                         {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                       </div>
                     )}
 
-                    <PostCardImg src={p.firstImgUrl} alt="" />
+                    <PostCardImg
+                      src={p.firstImgUrl}
+                      alt=""
+                      onClick={() => {
+                        moveToDetail(p.id);
+                      }}
+                    />
                   </PostCardImgWrapper>
                   <PostCardInfoWrapper>
                     <ProductInfoWrapper>
@@ -95,7 +106,9 @@ const MainRecentPosts = () => {
                           </ProductInfoPriceMoney>
                           <ProductInfoPriceDay> 원 / 일</ProductInfoPriceDay>
                         </Box>
-                        <ProdcutInfoCreatedTitle>1분전</ProdcutInfoCreatedTitle>
+                        <ProdcutInfoCreatedTitle>
+                          {getSubMinutes(p.modifiedAt)}전
+                        </ProdcutInfoCreatedTitle>
                       </ProductInfoPriceWrapper>
 
                       <Box sx={{ display: "flex" }} mt={2}>

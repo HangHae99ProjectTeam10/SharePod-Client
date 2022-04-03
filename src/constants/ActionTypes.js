@@ -1,4 +1,5 @@
 export const UPDATE_AUTH_USER = "update_auth_user";
+export const SET_AUTH_REGISTER_DATE = "set_auth_register_date";
 
 export const GET_PRODUCT_LIST = "get_product_list";
 export const ADD_PRODUCT = "add_product";
@@ -13,6 +14,8 @@ export const GET_REELS_LIST = "get_reels_list";
 export const GET_REELS_LIST_MORE = "get_reels_list_more";
 
 export const GET_MY_PAGE_MY_INFO = "get_my_page_my_info";
+export const EDIT_MY_PROFILE = "edit_my_profile";
+export const MYPAGE_TOGGLE_BTN = "mypage_toggle_btn";
 export const GET_MY_PAGE_LIKE_LIST = "get_my_page_like_list";
 export const GET_MY_PAGE_PRODUCT_LIST = "get_my_page_product_list";
 export const GET_MY_PAGE_BUY_LIST = "get_my_page_buy_list";

@@ -56,6 +56,7 @@ const Product = (state = INIT_STATE, action) => {
         };
       }
       return {
+        ...state,
         search_list: [],
       };
     }
