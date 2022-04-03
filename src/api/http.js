@@ -31,10 +31,33 @@ http.interceptors.response.use(
   (response) => {
     return response;
   },
-  // eslint-disable-next-line require-await
+
   async (error) => {
-    if (error.response.status === 401 || error.response.status === 406) {
-      // Login 창으로 이동
+    if (error.response.status === 401) {
+      axios
+        .post(
+          process.env.REACT_APP_API_HOST + "/user/reissue",
+
+          {
+            accessToken: localStorage.getItem("sharepod.token"),
+            refreshToken: localStorage.getItem("sharepod.refresh.token"),
+          }
+        )
+        .then((res) => {
+          let accessToken = res.headers.accesstoken;
+          let refreshToken = res.headers.refreshtoken;
+
+          localStorage.setItem("sharepod.token", accessToken);
+          localStorage.setItem("sharepod.refresh.token", refreshToken);
+          window.alert("토큰이 만료되었습니다. 새로고침해주세요");
+        })
+        .catch((err) => console.log(err.response));
+    }
+    if (error.response.status === 403) {
+      window.alert("로그인이 만료되었습니다.");
+      localStorage.removeItem("persist:root");
+      localStorage.removeItem("sharepod.token");
+      localStorage.removeItem("sharepod.refresh.token");
       window.location.href = API_ENDPOINTS.LOGIN;
     }
     return Promise.reject(error);
