@@ -85,7 +85,6 @@ const ProductService = {
         })
         .then((res) => {
           alert("게시글이 수정되었습니다.");
-          // dispatch(addOneProduct(res.data.boardData));
           history.goBack();
         })
         .catch((err) => console.log("게시글 등록 실패: ", err.response));
@@ -98,6 +97,7 @@ const ProductService = {
         ? getState().auth.authUser?.userId
         : "";
       http.get(`/board/${boardId}?userId=${userId}`).then((res) => {
+        console.log(res);
         dispatch(getOneProductDetail(res.data.data));
       });
     };

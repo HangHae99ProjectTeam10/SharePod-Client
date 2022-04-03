@@ -15,11 +15,15 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { history } from "redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { mypageToggleBtn } from "redux/actions/Auth";
 
 const MyPageMain = ({ children }) => {
   const [radioValue, setRadioValue] = useState("0");
+  const dispatch = useDispatch();
+  const { toggleBtn } = useSelector(({ auth }) => auth);
   const handleRadioButton = (e) => {
-    setRadioValue(e.target.value);
+    dispatch(mypageToggleBtn(e.target.value));
   };
   const moveToPage = (route) => {
     history.push(`/mypage${route}`);
@@ -69,7 +73,7 @@ const MyPageMain = ({ children }) => {
               return (
                 <label
                   key={p.title}
-                  className={radioValue === `${idx}` ? "checked" : null}
+                  className={toggleBtn === `${idx}` ? "checked" : null}
                   onClick={() => moveToPage(p.route)}
                 >
                   {p.icon}
