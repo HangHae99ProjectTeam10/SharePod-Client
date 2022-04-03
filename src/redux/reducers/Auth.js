@@ -1,5 +1,6 @@
 import {
   EDIT_MY_PROFILE,
+  MYPAGE_TOGGLE_BTN,
   SET_AUTH_REGISTER_DATE,
   UPDATE_AUTH_USER,
 } from "../../constants/ActionTypes";
@@ -8,6 +9,7 @@ const INIT_STATE = {
   authUser: null,
   loadUser: false,
   registerDay: 0,
+  toggleBtn: "0",
 };
 
 const Auth = (state = INIT_STATE, action) => {
@@ -29,6 +31,12 @@ const Auth = (state = INIT_STATE, action) => {
       return {
         ...state,
         authUser: { ...state.authUser, userImg: action.payload },
+      };
+    }
+    case MYPAGE_TOGGLE_BTN: {
+      return {
+        ...state,
+        toggleBtn: action.payload,
       };
     }
 
