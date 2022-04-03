@@ -22,7 +22,7 @@ const MyPageService = {
         .then((res) => {
           dispatch(getMyPageMyInfo(res.data.userInfo));
         })
-        .catch((err) => console.log("마이페이지 불러오기:", err));
+        .catch((err) => console.log("마이페이지 불러오기:", err.response));
     };
   },
   getMyLikeList: () => {
