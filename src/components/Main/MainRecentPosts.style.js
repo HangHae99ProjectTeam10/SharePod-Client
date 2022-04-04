@@ -49,6 +49,9 @@ export const PostCardImgWrapper = styled.div`
   overflow: hidden;
   height: 60%;
   position: relative;
+  svg {
+    cursor: pointer;
+  }
 `;
 export const PostCardImg = styled.img`
   width: 100%;

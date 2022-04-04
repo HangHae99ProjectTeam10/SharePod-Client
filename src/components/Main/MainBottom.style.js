@@ -130,6 +130,7 @@ export const MainPageReelsVideo = styled.video`
   object-fit: cover;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+  cursor: pointer;
 `;
 
 //Video Card

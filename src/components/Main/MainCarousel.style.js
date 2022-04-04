@@ -21,4 +21,5 @@ export const CarouselItem = styled.div`
   border-radius: 20px;
   margin: 0px auto;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  cursor: pointer;
 `;
