@@ -292,9 +292,9 @@ const PersonalChat = () => {
             />
             <button onClick={() => sendMessage()}>보내기</button>
           </MessageBar>
-        </ChatFieldWrapper>
+        </ChatField>
       </ChatSection>
-    </Wrapper>
+    </PersonalChatWrap>
   );
 };
 
