@@ -11,6 +11,7 @@ import { history } from "../redux/store";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import ReservationService from "services/reservation";
+import { singleDigits } from "constants/singleDigits";
 
 const style = {
   position: "absolute",
@@ -66,6 +67,16 @@ export default function ReservationModal(props) {
     }
   };
 
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = singleDigits.includes(today.getMonth() + 1)
+    ? `0${today.getMonth() + 1}`
+    : `${today.getMonth() + 1}`;
+  const todayDate = singleDigits.includes(today.getDate())
+    ? `0${today.getDate()}`
+    : `${today.getDate()}`;
+  const initialValue = `${todayYear}-${todayMonth}-${todayDate}`;
+
   return (
     <ModalWrapper>
       <Button
@@ -95,11 +106,19 @@ export default function ReservationModal(props) {
               </ReservationNickname>
               <ReservationStartDay>
                 대여 시작일
-                <input value={startDay} {...register("startRental")} />
+                <input
+                  value={startDay}
+                  {...register("startRental")}
+                  defaultValue={initialValue}
+                />
               </ReservationStartDay>
               <ReservationEndDay>
                 대여 종료일
-                <input value={endDay} {...register("endRental")} />
+                <input
+                  value={endDay}
+                  {...register("endRental")}
+                  defaultValue={initialValue}
+                />
               </ReservationEndDay>
             </ReservationInfo>
             <Buttons>

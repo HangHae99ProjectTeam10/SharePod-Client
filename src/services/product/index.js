@@ -56,7 +56,12 @@ const ProductService = {
           dispatch(addOneProduct(res.data.boardData));
           history.push("/");
         })
-        .catch((err) => console.log("게시글 등록 실패: ", err.response));
+        .catch((err) => {
+          console.log("게시글 등록 실패: ", err.response);
+          if (err.response.status === 500) {
+            alert("상품 이미지 세 장과 비디오를 등록해주세요");
+          }
+        });
     };
   },
   editProduct: (boradId, data, mediaFiles) => {
