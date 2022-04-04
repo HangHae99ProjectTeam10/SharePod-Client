@@ -108,9 +108,7 @@ const PersonalChat = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (count !== 0) {
-      dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
-    }
+    dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
   }, [count]);
 
   const getMoreItem = async () => {
@@ -147,9 +145,17 @@ const PersonalChat = () => {
     }
   };
 
+  const scrollControl = () => {
+    if (chatFieldRef.current) {
+      chatFieldRef.current.scrollTop = 30;
+    }
+  };
+
   useEffect(() => {
-    if (count === 1) {
+    if (count <= 1) {
       scrollToBottom();
+    } else {
+      scrollControl();
     }
   }, [chatMessageDataList]);
 
