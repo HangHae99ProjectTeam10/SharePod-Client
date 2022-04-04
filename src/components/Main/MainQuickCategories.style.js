@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   margin: 0 auto;
-  width: 1000px;
+  width: 60vw;
 `;
 export const Title = styled.div`
   font-size: 1.4rem;
@@ -10,7 +10,7 @@ export const Title = styled.div`
 `;
 export const SubTitle = styled.div`
   color: #777777;
-  margin: 10px 0px 20px 0px;
+  margin: 10px 0px 20px;
 `;
 export const CategoryCardListBox = styled.div`
   display: flex;
