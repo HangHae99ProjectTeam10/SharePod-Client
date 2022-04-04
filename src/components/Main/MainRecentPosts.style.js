@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 1400px;
+  width: 70vw;
   margin: 80px auto;
   padding: 0px 10rem;
+  overflow: hidden;
 `;
 export const Title = styled.div`
   font-size: 1.4rem;
@@ -13,6 +14,7 @@ export const Title = styled.div`
 export const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-right: 5rem;
 `;
 export const TitleBox = styled.div`
   display: flex;
@@ -33,8 +35,7 @@ export const ViewMoreBtn = styled.div`
 export const PostListBox = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  justify-content: space-between;
+  gap: 48px 30px;
 `;
 export const PostCardWrapper = styled.div`
   background: white;
