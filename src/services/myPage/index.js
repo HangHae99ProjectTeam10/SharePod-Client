@@ -157,8 +157,12 @@ const MyPageService = {
         ? getState().auth.authUser?.userId
         : "";
 
+      const lastDatetime = getState().myPage.chatRoomContents?.lastDatetime
+        ? getState().myPage.chatRoomContents?.lastDatetime
+        : "";
+
       http
-        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${number}`)
+        .get(`/chat/roomslist/${userId}/${chatroomId}?time=${lastDatetime}`)
         .then((res) => {
           dispatch(getMyPageChatRoomContents(res.data));
         })
@@ -170,9 +174,14 @@ const MyPageService = {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
+      const lastDatetime = getState().myPage.chatRoomContents?.lastDatetime
+        ? getState().myPage.chatRoomContents?.lastDatetime
+        : "";
+
+      console.log(lastDatetime);
 
       http
-        .get(`/chat/roomslist/${userId}/${chatroomId}?startNum=${number}`)
+        .get(`/chat/roomslist/${userId}/${chatroomId}?time=${lastDatetime}`)
         .then((res) => {
           dispatch(getMyPageChatRoomContentsMore(res.data));
         })
