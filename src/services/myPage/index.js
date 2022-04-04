@@ -123,7 +123,6 @@ const MyPageService = {
           buyerId: userId,
         })
         .then((res) => {
-          console.log(res);
           if (res.data.chatRoomId) {
             history.push(`/mypage/chat/room/${res.data.chatRoomId}`);
           } else {
@@ -133,7 +132,6 @@ const MyPageService = {
         })
         .catch((err) => {
           window.alert(err.response.data.msg);
-          // history.push(`/mypage/chat/room/${res.data.chatId}`);
         });
     };
   },
@@ -177,8 +175,6 @@ const MyPageService = {
       const lastDatetime = getState().myPage.chatRoomContents?.lastDatetime
         ? getState().myPage.chatRoomContents?.lastDatetime
         : "";
-
-      console.log(lastDatetime);
 
       http
         .get(`/chat/roomslist/${userId}/${chatroomId}?time=${lastDatetime}`)

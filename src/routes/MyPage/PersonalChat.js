@@ -88,7 +88,6 @@ const PersonalChat = () => {
   };
 
   useEffect(() => {
-    console.log(chatList);
     const list = chatList.filter((p) => {
       return p.chatRoomId === parseInt(window.location.pathname.split("/")[4])
         ? true
@@ -103,8 +102,6 @@ const PersonalChat = () => {
     }
   };
 
-  console.log(productData);
-
   // Infinity Scroll
   const [target, setTarget] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -114,7 +111,6 @@ const PersonalChat = () => {
     if (count !== 0) {
       dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
     }
-    console.log(count);
   }, [count]);
 
   const getMoreItem = async () => {
@@ -150,12 +146,6 @@ const PersonalChat = () => {
       chatFieldRef.current.scrollTop = chatFieldRef.current.scrollHeight;
     }
   };
-
-  // const [scrollEventListener, setScrollEventListener] = useState(false);
-
-  // useEffect(() => {
-  //   setScrollEventListener(typeof chatMessageDataList);
-  // }, [chatMessageDataList]);
 
   useEffect(() => {
     if (count === 1) {
