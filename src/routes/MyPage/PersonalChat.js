@@ -11,6 +11,7 @@ import {
   ChatField,
   ChatSection,
   DateNotice,
+  LoaderWrapper,
   MessageBar,
   MessageField,
   MessageFieldInner,
@@ -26,6 +27,7 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { addChatList } from "redux/actions/MyPage";
 import { singleDigits } from "constants/singleDigits";
+import PageLoader from "components/common/PageLoader";
 
 const PersonalChat = () => {
   const dispatch = useDispatch();
@@ -35,12 +37,13 @@ const PersonalChat = () => {
 
   const { chatRoomContents } = useSelector(({ myPage }) => myPage);
   const chatMessageDataList = chatRoomContents?.chatMessageDataList;
+  const { chatList } = useSelector(({ myPage }) => myPage);
+  const [productData, setProductData] = useState([]);
 
   const { authUser } = useSelector(({ auth }) => auth);
   const userId = authUser.userId;
   const userNickname = authUser.nickname;
   const [message, setMessage] = useState("");
-
   useEffect(() => {
     dispatch(MyPageService.getOneChatRoomContents(chatroodId));
 
@@ -84,18 +87,77 @@ const PersonalChat = () => {
     dispatch(addChatList(recv));
   };
 
-  const boardInfo = {
-    imageUrl1:
-      "https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e",
-    title: "삼성 공기청정기",
-    dailyrentalfee: 30000,
-  };
+  useEffect(() => {
+    const list = chatList.filter((p) => {
+      return p.chatRoomId === parseInt(window.location.pathname.split("/")[4])
+        ? true
+        : false;
+    });
+    setProductData(list[0]);
+  }, [chatList]);
 
   const handleSubmitBtn = (e) => {
     if (e.key === "Enter") {
       sendMessage();
     }
   };
+
+  // Infinity Scroll
+  const [target, setTarget] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
+  }, [count]);
+
+  const getMoreItem = async () => {
+    setIsLoaded(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setCount((count) => count + 1);
+    setIsLoaded(false);
+  };
+
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting && !isLoaded) {
+      await getMoreItem();
+      observer.observe(entry.target);
+    }
+  };
+
+  useEffect(() => {
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.4,
+      });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  //scrollToBottom
+  const chatFieldRef = useRef();
+
+  const scrollToBottom = () => {
+    if (chatFieldRef.current) {
+      chatFieldRef.current.scrollTop = chatFieldRef.current.scrollHeight;
+    }
+  };
+
+  const scrollControl = () => {
+    if (chatFieldRef.current) {
+      chatFieldRef.current.scrollTop = 30;
+    }
+  };
+
+  useEffect(() => {
+    if (count <= 1) {
+      scrollToBottom();
+    } else {
+      scrollControl();
+    }
+  }, [chatMessageDataList]);
 
   return (
     <PersonalChatWrap>
@@ -107,11 +169,13 @@ const PersonalChat = () => {
           </BoxHeader>
           <BoardInfo>
             <Box sx={{ display: "flex" }}>
-              <img src={boardInfo.imageUrl1} alt="profile" />
+              <img src={productData?.boardImg} alt="profile" />
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <span className="boardTitle">{boardInfo.title}</span>
+                <span className="boardTitle">{productData?.boardTitle}</span>
                 <span className="rentalfee">
-                  <strong>{boardInfo.dailyrentalfee.toLocaleString()}</strong>
+                  <strong>
+                    {productData?.dailyRentalFee?.toLocaleString()}
+                  </strong>
                   원/ 1일
                 </span>
               </Box>
@@ -119,8 +183,11 @@ const PersonalChat = () => {
             {/* <button>대여하기</button> */}
           </BoardInfo>
 
-          <MessageField>
+          <MessageField ref={chatFieldRef}>
             <MessageFieldInner>
+              <LoaderWrapper ref={setTarget} className="Target-Element">
+                {isLoaded && <PageLoader />}
+              </LoaderWrapper>
               {chatMessageDataList?.map((p, idx, lst) => {
                 const messageData = p?.modifiedAt;
                 const prevMessageData =
@@ -146,10 +213,9 @@ const PersonalChat = () => {
                   : messageData.split("T")[1].split(":")[1];
 
                 const messageTimeData = `${morningAfternoon} ${sendedHours}:${sendedMinutes}`;
-                console.log(p);
                 if (p.userNickname === userNickname) {
                   return (
-                    <>
+                    <div key={idx}>
                       {thisMessageDate !== prevMessageDate ? (
                         <DateNotice>
                           <div></div>
@@ -171,11 +237,11 @@ const PersonalChat = () => {
                           <p>{p.message}</p>
                         </MyMessageCard>
                       </MyMessageCardWrapper>
-                    </>
+                    </div>
                   );
                 }
                 return (
-                  <>
+                  <div key={idx}>
                     {thisMessageDate !== prevMessageDate ? (
                       <DateNotice>
                         <div></div>
@@ -209,7 +275,7 @@ const PersonalChat = () => {
                           : null}
                       </PartnerMessageTime>
                     </PartnerMessegeCardWrapper>
-                  </>
+                  </div>
                 );
               })}
             </MessageFieldInner>

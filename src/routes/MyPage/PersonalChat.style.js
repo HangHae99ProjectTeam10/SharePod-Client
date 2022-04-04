@@ -107,6 +107,14 @@ export const MessageFieldInner = styled.div`
   height: 500px;
 `;
 
+export const LoaderWrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 export const MyMessageCardWrapper = styled.div`
   justify-content: end;
   display: flex;
