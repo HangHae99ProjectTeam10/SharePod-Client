@@ -62,7 +62,7 @@ const JWTAuth = {
     return (dispatch) => {
       const accessToken = localStorage.getItem("sharepod.token");
       const refreshToken = localStorage.getItem("sharepod.refresh.token");
-      console.log(accessToken, refreshToken);
+
       http
         .post(API_ENDPOINTS.LOGOUT, {
           accessToken: accessToken,

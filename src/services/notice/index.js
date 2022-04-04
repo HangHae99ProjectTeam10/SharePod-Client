@@ -31,7 +31,11 @@ const NoticeService = {
     return function (dispatch) {
       http
         .delete(`/notice/${noticeId}`)
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          console.log(res.data);
+          dispatch(NoticeService.getNoticeList());
+          dispatch(NoticeService.getNoticeCount());
+        })
         .catch((err) => console.log("알림 삭제 실패:", err.response));
     };
   },
