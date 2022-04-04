@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Divider, MenuItem, Select } from "@mui/material";
 
@@ -49,6 +49,7 @@ const UploadProduct = () => {
   const [secondImgUrl, setSecondImgUrl] = useState();
   const [lastImgUrl, setLastImgUrl] = useState();
   const [videoUrl, setVideoUrl] = useState();
+  const [mediaCount, setMediaCount] = useState(0);
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
@@ -94,6 +95,15 @@ const UploadProduct = () => {
     lastImgUrl,
     videoUrl,
   };
+
+  useEffect(() => {
+    setMediaCount(0);
+    for (let i in mediaFiles) {
+      if (mediaFiles[i]) {
+        setMediaCount((count) => count + 1);
+      }
+    }
+  }, [mediaFiles]);
 
   const encodeFileToBase64 = (fileBlob, num) => {
     const reader = new FileReader();
@@ -147,7 +157,7 @@ const UploadProduct = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <ProductImgaeField>
             <FormLabel>
-              상품 이미지 (0/4) <span>* </span>
+              상품 이미지 ({mediaCount}/4) <span>* </span>
             </FormLabel>
 
             <Box mr={2}>
