@@ -39,6 +39,8 @@ export const CategoryNavWrapper = styled.nav`
   height: 130px;
   box-sizing: border-box;
   background-color: #fff;
+  z-index: 2000;
+  box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.05);
 `;
 
 export const CategoryNavList = styled.ul`
