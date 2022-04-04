@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
   font-size: 14px;
   font-weight: bold;
   display: flex;
+  background-color: #fff;
   align-items: center;
   padding: 20px 10rem;
 `;
