@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   margin: 10px 10px 0 0;
-  z-index: 999;
+  z-index: 2000;
   .noticeCount {
     position: absolute;
     top: 0;

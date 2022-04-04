@@ -12,6 +12,14 @@ export const Wrapper = styled.div`
   padding: 0px 10rem;
 `;
 
+export const LoaderWrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 export const ProductCategory = styled.div`
   display: flex;
   align-items: center;
