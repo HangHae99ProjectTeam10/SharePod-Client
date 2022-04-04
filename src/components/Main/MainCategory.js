@@ -17,14 +17,14 @@ import { history } from "redux/store";
 const CategoryListItemContent = (props) => {
   const { categorySelectRadio } = props;
   const moveToSearchResultProduct = (p) => {
-    history.push(`/product/product-search/?&${p}`);
+    history.push(`/product/product-search/?&&${p}`);
   };
 
   const moveToSearchResultRegion = (p) => {
     if (p === "전체보기") {
-      history.push(`/product/product-search/?&&${" "}`);
+      history.push(`/product/product-search/?&&&${" "}`);
     } else {
-      history.push(`/product/product-search/?&&${p}`);
+      history.push(`/product/product-search/?&&&${p}`);
     }
   };
   return (

@@ -16,7 +16,7 @@ const INIT_STATE = {
   product_detail: {},
   search_list: [],
   reels_list: [],
-  boardLastDateTime: "",
+  result_count: 999,
 };
 
 const Product = (state = INIT_STATE, action) => {
@@ -41,18 +41,20 @@ const Product = (state = INIT_STATE, action) => {
       };
     }
     case GET_SEARCH_LIST: {
+      console.log(action.payload);
       return {
         ...state,
         search_list: action.payload.listData,
-        boardLastDateTime: action.payload.boardLastDateTime,
+        result_count: action.payload.resultCount,
       };
     }
+
     case GET_SEARCH_LIST_MORE: {
       if (state.search_list || action.payload) {
         return {
           ...state,
           search_list: [...state.search_list, ...action.payload.listData],
-          boardLastDateTime: action.payload.boardLastDateTime,
+          result_count: action.payload.resultCount,
         };
       }
       return {

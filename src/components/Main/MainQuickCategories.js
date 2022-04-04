@@ -5,10 +5,7 @@ import {
   CategoryCard,
   CategoryCardListBox,
   CategoryImg,
-  CategoryOverlay,
   CategoryTitle,
-  SubTitle,
-  Title,
   Wrapper,
 } from "./MainQuickCategories.style";
 
@@ -48,7 +45,7 @@ const MainQuickCategories = () => {
     },
   ];
   const moveToSearchResult = (categoryTitle) => {
-    history.push(`/product/product-search/?&${categoryTitle}`);
+    history.push(`/product/product-search/?&&${categoryTitle}`);
   };
   return (
     <Wrapper>

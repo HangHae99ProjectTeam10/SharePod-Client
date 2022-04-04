@@ -5,6 +5,7 @@ import {
   getProductList,
   getReelsList,
   getSearchList,
+  getSearchListMore,
   setFavoriteAction,
   setFavoriteActionInDetail,
   setFavoriteActionInSearch,
@@ -85,6 +86,7 @@ const ProductService = {
         })
         .then((res) => {
           alert("게시글이 수정되었습니다.");
+          // dispatch(addOneProduct(res.data.boardData));
           history.goBack();
         })
         .catch((err) => console.log("게시글 등록 실패: ", err.response));
@@ -97,28 +99,51 @@ const ProductService = {
         ? getState().auth.authUser?.userId
         : "";
       http.get(`/board/${boardId}?userId=${userId}`).then((res) => {
-        console.log(res);
         dispatch(getOneProductDetail(res.data.data));
       });
     };
   },
 
-  getSearchList: (startNum, category, boardRegion, filterType, searchTitle) => {
+  getSearchList: (category, boardRegion, filterType, searchTitle) => {
     return function (dispatch, getState) {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
-      const boardLastDateTime = getState().product.boardLastDateTime;
-      console.log(boardLastDateTime);
+
       http
         .get(
-          `/board/sort?startNum=${startNum}&category=${category}&boardRegion=${boardRegion}&filterType=${filterType}&userId=${userId}&searchTitle=${searchTitle}`
+          `/board/sort?&category=${category}&boardRegion=${boardRegion}&filterType=${filterType}&userId=${userId}&searchTitle=${searchTitle}&startNum=0`
         )
         .then((res) => {
-          console.log(res.data);
-          console.log(startNum);
-          dispatch(getSearchList(res.data, startNum));
+          dispatch(getSearchList(res.data));
         });
+    };
+  },
+
+  getSearchListMore: (
+    category,
+    boardRegion,
+    filterType,
+    searchTitle,
+    startNum
+  ) => {
+    return function (dispatch, getState) {
+      const userId = getState().auth.authUser?.userId
+        ? getState().auth.authUser?.userId
+        : "";
+
+      const result_count = getState().product.result_count;
+      console.log("category:", category, "boardRegion:");
+
+      if (result_count >= 16) {
+        http
+          .get(
+            `/board/sort?&category=${category}&boardRegion=${boardRegion}&filterType=${filterType}&userId=${userId}&searchTitle=${searchTitle}&startNum=${startNum}`
+          )
+          .then((res) => {
+            dispatch(getSearchListMore(res.data));
+          });
+      }
     };
   },
 

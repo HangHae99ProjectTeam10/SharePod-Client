@@ -39,23 +39,22 @@ export const getOneProductDetail = (product) => {
   };
 };
 
-export const getSearchList = (data, start_num) => {
-  if (start_num !== 0) {
-    return (dispatch) => {
-      dispatch({
-        type: GET_SEARCH_LIST_MORE,
-        payload: data,
-      });
-    };
-  } else {
-    console.log("HIHIHIHI");
-    return (dispatch) => {
-      dispatch({
-        type: GET_SEARCH_LIST,
-        payload: data,
-      });
-    };
-  }
+export const getSearchList = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_SEARCH_LIST,
+      payload: data,
+    });
+  };
+};
+
+export const getSearchListMore = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: GET_SEARCH_LIST_MORE,
+      payload: data,
+    });
+  };
 };
 
 export const setFavoriteAction = (boardId) => {
