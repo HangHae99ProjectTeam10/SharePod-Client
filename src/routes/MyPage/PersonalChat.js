@@ -111,14 +111,16 @@ const PersonalChat = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
+    if (count !== 0) {
+      dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
+    }
     console.log(count);
   }, [count]);
 
   const getMoreItem = async () => {
     setIsLoaded(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setCount(count + 1);
+    setCount((count) => count + 1);
     setIsLoaded(false);
   };
 
@@ -149,8 +151,16 @@ const PersonalChat = () => {
     }
   };
 
+  // const [scrollEventListener, setScrollEventListener] = useState(false);
+
+  // useEffect(() => {
+  //   setScrollEventListener(typeof chatMessageDataList);
+  // }, [chatMessageDataList]);
+
   useEffect(() => {
-    scrollToBottom();
+    if (count === 1) {
+      scrollToBottom();
+    }
   }, [chatMessageDataList]);
 
   return (
