@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ServerRequestDatePicker from "components/DatePicker";
 import ReservationModal from "components/ReservationModal";
@@ -21,21 +21,25 @@ import {
 } from "./ReservationRequest.style";
 import { history } from "redux/store";
 import { singleDigits } from "constants/singleDigits";
+import ProductService from "services/product";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const ReservationRequest = () => {
-  const [rentalStartDate, setRentalStartDate] = useState();
-  const [rentalEndDate, setRentalEndDate] = useState();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const [rentalStartDate, setRentalStartDate] = useState(new Date());
+  const [rentalEndDate, setRentalEndDate] = useState(new Date());
   const [startDay, setStartDay] = useState();
   const [endDay, setEndDay] = useState();
-  const [dateCheck, setDateCheck] = useState(false);
+
   const { authUser } = useSelector(({ auth }) => auth);
 
-  const boardInfo = window.location.search.split("?")[1].split("&");
-  const boardTitle = decodeURI(boardInfo[0]);
-  const productImg = boardInfo[1];
-  const sellerNickname = decodeURI(boardInfo[2]);
-  const sellerProfile = boardInfo[3];
-  const boardId = boardInfo[4];
+  useEffect(() => {
+    dispatch(ProductService.getOneProductDetail(id));
+  }, [dispatch, id]);
+
+  const { product_detail } = useSelector(({ product }) => product);
 
   const changeStartDay = () => {
     const startYear = rentalStartDate.getFullYear();
@@ -80,13 +84,15 @@ const ReservationRequest = () => {
         <HorizontalLine />
         <ReservationRequestWrapper>
           <ReservationRequestProductWrapper>
-            <ReservationRequestProductImg src={productImg} />
+            <ReservationRequestProductImg src={product_detail?.imgFiles?.[0]} />
             <ReservationRequestProductInfo>
-              <img src={sellerProfile} />
+              <img src={product_detail?.sellerImg} alt="seller" />
               <ReservationRequestProductInfoBox>
-                <span className="ReservationProduct">{boardTitle}</span>
+                <span className="ReservationProduct">
+                  {product_detail?.title}
+                </span>
                 <span className="ReservationPartner">
-                  작성자 : {sellerNickname}
+                  작성자 : {product_detail?.nickName}
                 </span>
               </ReservationRequestProductInfoBox>
             </ReservationRequestProductInfo>
@@ -117,7 +123,7 @@ const ReservationRequest = () => {
                 startDay={startDay}
                 endDay={endDay}
                 userId={authUser.userId}
-                boardId={boardId}
+                boardId={id}
               />
             </ReservationModalWrapper>
           </ReservationForm>

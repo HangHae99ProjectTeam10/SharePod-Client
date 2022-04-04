@@ -9,7 +9,7 @@ const Reservation = ({ match }) => {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route
-          path={`${requestedUrl}/request`}
+          path={`${requestedUrl}/request/:id`}
           component={lazy(() => import(`./ReservationRequest`))}
         />
         <Route
