@@ -69,7 +69,9 @@ const PersonalChat = () => {
   }, [dispatch, chatroodId]);
 
   const sendMessage = () => {
-    var date = new Date().toISOString();
+    const offset = new Date().getTimezoneOffset() * 60000;
+    var date = new Date(Date.now() - offset).toISOString();
+    console.log(date);
 
     StompClient.send(
       "/pub/templates/chat/message",
@@ -157,6 +159,9 @@ const PersonalChat = () => {
     } else {
       scrollControl();
     }
+    console.log(new Date());
+    console.log(new Date().toLocaleDateString);
+    console.log(new Date().toISOString);
   }, [chatMessageDataList]);
 
   return (
@@ -190,8 +195,6 @@ const PersonalChat = () => {
               </LoaderWrapper>
               {chatMessageDataList?.map((p, idx, lst) => {
                 const messageData = p?.modifiedAt;
-                console.log(messageData);
-                console.log(p?.modifiedAt);
                 const prevMessageData =
                   idx === 0 ? "" : lst[idx - 1]?.modifiedAt;
                 const thisMessageDate = messageData.split("T")[0];
