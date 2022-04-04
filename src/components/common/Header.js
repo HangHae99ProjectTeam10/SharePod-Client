@@ -37,7 +37,7 @@ const Header = () => {
   const searchAction = (p) => {
     if (p.code === "Enter") {
       console.log(p.target.value);
-      history.push(`/product/product-search/?${p.target.value}`);
+      history.push(`/product/product-search/?&${p.target.value}`);
     }
   };
 

@@ -20,7 +20,7 @@ import { history } from "redux/store";
 import PageLoader from "components/common/PageLoader";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 
-const ProudctSearchFilter = (props) => {
+const ProductSearchFilter = (props) => {
   const { searchFilterToggle, setSearchFilter } = props;
   const handleSetSearchFilter = (filterValue) => {
     setSearchFilter(filterValue);
@@ -49,46 +49,58 @@ const ProudctSearchFilter = (props) => {
 const ProductSearchResult = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const urlData = window.location.search;
 
   const [searchFilterToggle, setSearchFilterToggle] = useState(false);
-  const [searchFilter, setSearchFilter] = useState("recent");
   const [searchTitle, setSearchTitle] = useState(
-    window.location.search.split("?")[1]
-      ? decodeURI(window.location.search.split("?")[1])
-      : ""
+    urlData.split("&")[1] ? decodeURI(urlData.split("&")[1]) : ""
   );
   const [categoryTitle, setCategoryTitle] = useState(
-    window.location.search.split("&")[1]
-      ? window.location.search.split("&")[1]
-      : ""
+    urlData.split("&")[2] ? urlData.split("&")[2] : ""
   );
-  useEffect(() => {
-    console.log(searchFilter);
-  }, [searchFilter]);
+  const [selectRegion, setSelectRegion] = useState(
+    urlData.split("&")[3] ? urlData.split("&")[3] : ""
+  );
+  const [searchFilter, setSearchFilter] = useState("recent");
+  const [count, setCount] = useState(0);
 
   const { search_list } = useSelector(({ product }) => product);
   const { authUser } = useSelector(({ auth }) => auth);
 
-  const [selectRegion, setSelectRegion] = useState("");
-
   const handleChangeSelect = (event) => {
-    setSelectRegion(event.target.value);
+    if (event.target.value === "전체보기") {
+      setSelectRegion("");
+    } else {
+      setSelectRegion(event.target.value);
+    }
   };
 
-  /**TODO: 검색 필터 적용이 */
   useEffect(() => {
-    // startNum, category, boardRegion, filterType, searchTitle
     setCount(0);
     dispatch(
       ProductService.getSearchList(
-        0,
         categoryTitle,
         selectRegion,
         searchFilter,
         searchTitle
       )
     );
-  }, [dispatch, selectRegion, searchTitle, searchFilter]);
+  }, [dispatch, categoryTitle, selectRegion, searchTitle, searchFilter]);
+
+  useEffect(() => {
+    console.log(count);
+    if (count >= 1) {
+      dispatch(
+        ProductService.getSearchListMore(
+          categoryTitle,
+          selectRegion,
+          searchFilter,
+          searchTitle,
+          count
+        )
+      );
+    }
+  }, [count]);
 
   const moveToDetail = (id) => {
     history.push(`/product/product-detail/${id}`);
@@ -101,26 +113,11 @@ const ProductSearchResult = () => {
   // Infinity Scroll
   const [target, setTarget] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (count !== 0) {
-      dispatch(
-        ProductService.getSearchList(
-          count,
-          categoryTitle,
-          selectRegion,
-          searchFilter,
-          searchTitle
-        )
-      );
-    }
-  }, [count]);
 
   const getMoreItem = async () => {
     setIsLoaded(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setCount(count + 16);
+    setCount((count) => count + 16);
     setIsLoaded(false);
   };
 
@@ -199,10 +196,10 @@ const ProductSearchResult = () => {
           >
             {filterList[searchFilter]} ▿
           </label>
-          <ProudctSearchFilter
+          <ProductSearchFilter
             searchFilterToggle={searchFilterToggle}
             setSearchFilter={setSearchFilter}
-          ></ProudctSearchFilter>
+          ></ProductSearchFilter>
         </BoardFilterButtons>
       </div>
       <ProductSearchResultBoard>
