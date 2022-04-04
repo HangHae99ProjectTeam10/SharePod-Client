@@ -71,7 +71,6 @@ const PersonalChat = () => {
   const sendMessage = () => {
     const offset = new Date().getTimezoneOffset() * 60000;
     var date = new Date(Date.now() - offset).toISOString();
-    console.log(date);
 
     StompClient.send(
       "/pub/templates/chat/message",
@@ -159,9 +158,6 @@ const PersonalChat = () => {
     } else {
       scrollControl();
     }
-    console.log(new Date());
-    console.log(new Date().toLocaleDateString);
-    console.log(new Date().toISOString);
   }, [chatMessageDataList]);
 
   return (
