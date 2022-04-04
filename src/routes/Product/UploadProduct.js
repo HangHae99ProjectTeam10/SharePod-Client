@@ -29,6 +29,7 @@ import {
 } from "./UploadProduct.style";
 import { useDispatch } from "react-redux";
 import ProductService from "services/product";
+import { history } from "redux/store";
 
 const UploadProduct = () => {
   /**TODO: 여기 하드코딩 되어있는 부분 나중에 고치기 */
@@ -147,6 +148,10 @@ const UploadProduct = () => {
   const [contentLength, setContentLength] = useState(0);
   const onChangeContent = (e) => {
     setContentLength(e.target.value.length);
+  };
+
+  const moveToGoBack = () => {
+    history.goBack();
   };
 
   return (
@@ -377,7 +382,9 @@ const UploadProduct = () => {
           </FormBoxWrapper>
 
           <BtnBox>
-            <BackBtn>돌아가기</BackBtn>
+            <BackBtn onClick={moveToGoBack} type="button">
+              돌아가기
+            </BackBtn>
             <SubmitBtn>등록하기</SubmitBtn>
           </BtnBox>
         </form>
