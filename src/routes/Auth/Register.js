@@ -59,7 +59,6 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({});
 
   const onSubmit = (data) => {
@@ -67,7 +66,6 @@ const Register = () => {
       window.alert("이미지를 등록해주세요");
     } else {
       dispatch(JWTAuth.onRegister(data, userImg));
-      reset();
     }
   };
 
