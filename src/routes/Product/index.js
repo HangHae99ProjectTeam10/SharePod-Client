@@ -9,14 +9,9 @@ const Product = ({ match }) => {
     <Suspense fallback={<PageLoader />}>
       <Switch>
         <Route
-          path={`${requestedUrl}/product-detail`}
+          path={`${requestedUrl}/product-detail/:id`}
           exact
           component={lazy(() => import(`./ProductDetail`))}
-        />
-        <Route
-          path={`${requestedUrl}/reservation`}
-          exact
-          component={lazy(() => import(`./Reservation`))}
         />
         <Route
           path={`${requestedUrl}/upload-product`}
@@ -24,8 +19,17 @@ const Product = ({ match }) => {
           component={lazy(() => import(`./UploadProduct`))}
         />
         <Route
+          path={`${requestedUrl}/edit-product/:id`}
+          exact
+          component={lazy(() => import(`./EditProduct`))}
+        />
+        <Route
           path={`${requestedUrl}/product-search`}
           component={lazy(() => import(`./ProductSearchResult`))}
+        />
+        <Route
+          path={`${requestedUrl}/product-reels`}
+          component={lazy(() => import(`./ProductReels`))}
         />
       </Switch>
     </Suspense>

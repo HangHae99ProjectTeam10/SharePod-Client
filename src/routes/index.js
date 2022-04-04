@@ -5,8 +5,8 @@ import Header from "../components/common/Header";
 import MyPage from "./MyPage";
 import Product from "./Product";
 import Auth from "./Auth";
-import UploadPageButton from "components/common/UploadPageButton";
 import { useSelector } from "react-redux";
+import Reservation from "./Reservation";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
   const { authUser } = useSelector(({ auth }) => auth);
@@ -37,8 +37,8 @@ const Routes = () => {
         <Route path="/auth" component={Auth} />
         <Route path="/mypage" component={MyPage} />
         <Route path="/product" component={Product} />
+        <Route path="/reservation" component={Reservation} />
       </Switch>
-      <UploadPageButton />
     </>
   );
 };

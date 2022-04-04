@@ -1,5 +1,4 @@
 import * as React from "react";
-import Badge from "@mui/material/Badge";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -86,7 +85,15 @@ export default function ServerRequestDatePicker(props) {
           _onChange(newValue);
         }}
         onMonthChange={handleMonthChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            {...params}
+          />
+        )}
         renderLoading={() => <CalendarPickerSkeleton />}
         renderDay={(day, _value, DayComponentProps) => {
           const isSelected =

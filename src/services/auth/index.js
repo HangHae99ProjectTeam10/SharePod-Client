@@ -58,5 +58,28 @@ const JWTAuth = {
         });
     };
   },
+  onLogout: () => {
+    return (dispatch) => {
+      const accessToken = localStorage.getItem("sharepod.token");
+      const refreshToken = localStorage.getItem("sharepod.refresh.token");
+
+      http
+        .post(API_ENDPOINTS.LOGOUT, {
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        })
+        .then((res) => {
+          localStorage.removeItem("sharepod.token");
+          localStorage.removeItem("sharepod.refresh.token");
+          window.alert("로그아웃 되었습니다.");
+          history.push("/");
+          dispatch(setAuthUser(null));
+        })
+        .catch((error) => {
+          console.log(error.response);
+          window.alert(error.response.data.msg);
+        });
+    };
+  },
 };
 export default JWTAuth;

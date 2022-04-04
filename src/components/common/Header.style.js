@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
-  border: 1px solid #ededed;
   padding: 20px 10rem;
   justify-content: space-between;
 `;
 
 export const Logo = styled.img`
   object-fit: contain;
+  cursor: pointer;
 `;
 export const SearchInputWrapper = styled.div`
   position: relative;
@@ -50,4 +50,5 @@ export const ProfileImg = styled.img`
   border-radius: 40px;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  cursor: pointer;
 `;

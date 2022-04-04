@@ -1,442 +1,296 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
+import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import MyPageService from "services/myPage";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import {
   Blank,
   BoardInfo,
-  ChatFieldHeader,
-  ChatFieldWrapper,
+  BoxHeader,
+  ChatField,
   ChatSection,
-  ChatSelectBox,
-  ChatSelectBoxHeader,
   DateNotice,
+  LoaderWrapper,
   MessageBar,
   MessageField,
+  MessageFieldInner,
   MyMessageCard,
+  MyMessageCardWrapper,
+  MyMessageTime,
+  PartnerMessageTime,
+  PartnerMessegeCardWrapper,
   PartnersMessageCard,
-  RecentPartnerBox,
-  RecentPartnerCard,
-  RecentPartnerCardTextWrapper,
-  RecentPartnerProductImg,
-  RecentPartnerUserImg,
-  Wrapper,
+  PersonalChatWrap,
 } from "./PersonalChat.style";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
+import { addChatList } from "redux/actions/MyPage";
+import { singleDigits } from "constants/singleDigits";
+import PageLoader from "components/common/PageLoader";
 
 const PersonalChat = () => {
-  const myNickname = "다빌려";
-  const userImg =
-    "https://cdn.pixabay.com/photo/2018/03/08/11/29/animalia-3208412_1280.jpg";
-  const partner = {
-    nickname: "쉐어팟단골",
-    userImg:
-      "https://cdn.pixabay.com/photo/2018/03/08/11/29/animalia-3208412_1280.jpg",
-  };
-  const recentPartnerList = [
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-    {
-      userImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      nickname: "복제인간1",
-      recentMessage:
-        "안녕하세요, 혹시 닌텐도 스위치 대여 올리신 거 아직 대여 가능한가요??",
-      boardImg:
-        "https://mblogthumb-phinf.pstatic.net/20160310_165/hth5859_14575678324725NDXP_PNG/Screenshot_2016-03-08-07-52-12-1.png?type=w2",
-      userRegion: "강남구",
-      createdAt: "3일 전",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { chatroodId } = useParams();
+  const SockJs = new SockJS("http://13.125.219.196/ws-stomp");
+  const StompClient = Stomp.over(SockJs);
 
-  const messageList = [
-    {
-      nickname: "다빌려",
-      message: "안녕하세요. 올리신 제품 대여하고 싶습니다. 채팅 가능하신가요?",
-      createAt: "2022년 3월 11일",
-      time: "오후 8:07",
-    },
-    {
-      nickname: "다빌려",
-      message:
-        "일주일 정도 대여하고 싶습니다. 제품 상태는 글 작성하신 그대로인가요??",
-      createAt: "2022년 3월 11일",
-      time: "오후 8:08",
-    },
-    {
-      nickname: "쉐어팟단골",
-      message: "네, 안녕하세요. 가능합니다. 며칠 정도 대여하실 예정인가요?",
-      createAt: "2022년 3월 11일",
-      time: "오후 8:16",
-    },
-    {
-      nickname: "쉐어팟단골",
-      message: "넵넵. 혹시 거주하시는 동네가 어느 쪽이신가요?",
-      createAt: "2022년 3월 11일",
-      time: "오후 8:16",
-    },
-    {
-      nickname: "다빌려",
-      message:
-        "목동쪽에 살고 있습니다. 평소 동선 상 일치하면 제가 이동해서 수령하겠습니다 :)",
-      createAt: "2022년 3월 12일",
-      time: "오후 8:21",
-    },
-    {
-      nickname: "쉐어팟단골",
-      message:
-        "감사합니다. 대여하고 싶으신 날짜가 언제이신가요? 맞춰서 제 동선 말씀드리겠습니다.",
-      createAt: "2022년 3월 12일",
-      time: "오후 8:21",
-    },
-    {
-      nickname: "다빌려",
-      message: "앗, 잠시만요!",
-      createAt: "2022년 3월 12일",
-      time: "오후 8:21",
-    },
-  ];
-  const boardInfo = {
-    imageUrl1:
-      "https://tistory1.daumcdn.net/tistory/2866877/attach/13f43ae07fe94befa5571bfd6442c89e",
-    title: "삼성 공기청정기",
-    dailyrentalfee: 30000,
+  const { chatRoomContents } = useSelector(({ myPage }) => myPage);
+  const chatMessageDataList = chatRoomContents?.chatMessageDataList;
+  const { chatList } = useSelector(({ myPage }) => myPage);
+  const [productData, setProductData] = useState([]);
+
+  const { authUser } = useSelector(({ auth }) => auth);
+  const userId = authUser.userId;
+  const userNickname = authUser.nickname;
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    dispatch(MyPageService.getOneChatRoomContents(chatroodId));
+
+    //socket 연결
+    StompClient.connect(
+      {},
+      function (frame) {
+        StompClient.subscribe(
+          `/sub/chat/room/${chatroodId}`,
+          function (message) {
+            var recv = JSON.parse(message.body);
+            recvMessage(recv);
+          }
+        );
+      },
+      function (error) {
+        alert("error " + error);
+      }
+    );
+    return function cleanup() {
+      StompClient.disconnect();
+    };
+  }, [dispatch, chatroodId]);
+
+  const sendMessage = () => {
+    var date = new Date().toISOString();
+
+    StompClient.send(
+      "/pub/templates/chat/message",
+      {},
+      JSON.stringify({
+        chatRoomId: chatroodId,
+        userId: userId,
+        message: message,
+        modifiedAt: date,
+      })
+    );
+    setMessage("");
   };
+  const recvMessage = (recv) => {
+    dispatch(addChatList(recv));
+  };
+
+  useEffect(() => {
+    const list = chatList.filter((p) => {
+      return p.chatRoomId === parseInt(window.location.pathname.split("/")[4])
+        ? true
+        : false;
+    });
+    setProductData(list[0]);
+  }, [chatList]);
+
+  const handleSubmitBtn = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
+
+  // Infinity Scroll
+  const [target, setTarget] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
+  }, [count]);
+
+  const getMoreItem = async () => {
+    setIsLoaded(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setCount((count) => count + 1);
+    setIsLoaded(false);
+  };
+
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting && !isLoaded) {
+      await getMoreItem();
+      observer.observe(entry.target);
+    }
+  };
+
+  useEffect(() => {
+    let observer;
+    if (target) {
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.4,
+      });
+      observer.observe(target);
+    }
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  //scrollToBottom
+  const chatFieldRef = useRef();
+
+  const scrollToBottom = () => {
+    if (chatFieldRef.current) {
+      chatFieldRef.current.scrollTop = chatFieldRef.current.scrollHeight;
+    }
+  };
+
+  const scrollControl = () => {
+    if (chatFieldRef.current) {
+      chatFieldRef.current.scrollTop = 30;
+    }
+  };
+
+  useEffect(() => {
+    if (count <= 1) {
+      scrollToBottom();
+    } else {
+      scrollControl();
+    }
+  }, [chatMessageDataList]);
 
   return (
-    <Wrapper>
+    <PersonalChatWrap>
       <ChatSection>
-        <ChatSelectBox>
-          <ChatSelectBoxHeader>
-            <img src={userImg} />
-            <h3>{myNickname}</h3>
-          </ChatSelectBoxHeader>
-          <RecentPartnerBox>
-            {recentPartnerList.map((p) => {
-              return (
-                <RecentPartnerCard>
-                  <RecentPartnerUserImg src={p.userImg} />
-                  <RecentPartnerCardTextWrapper>
-                    <div className="flex-wrapper">
-                      <span className="nickname">{p.nickname}</span>
-                      <span className="boardData">
-                        서울시 {p.userRegion} · {p.createdAt}
-                      </span>
-                    </div>
-                    <span className="recentMessage">{p.recentMessage}</span>
-                  </RecentPartnerCardTextWrapper>
-                  <RecentPartnerProductImg src={p.boardImg} />
-                </RecentPartnerCard>
-              );
-            })}
-          </RecentPartnerBox>
-        </ChatSelectBox>
-        <ChatFieldWrapper>
-          <ChatFieldHeader>
-            <h3>{partner.nickname}</h3>
-          </ChatFieldHeader>
+        <ChatField>
+          <BoxHeader>
+            <img src={chatRoomContents?.otherImg} alt="profile" />
+            <h3>{chatRoomContents?.otherNickName}</h3>
+          </BoxHeader>
           <BoardInfo>
-            <img src={boardInfo.imageUrl1} />
-            <div>
-              <span className="boardTitle">{boardInfo.title}</span>
-              <span className="rentalfee">
-                <strong>{boardInfo.dailyrentalfee.toLocaleString()}</strong>
-                원/1일 기준
-              </span>
-            </div>
+            <Box sx={{ display: "flex" }}>
+              <img src={productData?.boardImg} alt="profile" />
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <span className="boardTitle">{productData?.boardTitle}</span>
+                <span className="rentalfee">
+                  <strong>
+                    {productData?.dailyRentalFee?.toLocaleString()}
+                  </strong>
+                  원/ 1일
+                </span>
+              </Box>
+            </Box>
+            {/* <button>대여하기</button> */}
           </BoardInfo>
-          <MessageField>
-            {messageList.map((p, idx, lst) => {
-              if (p.nickname === myNickname) {
+
+          <MessageField ref={chatFieldRef}>
+            <MessageFieldInner>
+              <LoaderWrapper ref={setTarget} className="Target-Element">
+                {isLoaded && <PageLoader />}
+              </LoaderWrapper>
+              {chatMessageDataList?.map((p, idx, lst) => {
+                const messageData = p?.modifiedAt;
+                console.log(messageData);
+                console.log(p?.modifiedAt);
+                const prevMessageData =
+                  idx === 0 ? "" : lst[idx - 1]?.modifiedAt;
+                const thisMessageDate = messageData.split("T")[0];
+                const prevMessageDate = prevMessageData.split("T")[0];
+
+                const morningAfternoon =
+                  parseInt(messageData.split("T")[1].split(":")[0]) >= 12
+                    ? "오후"
+                    : "오전";
+                const dozenalHours =
+                  parseInt(messageData.split("T")[1].split(":")[0]) >= 13
+                    ? parseInt(messageData.split("T")[1].split(":")[0]) - 12
+                    : parseInt(messageData.split("T")[1].split(":")[0]);
+                const sendedHours = singleDigits.includes(dozenalHours)
+                  ? `0${dozenalHours}`
+                  : dozenalHours;
+                const sendedMinutes = singleDigits.includes(
+                  messageData.split("T")[1].split(":")[1]
+                )
+                  ? `0${messageData.split("T")[1].split(":")[1]}`
+                  : messageData.split("T")[1].split(":")[1];
+
+                const messageTimeData = `${morningAfternoon} ${sendedHours}:${sendedMinutes}`;
+                if (p.userNickname === userNickname) {
+                  return (
+                    <div key={idx}>
+                      {thisMessageDate !== prevMessageDate ? (
+                        <DateNotice>
+                          <div></div>
+                          <span>{thisMessageDate}</span>
+                        </DateNotice>
+                      ) : null}
+                      <MyMessageCardWrapper key={idx}>
+                        <MyMessageTime>
+                          {p?.userNickname !== lst[idx + 1]?.userNickname
+                            ? messageTimeData
+                            : messageData?.split(":").slice(0, 2)[0] ===
+                                prevMessageData?.split(":").slice(0, 2)[0] &&
+                              messageData?.split(":").slice(0, 2)[1] ===
+                                prevMessageData?.split(":").slice(0, 2)[1]
+                            ? messageTimeData
+                            : null}
+                        </MyMessageTime>
+                        <MyMessageCard>
+                          <p>{p.message}</p>
+                        </MyMessageCard>
+                      </MyMessageCardWrapper>
+                    </div>
+                  );
+                }
                 return (
-                  <>
-                    {idx === 0 ? (
+                  <div key={idx}>
+                    {thisMessageDate !== prevMessageDate ? (
                       <DateNotice>
                         <div></div>
-                        <span>{p.createAt}</span>
-                      </DateNotice>
-                    ) : p.createAt !== lst[idx - 1].createAt ? (
-                      <DateNotice>
-                        <div></div>
-                        <span>{p.createAt}</span>
+                        <span>{thisMessageDate}</span>
                       </DateNotice>
                     ) : null}
-                    <MyMessageCard>
-                      {idx + 1 === lst.length ? (
-                        <span className="time">{p.time}</span>
-                      ) : p.time !== lst[idx + 1].time ? (
-                        <span className="time">{p.time}</span>
-                      ) : p.nickname !== lst[idx + 1].nickname ? (
-                        <span className="time">{p.time}</span>
-                      ) : null}
-                      <p>{p.message}</p>
-                    </MyMessageCard>
-                  </>
-                );
-              }
-              return (
-                <>
-                  {idx === 0 ? (
-                    <DateNotice>
-                      <div></div>
-                      <span>{p.createAt}</span>
-                    </DateNotice>
-                  ) : p.createAt !== lst[idx - 1].createAt ? (
-                    <DateNotice>
-                      <div></div>
-                      <span>{p.createAt}</span>
-                    </DateNotice>
-                  ) : null}
-                  <PartnersMessageCard>
-                    {p.nickname !== lst[idx - 1].nickname ? <img /> : <Blank />}
-                    <div>
-                      {p.nickname !== lst[idx - 1].nickname && (
-                        <span>{p.nickname}</span>
+                    <PartnerMessegeCardWrapper key={idx}>
+                      {p?.userNickname !== lst[idx - 1]?.userNickname ? (
+                        <img src={chatRoomContents?.otherImg} />
+                      ) : (
+                        <Blank />
                       )}
-                      <div className="flex">
-                        <p>{p.message}</p>
-                        {idx + 1 === lst.length ? (
-                          <span className="time">{p.time}</span>
-                        ) : p.time !== lst[idx + 1].time ? (
-                          <span className="time">{p.time}</span>
-                        ) : p.nickname !== lst[idx + 1].nickname ? (
-                          <span className="time">{p.time}</span>
-                        ) : null}
+                      <div>
+                        {p?.userNickname !== lst[idx - 1]?.userNickname && (
+                          <span>{p?.userNickname}</span>
+                        )}
+                        <PartnersMessageCard>
+                          <p>{p.message}</p>
+                        </PartnersMessageCard>
                       </div>
-                    </div>
-                  </PartnersMessageCard>
-                </>
-              );
-            })}
+
+                      <PartnerMessageTime>
+                        {" "}
+                        {p?.userNickname !== lst[idx + 1]?.userNickname
+                          ? messageTimeData
+                          : messageData?.split(":").slice(0, 2)[0] ===
+                              prevMessageData?.split(":").slice(0, 2)[0] &&
+                            messageData?.split(":").slice(0, 2)[1] ===
+                              prevMessageData?.split(":").slice(0, 2)[1]
+                          ? messageTimeData
+                          : null}
+                      </PartnerMessageTime>
+                    </PartnerMessegeCardWrapper>
+                  </div>
+                );
+              })}
+            </MessageFieldInner>
           </MessageField>
           <MessageBar>
-            <input placeholder="메세지를 입력하세요." />
-            <button>보내기 ✉</button>
+            <input
+              autoFocus
+              onKeyPress={(e) => handleSubmitBtn(e)}
+              placeholder="메세지를 입력하세요."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button onClick={() => sendMessage()}>보내기</button>
           </MessageBar>
         </ChatFieldWrapper>
       </ChatSection>

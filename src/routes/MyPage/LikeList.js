@@ -1,119 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  HorizontalLine,
+  LikeListWrapper,
+  NothingPostedInner,
+  NothingPostedWrapper,
+  PaginationButtons,
+  Wrapper,
+} from "./LikeList.style";
 
-import styled from "styled-components";
+import { history } from "redux/store";
+import MyPageService from "services/myPage";
+import { Pagination } from "@mui/material";
+import ProductCard from "components/MyPage/ProductCard";
 
 const LikeList = () => {
-  const myLikedList = [
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-    {
-      imageUrl1:
-        "https://cdn.pixabay.com/photo/2016/03/27/07/12/apple-1282241_1280.jpg",
-      title: "레보네이트 공기청정기",
-      mapData: "강서구",
-      dailyRentalFee: 2000,
-      modifiedAt: "2022.03.10",
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const { likeList } = useSelector(({ myPage }) => myPage);
+
+  const [startPageNum, setStartPageNum] = useState(0);
+  const [nowPage, setNowPage] = useState(1);
+  const [pageTotalCount, setPageTotalCount] = useState(1);
+
+  useEffect(() => {
+    dispatch(MyPageService.getMyLikeList());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const pageRestNum = likeList?.length % 6;
+    if (pageRestNum === 0) {
+      setPageTotalCount(parseInt(likeList?.length / 6));
+    } else {
+      setPageTotalCount(parseInt(likeList?.length / 6) + 1);
+    }
+  }, [likeList]);
+
+  const handleChangePage = (e, page) => {
+    setNowPage(page);
+    setStartPageNum((page - 1) * 6);
+  };
 
   return (
-    <LikeListWrap>
-      {myLikedList.map((p) => {
-        return (
-          <LikeListCard>
-            <img src={p.imageUrl1} />
-            <h3>{p.title}</h3>
-            <span className="mapData">🌐서울 {p.mapData}</span>
-            <span className="dailyRentalFee">
-              <strong>{p.dailyRentalFee.toLocaleString()}</strong> 원 / 일
-            </span>
-            <span className="modifiedAt">{p.modifiedAt}</span>
-          </LikeListCard>
-        );
-      })}
-    </LikeListWrap>
+    <Wrapper>
+      <h3>찜한 내역</h3>
+      <HorizontalLine />
+      {likeList?.length !== 0 ? (
+        <>
+          <LikeListWrapper>
+            {likeList?.slice(startPageNum, startPageNum + 6).map((p) => {
+              return <ProductCard {...p} key={p.boardId} />;
+            })}
+          </LikeListWrapper>
+          <PaginationButtons>
+            <Pagination
+              count={pageTotalCount}
+              variant="outlined"
+              color="primary"
+              page={nowPage}
+              onChange={handleChangePage}
+            />
+          </PaginationButtons>
+        </>
+      ) : (
+        <NothingPostedWrapper>
+          <NothingPostedInner>
+            <p>찜한 상품이 없습니다.</p>
+            <button
+              onClick={() => {
+                history.push("/product/product-search");
+              }}
+            >
+              상품 둘러보기
+            </button>
+          </NothingPostedInner>
+        </NothingPostedWrapper>
+      )}
+    </Wrapper>
   );
 };
-const LikeListWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 42px 30px;
-  padding-bottom: 296px;
-`;
-
-const LikeListCard = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  img {
-    width: 255px;
-    height: 255px;
-    margin-bottom: 16px;
-    border-radius: 10px;
-  }
-  h3 {
-    margin: 0 0 4px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #323232;
-  }
-  .mapData {
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 350;
-    color: #777;
-  }
-  .dailyRentalFee {
-    font-size: 16px;
-    font-weight: 700;
-    color: #323232;
-  }
-  .modifiedAt {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: 14px;
-    font-weight: 350;
-    color: #777;
-  }
-`;
 
 export default LikeList;

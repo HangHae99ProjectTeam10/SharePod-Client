@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Box } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Box, Typography } from "@mui/material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   FlexBox,
   PostCardImg,
@@ -9,51 +11,62 @@ import {
   PostCardInfoWrapper,
   PostCardWrapper,
   PostListBox,
+  ProductInfoLocation,
   ProductInfoPriceDay,
   ProductInfoPriceMoney,
   ProductInfoPriceWrapper,
-  ProductInfoSummary,
+  ProdcutInfoCreatedTitle,
   ProductInfoTag,
   ProductInfoTitle,
   ProductInfoWrapper,
-  ProfileImg,
-  ProfileInfoWrapper,
-  ProfileNameInfo,
-  ProfileNameText,
   SubTitle,
   Title,
+  TitleBox,
+  ViewMoreBtn,
   Wrapper,
 } from "./MainRecentPosts.style";
 import { useStyles } from "../../style/Icons.style";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 import ProductService from "services/product";
+import { history } from "redux/store";
+import moment from "moment";
+import { getSubMinutes } from "components/common/getDate";
 
 const MainRecentPosts = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const { product_list } = useSelector(({ product }) => product);
+  const { authUser } = useSelector(({ auth }) => auth);
   const postAmount = 8;
 
   useEffect(() => {
-    dispatch(ProductService.getProductList(postAmount));
-  }, []);
+    dispatch(ProductService.getProductList());
+  }, [dispatch]);
+
+  const moveToDetail = (boardId) => {
+    dispatch(ProductService.getOneProductDetail(boardId));
+    history.push(`/product/product-detail/${boardId}`);
+  };
+
+  const moveToSearchList = () => {
+    history.push(`/product/product-search`);
+  };
+
+  const onLikeAction = (boardId) => {
+    dispatch(ProductService.setFavorite(boardId));
+  };
+
   return (
     <Wrapper>
-      <Box>
-        <Title>최근 대여 게시글</Title>
-        <FlexBox>
-          <SubTitle>지금 올라온 게시글을 확인해보세요.</SubTitle>
-          <SubTitle
-            onClick={() => {
-              history.push("/product/product-search");
-            }}
-          >
-            전체보기
-          </SubTitle>
-        </FlexBox>
-      </Box>
+      <FlexBox>
+        <TitleBox>
+          <Title>최근 대여 게시글</Title>
+          <SubTitle>| 지금 올라온 게시글을 확인해보세요.</SubTitle>
+        </TitleBox>
+        <ViewMoreBtn onClick={moveToSearchList}>전체보기</ViewMoreBtn>
+      </FlexBox>
+
       {/* 이미지 시작 */}
       <PostListBox>
         {product_list &&
@@ -62,33 +75,46 @@ const MainRecentPosts = () => {
               <Box key={index}>
                 <PostCardWrapper>
                   <PostCardImgWrapper>
-                    <FavoriteBorderIcon className={classes.favoriteIcon} />
-                    <PostCardImg src={p.firstImgUrl} alt="" />
+                    {authUser && (
+                      <div
+                        className={classes.favoriteIcon}
+                        onClick={() => onLikeAction(p.id)}
+                      >
+                        {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                      </div>
+                    )}
+
+                    <PostCardImg
+                      src={p.firstImgUrl}
+                      alt=""
+                      onClick={() => {
+                        moveToDetail(p.id);
+                      }}
+                    />
                   </PostCardImgWrapper>
                   <PostCardInfoWrapper>
-                    <ProfileInfoWrapper>
-                      <ProfileImg src={p.sellerImgUrl} alt="" />
-                      <ProfileNameInfo>
-                        <ProfileNameText>
-                          판매자 : {p.sellerNickName}
-                        </ProfileNameText>
-                      </ProfileNameInfo>
-                    </ProfileInfoWrapper>
                     <ProductInfoWrapper>
                       <ProductInfoTitle>{p.title}</ProductInfoTitle>
+                      <ProductInfoLocation>
+                        <LocationOnIcon />
+                        <Typography>{p.boardRegion}</Typography>
+                      </ProductInfoLocation>
                       <ProductInfoPriceWrapper>
-                        <ProductInfoPriceMoney>
-                          {p.dailyRentalFee.toLocaleString()}
-                        </ProductInfoPriceMoney>
-
-                        <ProductInfoPriceDay>/ 1일기준</ProductInfoPriceDay>
+                        <Box sx={{ display: "flex" }}>
+                          <ProductInfoPriceMoney>
+                            {p.dailyRentalFee.toLocaleString()}
+                          </ProductInfoPriceMoney>
+                          <ProductInfoPriceDay> 원 / 일</ProductInfoPriceDay>
+                        </Box>
+                        <ProdcutInfoCreatedTitle>
+                          {getSubMinutes(p.modifiedAt)}전
+                        </ProdcutInfoCreatedTitle>
                       </ProductInfoPriceWrapper>
 
-                      <ProductInfoSummary>{p.boardContents}</ProductInfoSummary>
-                      <FlexBox>
-                        <ProductInfoTag>#디지털기기</ProductInfoTag>
-                        <ProductInfoTag>#강남구</ProductInfoTag>
-                      </FlexBox>
+                      <Box sx={{ display: "flex" }} mt={2}>
+                        <ProductInfoTag>#{p.category}</ProductInfoTag>
+                        <ProductInfoTag>#{p.boardRegion}</ProductInfoTag>
+                      </Box>
                     </ProductInfoWrapper>
                   </PostCardInfoWrapper>
                 </PostCardWrapper>

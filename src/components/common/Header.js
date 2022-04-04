@@ -11,10 +11,13 @@ import {
   Wrapper,
 } from "./Header.style";
 import { history } from "redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import JWTAuth from "services/auth";
+import Notice from "./Notice";
 
 const Header = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const moveToMain = () => {
     history.push("/");
@@ -26,19 +29,41 @@ const Header = () => {
     history.push("/auth/signup");
   };
 
+  const onLogout = () => {
+    dispatch(JWTAuth.onLogout());
+  };
   const { authUser } = useSelector(({ auth }) => auth);
+
+  const searchAction = (p) => {
+    if (p.code === "Enter") {
+      console.log(p.target.value);
+      history.push(`/product/product-search/?&${p.target.value}`);
+    }
+  };
 
   return (
     <Wrapper>
       <Logo src="/logo.png" alt="logo" onClick={moveToMain} />
       <SearchInputWrapper>
-        <SearchInputBox placeholder="물품명을 입력해주세요" />
+        <SearchInputBox
+          placeholder="물품명을 입력해주세요"
+          onKeyPress={searchAction}
+        />
         <SearchIcon className={classes.searchIcon} />
       </SearchInputWrapper>
       {authUser ? (
         <FlexBox>
-          <Button color="#4a2fc3">로그아웃</Button>
-          <ProfileImg src={authUser.userImg} alt="this is profile img" />
+          <Notice />
+          <Button color="#4a2fc3" onClick={onLogout}>
+            로그아웃
+          </Button>
+          <ProfileImg
+            src={authUser.userImg}
+            alt="this is profile img"
+            onClick={() => {
+              history.push("/mypage/myInfo");
+            }}
+          />
         </FlexBox>
       ) : (
         <FlexBox>
