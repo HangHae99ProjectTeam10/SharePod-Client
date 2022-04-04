@@ -51,15 +51,18 @@ http.interceptors.response.use(
           localStorage.setItem("sharepod.refresh.token", refreshToken);
           window.alert("토큰이 만료되었습니다. 새로고침해주세요");
         })
-        .catch((err) => console.log(err.response));
+        .catch((err) => {
+          if (err.response.status === 404) {
+            console.log("여기");
+            window.alert("로그인이 만료되었습니다.");
+            localStorage.removeItem("persist:root");
+            localStorage.removeItem("sharepod.token");
+            localStorage.removeItem("sharepod.refresh.token");
+            window.location.href = API_ENDPOINTS.LOGIN;
+          }
+        });
     }
-    if (error.response.status === 403) {
-      window.alert("로그인이 만료되었습니다.");
-      localStorage.removeItem("persist:root");
-      localStorage.removeItem("sharepod.token");
-      localStorage.removeItem("sharepod.refresh.token");
-      window.location.href = API_ENDPOINTS.LOGIN;
-    }
+
     return Promise.reject(error);
   }
 );
