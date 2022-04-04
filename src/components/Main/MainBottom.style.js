@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
   display: flex;
   width: 100%;
   overflow: hidden;
+  justify-content: center;
 `;
 export const GuideWrapper = styled.div`
   width: 350px;
