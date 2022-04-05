@@ -119,7 +119,9 @@ const PersonalChat = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
+    if (count >= 1) {
+      dispatch(MyPageService.getOneChatRoomContentsMore(chatroodId));
+    }
   }, [count]);
 
   const getMoreItem = async () => {
