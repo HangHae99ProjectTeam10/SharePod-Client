@@ -126,7 +126,7 @@ const PersonalChat = () => {
 
   const getMoreItem = async () => {
     setIsLoaded(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     setCount((count) => count + 1);
     setIsLoaded(false);
   };
