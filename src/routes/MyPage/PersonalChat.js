@@ -38,6 +38,7 @@ const PersonalChat = () => {
   const { chatRoomContents } = useSelector(({ myPage }) => myPage);
   const chatMessageDataList = chatRoomContents?.chatMessageDataList;
   const { chatList } = useSelector(({ myPage }) => myPage);
+  const { product_detail } = useSelector(({ product }) => product);
   const [productData, setProductData] = useState([]);
 
   const { authUser } = useSelector(({ auth }) => auth);
@@ -89,12 +90,21 @@ const PersonalChat = () => {
   };
 
   useEffect(() => {
-    const list = chatList.filter((p) => {
+    const list = chatList?.filter((p) => {
       return p.chatRoomId === parseInt(window.location.pathname.split("/")[4])
         ? true
         : false;
     });
-    setProductData(list[0]);
+    if (chatList) {
+      setProductData(list[0]);
+    } else {
+      const productDataFromDetail = {
+        boardImg: product_detail.imgFiles[0],
+        boardTitle: product_detail.title,
+        dailyRentalFee: product_detail.dailyRentalFee,
+      };
+      setProductData(productDataFromDetail);
+    }
   }, [chatList]);
 
   const handleSubmitBtn = (e) => {
