@@ -21,9 +21,22 @@ const MainCarousel = () => {
     }
     console.log(bannerNumber);
   };
+
+  const carouselWheelAction = (e) => {
+    if (e.nativeEvent.deltaX <= -200) {
+      if (bannerNumber < 3) {
+        setBannerNumber((bannerNumber) => bannerNumber + 1);
+      }
+    } else if (e.nativeEvent.deltaX >= 200) {
+      if (bannerNumber > 1) {
+        setBannerNumber((bannerNumber) => bannerNumber - 1);
+      }
+    }
+  };
+
   return (
     <Wrapper>
-      <MainCarouselBanner>
+      <MainCarouselBanner onWheel={carouselWheelAction}>
         <CarouselItem
           className="bannerImg1"
           src="/event.png"
