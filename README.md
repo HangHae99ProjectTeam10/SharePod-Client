@@ -71,24 +71,24 @@
 - **API(Application Programming Interface)** - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/API" >상세보기 - WIKI 이동</a>
 
 ## 
-### 📌 주요 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5" >상세보기 - WIKI 이동</a>
-- #### 검색 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Product/ProductSearchResult.js" ></a>
+### 📌 주요 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki" >상세보기 - WIKI 이동</a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Product/ProductSearchResult.js" >검색</a>
 
-- #### 로그인 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Auth/Login.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Auth/Login.js" >로그인</a>
 
-- #### 찜하기 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/services/product/index.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/services/product/index.js" >찜하기</a>
 
-- #### 알림 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/common/Notice.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/common/Notice.js" 알림 기능a>
 
-- #### 거래 요청 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationRequest.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationRequest.js" >거래 요청</a>
 
-- #### 거래 수락 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationConfirm.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationConfirm.js" >거래 수락</a>
 
-- #### 품질 인증 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ProductQualityCertification.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ProductQualityCertification.js" >품질 인증</a>
 
-- #### 영상 릴스(Shorts) - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/Main/MainBottom.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/Main/MainBottom.js" >영상 릴스(Shorts)</a>
 
-- #### 1:1 채팅 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/MyPage/PersonalChat.js" ></a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/MyPage/PersonalChat.js" >1:1 채팅</a>
 
 ## 
 ###  💡 문제 해결과정
