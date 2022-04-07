@@ -8,9 +8,12 @@ const MainUserActionBtns = () => {
   const moveToUploadPage = () => {
     history.push("/product/upload-product");
   };
+  const moveToMyPersonalChat = () => {
+    history.push("/mypage/chat-list");
+  };
   return (
     <ActionBtnsWrapper>
-      <BtnBackground color="#CCCCCC">
+      <BtnBackground color="#CCCCCC" onClick={moveToMyPersonalChat}>
         <MapsUgcOutlinedIcon />
       </BtnBackground>
       <BtnBackground background="#622EFA" onClick={moveToUploadPage}>
