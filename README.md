@@ -78,7 +78,7 @@
 
 - #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/services/product/index.js" >찜하기</a>
 
-- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/common/Notice.js" 알림 기능a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/common/Notice.js" a>알림 기능</a>
 
 - #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationRequest.js" >거래 요청</a>
 
@@ -92,10 +92,5 @@
 
 ## 
 ###  💡 문제 해결과정
--  #### 로그인 너란 친구란 JWT - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%84%88%EB%9E%80-%EC%B9%9C%EA%B5%AC%EB%9E%80-JWT" >WIKI</a>
-- #### 이미지 동영상 어디다가 올릴꺼인데? AWS S3,IAM - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,--%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%8F%99%EC%98%81%EC%83%81-%EC%96%B4%EB%94%94%EB%8B%A4%EA%B0%80-%EC%98%AC%EB%A6%B4%EA%BA%BC%EC%9D%B8%EB%8D%B0%3F-AWS-S3,IAM" >WIKI</a>
-- #### DB에서 꺼내오자! Entity → DTO - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,-DB%EC%97%90%EC%84%9C-%EA%BA%BC%EB%82%B4%EC%98%A4%EC%9E%90!-Entity-%E2%86%92-DTO" >WIKI</a>
-- #### where문에 null이....? 동적 쿼리 사용 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,-where%EB%AC%B8%EC%97%90-null%EC%9D%B4...%3F-%EB%8F%99%EC%A0%81-%EC%BF%BC%EB%A6%AC-%EC%82%AC%EC%9A%A9" >WIKI</a>
-- #### 그렇게 많은 채팅 데이터를 MySql에서는 어떻게 관리할까?(CRON,NoOffset) - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,-%EA%B7%B8%EB%A0%87%EA%B2%8C-%EB%A7%8E%EC%9D%80-%EC%B1%84%ED%8C%85-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-MySql%EC%97%90%EC%84%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%A0%EA%B9%8C%3F(CRON,NoOffset)" >WIKI</a>
-- #### 채팅을 하는데 우편이 이용된다?! Pub Sub 을 이용한 웹소켓 채팅 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,-%EC%B1%84%ED%8C%85%EC%9D%84-%ED%95%98%EB%8A%94%EB%8D%B0-%EC%9A%B0%ED%8E%B8%EC%9D%B4-%EC%9D%B4%EC%9A%A9%EB%90%9C%EB%8B%A4%3F!-Pub-Sub-%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9B%B9%EC%86%8C%EC%BC%93-%EC%B1%84%ED%8C%85-%EA%B8%B0%EB%8A%A5" >WIKI</a>
--  #### 에러가 나긴 했는데 무슨 에러라고?? ErrorCodeException - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/WIKI,-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%82%98%EA%B8%B4-%ED%96%88%EB%8A%94%EB%8D%B0-%EB%AC%B4%EC%8A%A8-%EC%97%90%EB%9F%AC%EB%9D%BC%EA%B3%A0%3F%3F-ErrorCodeException" >WIKI</a>
+-  #### 메인페이지가 안 보여요..! 릴스 무한스크롤 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%97%AC%EC%9A%94..!-%EB%A6%B4%EC%8A%A4-%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4" >WIKI</a>
+-  #### 패키지 매니징을 도와줘요..! yarn - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%A7%A4%EB%8B%88%EC%A7%95%EC%9D%84-%EB%8F%84%EC%99%80%EC%A3%BC%EB%8A%94-yarn" >WIKI</a>
