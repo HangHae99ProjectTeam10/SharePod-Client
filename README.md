@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+ <div align="center">
+ 
+ <img src="https://user-images.githubusercontent.com/59475849/160775149-0be495f9-68a2-4d89-973c-e6cb1a50e5eb.png">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  # 대여 서비스 플랫폼 SharePod!  &nbsp;  &nbsp;   [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FHangHae99ProjectTeam10%2FSharePod-Server&count_bg=%23FFC34A&title_bg=%23622EFA&icon=&icon_color=%23E7E7E7&title=%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&edge_for=false)](https://github.com/HangHae99ProjectTeam10/SharePod-Server)
+ </div>
+ 
+<div align="left">
+ &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
+ <img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+ <img src="https://img.shields.io/badge/REDUX-764ABC?style=for-the-badge&logo=redux&logoColor=white">
+ <img src="https://img.shields.io/badge/YARN-2C8EBB?style=for-the-badge&logo=YARN&logoColor=white">
+ <img src="https://img.shields.io/badge/AMAZON AWS-232F3E?style=for-the-badge&logo=amazon aws&logoColor=white">
+ <br>
+&nbsp; &nbsp; &nbsp; &nbsp; <img src="https://img.shields.io/badge/Styled_components-db7093?style=for-the-badge&logo=styled-components&logoColor=white">
+   <img src="https://img.shields.io/badge/SOCKET.IO-010101?style=for-the-badge&logo=socket.io&logoColor=white">
+ <img src="https://img.shields.io/badge/FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+ </div>
+ 
+<br>
+<br>
 
-## Available Scripts
+ ## 📝 Introduce
+ ### 물건을 사기에는 부담되고, 잠시 대여하고 싶을 때 사용할 수 있는 물건 대여 서비스 플랫폼입니다.
+ 
+<br>
 
-In the project directory, you can run:
 
-### `yarn start`
+## 팀 소개
+ <div align="center">
+ 
+|김재만|이현주|
+|:--------:|:--------:|
+|<img src="https://user-images.githubusercontent.com/90954655/161897347-b5c03565-3a65-4e2e-8517-01064fb16b61.png" width=200>|<img src="https://user-images.githubusercontent.com/70359952/161898773-8ef29a5c-3476-4757-9916-c17b9e0eb06b.png" width=200>|
+|https://github.com/mannMae|https://github.com/leehyeonj|
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `yarn test`
+## ⚒️ 기능 소개
+<div align="center"> 
+ 
+[![Video Label](https://user-images.githubusercontent.com/97426034/161919379-c62b9deb-1a57-4f73-876c-cf93aba171ad.png)](https://youtu.be/hSuQVkn54SQ)
+ 
+</div>
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## 프로젝트 구성
+### 프론트엔드 아키텍처
+ <div align="center">
+ <img src="https://user-images.githubusercontent.com/90954655/162199620-5674a5db-6edf-498e-a0ec-041f90e89684.png" width="900" height="600">
+</div>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ⚙️ 개발 환경
+- **Server** : AWS S3, AWS Route53  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Framework** : React(17.0.2)
 
-### `yarn eject`
+- **Database** : React-Redux(7.2.6)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **ETC** : Axiox, Sockjs, Stomp
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 
+### 📝 공통 문서
+- **ERD(Entity Relationship Diagram)** - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/ERD" >상세보기 - WIKI 이동</a>
+  
+- **API(Application Programming Interface)** - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/API" >상세보기 - WIKI 이동</a>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 
+### 📌 주요 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki" >상세보기 - WIKI 이동</a>
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Product/ProductSearchResult.js" >검색</a>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Auth/Login.js" >로그인</a>
 
-## Learn More
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/services/product/index.js" >찜하기</a>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/common/Notice.js" a>알림 기능</a>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationRequest.js" >거래 요청</a>
 
-### Code Splitting
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ReservationConfirm.js" >거래 수락</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/Reservation/ProductQualityCertification.js" >품질 인증</a>
 
-### Analyzing the Bundle Size
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/components/Main/MainBottom.js" >영상 릴스(Shorts)</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- #### <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/blob/master/src/routes/MyPage/PersonalChat.js" >1:1 채팅</a>
 
-### Making a Progressive Web App
+## 
+###  💡 문제 해결과정
+-  #### WIKI, 갈 때 토큰도 가져가줘... Axios Interceptor - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%EA%B0%88-%EB%95%8C-%ED%86%A0%ED%81%B0%EB%8F%84-%EA%B0%80%EC%A0%B8%EA%B0%80%EC%A4%98...-Axios-Interceptor" >WIKI</a>
+-  #### 동영상도 한번에 불러오자, 레이지 로딩 yarn - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%EB%8F%99%EC%98%81%EC%83%81%EB%8F%84-%ED%95%9C%EB%B2%88%EC%97%90-%EB%B6%88%EB%9F%AC%EC%98%A4%EC%9E%90-!-%EB%A0%88%EC%9D%B4%EC%A7%80-%EB%A1%9C%EB%94%A9" >WIKI</a>
+-  #### 메인페이지가 안 보여요..! 릴스 무한스크롤 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%97%AC%EC%9A%94..!-%EB%A6%B4%EC%8A%A4-%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4" >WIKI</a>
+-  #### 패키지 매니징을 도와줘요, yarn - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%A7%A4%EB%8B%88%EC%A7%95%EC%9D%84-%EB%8F%84%EC%99%80%EC%A4%98%EC%9A%94..!-yarn" >WIKI</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
