@@ -119,11 +119,13 @@ const ProductDetail = () => {
   // Infinity Scroll
   const [target, setTarget] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [firstLoading, setFirstLoading] = useState(false);
 
   const getMoreItem = async () => {
     setIsLoaded(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsLoaded(false);
+    setFirstLoading(true);
   };
 
   const onIntersect = async ([entry], observer) => {
@@ -149,7 +151,7 @@ const ProductDetail = () => {
       <LoaderWrapper ref={setTarget} className="Target-Element">
         {isLoaded && <PageLoader />}
       </LoaderWrapper>
-      {!isLoaded && (
+      {firstLoading && (
         <>
           <ProductCategory>
             <HomeIcon />
