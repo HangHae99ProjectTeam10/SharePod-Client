@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+ <div align="center">
+ 
+ <img src="https://user-images.githubusercontent.com/59475849/160775149-0be495f9-68a2-4d89-973c-e6cb1a50e5eb.png">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  # 대여 서비스 플랫폼 SharePod!  &nbsp;  &nbsp;   [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FHangHae99ProjectTeam10%2FSharePod-Server&count_bg=%23FFC34A&title_bg=%23622EFA&icon=&icon_color=%23E7E7E7&title=%EB%B0%A9%EB%AC%B8%EC%9E%90+%EC%88%98&edge_for=false)](https://github.com/HangHae99ProjectTeam10/SharePod-Server)
+ </div>
+ 
+<div align="left">
+ &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
+ <img src="https://img.shields.io/badge/REACT-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+ <img src="https://img.shields.io/badge/REDUX-764ABC?style=for-the-badge&logo=redux&logoColor=white">
+ <img src="https://img.shields.io/badge/YARN-2C8EBB?style=for-the-badge&logo=YARN&logoColor=white">
+ <img src="https://img.shields.io/badge/AMAZON AWS-232F3E?style=for-the-badge&logo=amazon aws&logoColor=white">
+ <br>
+&nbsp; &nbsp; &nbsp; &nbsp; <img src="https://img.shields.io/badge/Styled_components-db7093?style=for-the-badge&logo=styled-components&logoColor=white">
+   <img src="https://img.shields.io/badge/SOCKET.IO-010101?style=for-the-badge&logo=socket.io&logoColor=white">
+ <img src="https://img.shields.io/badge/FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+ </div>
+ 
+<br>
+<br>
 
-## Available Scripts
+ ## 📝 Introduce
+ ### 물건을 사기에는 부담되고, 잠시 대여하고 싶을 때 사용할 수 있는 물건 대여 서비스 플랫폼입니다.
+ 
+<br>
 
-In the project directory, you can run:
 
-### `yarn start`
+## 팀 소개
+ <div align="center">
+ 
+|김재만|이현주|
+|:--------:|:--------:|
+|<img src="https://user-images.githubusercontent.com/90954655/161897347-b5c03565-3a65-4e2e-8517-01064fb16b61.png" width=200>|<img src="https://user-images.githubusercontent.com/70359952/161898773-8ef29a5c-3476-4757-9916-c17b9e0eb06b.png" width=200>|
+|https://github.com/mannMae|https://github.com/leehyeonj|
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `yarn test`
+## ⚒️ 기능 소개
+<div align="center"> 
+ 
+[![Video Label](https://user-images.githubusercontent.com/97426034/161919379-c62b9deb-1a57-4f73-876c-cf93aba171ad.png)](https://youtu.be/hSuQVkn54SQ)
+ 
+</div>
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## 프로젝트 구성
+### 프론트엔드 아키텍처
+ <div align="center">
+ <img src="https://user-images.githubusercontent.com/59475849/160796220-c55b19f4-7f08-4095-8686-1a5ea2725eb8.png" width="900" height="600">
+</div>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ⚙️ 개발 환경
+- **Server** : AWS S3, AWS Route53  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Framework** : React(17.0.2)
 
-### `yarn eject`
+- **Database** : React-Redux(7.2.6)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **ETC** : Axiox, Sockjs, Stomp
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 
+### 📝 공통 문서
+- **ERD(Entity Relationship Diagram)** - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/ERD" >상세보기 - WIKI 이동</a>
+  
+- **API(Application Programming Interface)** - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/API" >상세보기 - WIKI 이동</a>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 
+### 📌 주요 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5" >상세보기 - WIKI 이동</a>
+- #### 검색 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/BoardService.java" >상세 코드 (354 line)</a>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- #### 로그인 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/UserService.java" >상세 코드 (64 line)</a>
 
-## Learn More
+- #### 찜하기 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/NoticeService.java" >상세 코드 (27 ~ line)</a>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- #### 알림 기능 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/NoticeService.java" >상세 코드 (26 ~ line)</a>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- #### 거래 요청 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/ReservationService.java" >상세 코드 (40 ~ line)</a>
 
-### Code Splitting
+- #### 품질 인증 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/AuthService.java" >상세 코드 (34 ~ line)</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- #### 영상 릴스(Shorts) - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/service/BoardService.java" >상세 코드 (47 line)</a>
 
-### Analyzing the Bundle Size
+- #### 1:1 채팅 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Server/blob/main/src/main/java/com/spring/sharepod/v1/controller/ChatController.java" >상세 코드 (32 ~ line)</a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 
+###  💡 문제 해결과정
