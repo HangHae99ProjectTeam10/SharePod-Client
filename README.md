@@ -50,7 +50,7 @@
 ## 프로젝트 구성
 ### 프론트엔드 아키텍처
  <div align="center">
- <img src="https://user-images.githubusercontent.com/59475849/160796220-c55b19f4-7f08-4095-8686-1a5ea2725eb8.png" width="900" height="600">
+ <img src="https://user-images.githubusercontent.com/90954655/162199620-5674a5db-6edf-498e-a0ec-041f90e89684.png" width="900" height="600">
 </div>
 
 <br>
