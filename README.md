@@ -94,3 +94,4 @@
 ###  💡 문제 해결과정
 -  #### 메인페이지가 안 보여요..! 릴스 무한스크롤 - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80%EA%B0%80-%EC%95%88-%EB%B3%B4%EC%97%AC%EC%9A%94..!-%EB%A6%B4%EC%8A%A4-%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4" >WIKI</a>
 -  #### 패키지 매니징을 도와줘요..! yarn - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%ED%8C%A8%ED%82%A4%EC%A7%80-%EB%A7%A4%EB%8B%88%EC%A7%95%EC%9D%84-%EB%8F%84%EC%99%80%EC%A3%BC%EB%8A%94-yarn" >WIKI</a>
+-  #### 동영상도 한번에 불러오자 ! 레이지 로딩 yarn - <a href="https://github.com/HangHae99ProjectTeam10/SharePod-Client/wiki/WIKI,-%EB%8F%99%EC%98%81%EC%83%81%EB%8F%84-%ED%95%9C%EB%B2%88%EC%97%90-%EB%B6%88%EB%9F%AC%EC%98%A4%EC%9E%90-!-%EB%A0%88%EC%9D%B4%EC%A7%80-%EB%A1%9C%EB%94%A9" >WIKI</a>
