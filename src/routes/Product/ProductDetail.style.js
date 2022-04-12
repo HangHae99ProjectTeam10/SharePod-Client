@@ -9,11 +9,13 @@ import {
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
+  position: relative;
   padding: 0px 10rem;
 `;
 
 export const LoaderWrapper = styled.div`
   position: relative;
+  top: 300px;
   display: flex;
   justify-content: center;
   align-items: center;

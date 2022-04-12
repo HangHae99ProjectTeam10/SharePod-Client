@@ -36,6 +36,7 @@ export const PostListBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 48px 30px;
+  padding-bottom: 20px;
 `;
 export const PostCardWrapper = styled.div`
   background: white;

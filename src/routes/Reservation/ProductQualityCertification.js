@@ -156,12 +156,12 @@ const ProductQualityCertification = () => {
               {myId === seller_id ? (
                 <>
                   <img src={myProfileImg} />
-                  <p>{myNickName}</p>
+                  <p>{decodeURI(myNickName)}</p>
                 </>
               ) : (
                 <>
                   <img src={partnerProfileImg} />
-                  <p>{partnerNickName}</p>
+                  <p>{decodeURI(partnerNickName)}</p>
                 </>
               )}
             </span>
@@ -170,12 +170,12 @@ const ProductQualityCertification = () => {
               {myId === buyer_id ? (
                 <>
                   <img src={myProfileImg} />
-                  <p>{myNickName}</p>
+                  <p>{decodeURI(myNickName)}</p>
                 </>
               ) : (
                 <>
                   <img src={partnerProfileImg} />
-                  <p>{partnerNickName}</p>
+                  <p>{decodeURI(partnerNickName)}</p>
                 </>
               )}
             </span>

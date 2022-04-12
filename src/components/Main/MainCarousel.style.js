@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   background-color: #fff;
   button {
     position: absolute;
-    top: 50%;
+    top: 55%;
     transform: translate(-50%, -50%);
     display: inline-block;
     width: 48px;

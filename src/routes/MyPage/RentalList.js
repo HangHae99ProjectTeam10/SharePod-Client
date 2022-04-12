@@ -162,7 +162,7 @@ const RentalList = () => {
                     )}
                   </RentalCardInfoWrapper>
                 </RentalCard>
-                <PaginationButtons>
+                {/* <PaginationButtons>
                   <PageMoveButton
                     className="prev"
                     onClick={() => {
@@ -200,7 +200,7 @@ const RentalList = () => {
                   >
                     {">"}
                   </PageMoveButton>
-                </PaginationButtons>
+                </PaginationButtons> */}
               </div>
             );
           })

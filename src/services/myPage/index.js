@@ -179,6 +179,10 @@ const MyPageService = {
       http
         .get(`/chat/roomslist/${userId}/${chatroomId}?time=${lastDatetime}`)
         .then((res) => {
+          console.log(res);
+          if (res.data.resultCount === 0) {
+            return;
+          }
           dispatch(getMyPageChatRoomContentsMore(res.data));
         })
         .catch((err) => console.log("채팅 내역 불러오기 실패: ", err.response));

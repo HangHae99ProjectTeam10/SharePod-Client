@@ -92,7 +92,7 @@ const ReservationService = {
   },
 
   postProductCertificationConfirm: (boolean, authImgId, imgUrl, idx) => {
-    return function (dispatch, getState) {
+    return function (dispatch, getState, history) {
       const userId = getState().auth.authUser?.userId
         ? getState().auth.authUser?.userId
         : "";
@@ -109,8 +109,14 @@ const ReservationService = {
         .then((res) => {
           if (res.data.check === true) {
             alert("품질인증을 확인했습니다.");
+            history.replace(
+              `/reservation/product-quality-certification/${window.location.search}`
+            );
           } else {
             alert("품질인증을 거절했습니다.");
+            history.replace(
+              `/reservation/product-quality-certification/${window.location.search}`
+            );
           }
           dispatch(
             postCertificationConfirm(res.data, imgUrl, buyerId, sellerId, idx)
