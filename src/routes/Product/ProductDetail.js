@@ -40,6 +40,7 @@ import {
 import { getSubMinutes } from "components/common/getDate";
 import { LoaderWrapper } from "./ProductDetail.style";
 import PageLoader from "components/common/PageLoader";
+import GetTreasureLottie from "components/common/GetTreaureLottie";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -88,7 +89,10 @@ const ProductDetail = () => {
     dispatch(ProductService.getOneProductDetail(id));
   }, [dispatch, id]);
 
+  const [isLikeMoving, setIsLikeMoving] = useState(false);
+
   const onHandleFavoriteBtn = (boardId) => {
+    setIsLikeMoving(true);
     if (!authUser) {
       window.alert("로그인을 해주세요");
       history.push("/auth/signin");
@@ -232,13 +236,15 @@ const ProductDetail = () => {
                     onHandleFavoriteBtn(id);
                   }}
                 >
-                  {product_detail?.liked ? (
-                    <FavoriteIcon
+                  {!product_detail?.liked ? (
+                    <FavoriteBorderIcon
                       fontSize="small"
                       className={classes.favoriteBtn}
                     />
+                  ) : isLikeMoving ? (
+                    <GetTreasureLottie />
                   ) : (
-                    <FavoriteBorderIcon
+                    <FavoriteIcon
                       fontSize="small"
                       className={classes.favoriteBtn}
                     />
