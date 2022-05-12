@@ -19,6 +19,7 @@ import { MenuItem, Select } from "@mui/material";
 import { history } from "redux/store";
 import PageLoader from "components/common/PageLoader";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
+import GetTreasureLottieWhite from "components/common/GetTreasureLottieWhite";
 
 const ProductSearchFilter = (props) => {
   const { searchFilterToggle, setSearchFilter } = props;
@@ -106,7 +107,10 @@ const ProductSearchResult = () => {
     history.push(`/product/product-detail/${id}`);
   };
 
+  const [isLikeMoving, setIsLikeMoving] = useState(false);
+
   const onHandleFavoriteBtn = (boardId) => {
+    setIsLikeMoving(true);
     dispatch(ProductService.setFavoriteInSearch(boardId));
   };
 
@@ -227,7 +231,13 @@ const ProductSearchResult = () => {
                       onHandleFavoriteBtn(p.id);
                     }}
                   >
-                    {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    {p.isLiked ? (
+                      <FavoriteBorderIcon />
+                    ) : isLikeMoving ? (
+                      <GetTreasureLottieWhite />
+                    ) : (
+                      <FavoriteIcon />
+                    )}
                   </div>
                 )}
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -31,6 +31,7 @@ import ProductService from "services/product";
 import { history } from "redux/store";
 import moment from "moment";
 import { getSubMinutes } from "components/common/getDate";
+import GetTreasureLottieGray from "components/common/GetTreaureLottieGray";
 
 const MainRecentPosts = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,10 @@ const MainRecentPosts = () => {
     history.push(`/product/product-search`);
   };
 
+  const [isLikeMoving, setIsLikeMoving] = useState(false);
+
   const onLikeAction = (boardId) => {
+    setIsLikeMoving(true);
     dispatch(ProductService.setFavorite(boardId));
   };
 
@@ -80,7 +84,13 @@ const MainRecentPosts = () => {
                         className={classes.favoriteIcon}
                         onClick={() => onLikeAction(p.id)}
                       >
-                        {p.isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        {!p.isLiked ? (
+                          <FavoriteBorderIcon />
+                        ) : isLikeMoving ? (
+                          <GetTreasureLottieGray />
+                        ) : (
+                          <FavoriteIcon />
+                        )}
                       </div>
                     )}
 
